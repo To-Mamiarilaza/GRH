@@ -1,0 +1,496 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<project name="PostgreSQL" id="Project-228" database="PostgreSQL" >
+	<schema name="public" >
+		<comment><![CDATA[standard public schema]]></comment>
+		<table name="adresse" row_count="0" spec="" >
+			<column name="id_adresse" type="integer" jt="4" mandatory="y" >
+				<defo><![CDATA[nextval('adresse_id_adresse_seq'::regclass)]]></defo>
+			</column>
+			<column name="adresse" type="varchar" length="50" jt="12" />
+			<column name="status" type="numeric" jt="2" />
+			<index name="adresse_pkey" unique="PRIMARY_KEY" >
+				<column name="id_adresse" />
+			</index>
+		</table>
+		<table name="adresse_note" row_count="0" spec="" >
+			<column name="id_wanted_profile" type="integer" jt="4" />
+			<column name="id_adresse" type="integer" jt="4" />
+			<column name="note" type="numeric" jt="2" />
+			<fk name="adresse_note_id_adresse_fkey" to_schema="public" to_table="adresse" options="" >
+				<fk_column name="id_adresse" pk="id_adresse" />
+			</fk>
+			<fk name="adresse_note_id_wanted_profile_fkey" to_schema="public" to_table="wanted_profile" options="" >
+				<fk_column name="id_wanted_profile" pk="id_wanted_profile" />
+			</fk>
+		</table>
+		<table name="answer" row_count="0" spec="" >
+			<column name="id_answer" type="serial" jt="4" mandatory="y" >
+				<defo><![CDATA[nextval('answer_id_answer_seq'::regclass)]]></defo>
+			</column>
+			<column name="id_question" type="serial" jt="4" mandatory="y" >
+				<defo><![CDATA[nextval('answer_id_question_seq'::regclass)]]></defo>
+			</column>
+			<column name="answer" type="varchar" length="100" jt="12" />
+			<column name="value" type="integer" jt="4" />
+			<index name="answer_pkey" unique="PRIMARY_KEY" >
+				<column name="id_answer" />
+			</index>
+			<fk name="answer_id_question_fkey" to_schema="public" to_table="question" options="" >
+				<fk_column name="id_question" pk="id_question" />
+			</fk>
+		</table>
+		<table name="besoin" row_count="0" spec="" >
+			<column name="id_besoin" type="integer" jt="4" mandatory="y" >
+				<defo><![CDATA[nextval('besoin_id_besoin_seq'::regclass)]]></defo>
+			</column>
+			<column name="id_service" type="integer" jt="4" />
+			<column name="creation_date" type="date" jt="91" />
+			<column name="description" type="varchar" length="200" jt="12" />
+			<column name="status" type="numeric" jt="2" />
+			<index name="besoin_pkey" unique="PRIMARY_KEY" >
+				<column name="id_besoin" />
+			</index>
+			<fk name="besoin_id_service_fkey" to_schema="public" to_table="service" options="" >
+				<fk_column name="id_service" pk="id_service" />
+			</fk>
+		</table>
+		<table name="diplome" row_count="0" spec="" >
+			<column name="id_diplome" type="integer" jt="4" mandatory="y" >
+				<defo><![CDATA[nextval('diplome_id_diplome_seq'::regclass)]]></defo>
+			</column>
+			<column name="diplome" type="varchar" length="50" jt="12" />
+			<column name="status" type="numeric" jt="2" />
+			<index name="diplome_pkey" unique="PRIMARY_KEY" >
+				<column name="id_diplome" />
+			</index>
+		</table>
+		<table name="diplome_note" row_count="0" spec="" >
+			<column name="id_wanted_profile" type="integer" jt="4" />
+			<column name="id_diplome" type="integer" jt="4" />
+			<column name="note" type="numeric" jt="2" />
+			<fk name="diplome_note_id_diplome_fkey" to_schema="public" to_table="diplome" options="" >
+				<fk_column name="id_diplome" pk="id_diplome" />
+			</fk>
+			<fk name="diplome_note_id_wanted_profile_fkey" to_schema="public" to_table="wanted_profile" options="" >
+				<fk_column name="id_wanted_profile" pk="id_wanted_profile" />
+			</fk>
+		</table>
+		<table name="experience" row_count="0" spec="" >
+			<column name="id_experience" type="integer" jt="4" mandatory="y" >
+				<defo><![CDATA[nextval('experience_id_experience_seq'::regclass)]]></defo>
+			</column>
+			<column name="experience" type="varchar" length="50" jt="12" />
+			<column name="status" type="numeric" jt="2" />
+			<index name="experience_pkey" unique="PRIMARY_KEY" >
+				<column name="id_experience" />
+			</index>
+		</table>
+		<table name="experience_note" row_count="0" spec="" >
+			<column name="id_wanted_profile" type="integer" jt="4" />
+			<column name="id_experience" type="integer" jt="4" />
+			<column name="note" type="numeric" jt="2" />
+			<fk name="experience_note_id_experience_fkey" to_schema="public" to_table="experience" options="" >
+				<fk_column name="id_experience" pk="id_experience" />
+			</fk>
+			<fk name="experience_note_id_wanted_profile_fkey" to_schema="public" to_table="wanted_profile" options="" >
+				<fk_column name="id_wanted_profile" pk="id_wanted_profile" />
+			</fk>
+		</table>
+		<table name="question" row_count="0" spec="" >
+			<column name="id_question" type="serial" jt="4" mandatory="y" >
+				<defo><![CDATA[nextval('question_id_question_seq'::regclass)]]></defo>
+			</column>
+			<column name="id_quiz" type="serial" jt="4" mandatory="y" >
+				<defo><![CDATA[nextval('question_id_quiz_seq'::regclass)]]></defo>
+			</column>
+			<column name="question" type="varchar" length="100" jt="12" />
+			<column name="score" type="integer" jt="4" />
+			<index name="question_pkey" unique="PRIMARY_KEY" >
+				<column name="id_question" />
+			</index>
+			<fk name="question_id_quiz_fkey" to_schema="public" to_table="quiz" options="" >
+				<fk_column name="id_quiz" pk="id_quiz" />
+			</fk>
+		</table>
+		<table name="quiz" row_count="0" spec="" >
+			<column name="id_quiz" type="serial" jt="4" mandatory="y" >
+				<defo><![CDATA[nextval('quiz_id_quiz_seq'::regclass)]]></defo>
+			</column>
+			<column name="id_service" type="serial" jt="4" mandatory="y" >
+				<defo><![CDATA[nextval('quiz_id_service_seq'::regclass)]]></defo>
+			</column>
+			<column name="quiz_name" type="varchar" length="50" jt="12" />
+			<column name="id_quiz_type" type="serial" jt="4" mandatory="y" >
+				<defo><![CDATA[nextval('quiz_id_quiz_type_seq'::regclass)]]></defo>
+			</column>
+			<column name="status" type="integer" jt="4" />
+			<index name="quiz_pkey" unique="PRIMARY_KEY" >
+				<column name="id_quiz" />
+			</index>
+			<fk name="quiz_id_service_fkey" to_schema="public" to_table="service" options="" >
+				<fk_column name="id_service" pk="id_service" />
+			</fk>
+			<fk name="quiz_id_quiz_type_fkey" to_schema="public" to_table="quiz_type" options="" >
+				<fk_column name="id_quiz_type" pk="id_quiz_type" />
+			</fk>
+		</table>
+		<table name="quiz_type" row_count="0" spec="" >
+			<column name="id_quiz_type" type="serial" jt="4" mandatory="y" >
+				<defo><![CDATA[nextval('quiz_type_id_quiz_type_seq'::regclass)]]></defo>
+			</column>
+			<column name="quiz_type" type="varchar" length="40" jt="12" />
+			<index name="quiz_type_pkey" unique="PRIMARY_KEY" >
+				<column name="id_quiz_type" />
+			</index>
+		</table>
+		<table name="salaire" row_count="0" spec="" >
+			<column name="id_salaire" type="integer" jt="4" mandatory="y" >
+				<defo><![CDATA[nextval('salaire_id_salaire_seq'::regclass)]]></defo>
+			</column>
+			<column name="salaire" type="double precision" jt="3" />
+			<column name="status" type="numeric" jt="2" />
+			<index name="salaire_pkey" unique="PRIMARY_KEY" >
+				<column name="id_salaire" />
+			</index>
+		</table>
+		<table name="salaire_note" row_count="0" spec="" >
+			<column name="id_wanted_profile" type="integer" jt="4" />
+			<column name="id_salaire" type="integer" jt="4" />
+			<column name="note" type="numeric" jt="2" />
+			<fk name="salaire_note_id_salaire_fkey" to_schema="public" to_table="salaire" options="" >
+				<fk_column name="id_salaire" pk="id_salaire" />
+			</fk>
+			<fk name="salaire_note_id_wanted_profile_fkey" to_schema="public" to_table="wanted_profile" options="" >
+				<fk_column name="id_wanted_profile" pk="id_wanted_profile" />
+			</fk>
+		</table>
+		<table name="service" row_count="0" spec="" >
+			<column name="id_service" type="integer" jt="4" mandatory="y" >
+				<defo><![CDATA[nextval('service_id_service_seq'::regclass)]]></defo>
+			</column>
+			<column name="service" type="varchar" length="50" jt="12" />
+			<column name="fonction" type="varchar" length="50" jt="12" />
+			<column name="creation_date" type="date" jt="91" />
+			<column name="status" type="numeric" jt="2" />
+			<index name="service_pkey" unique="PRIMARY_KEY" >
+				<column name="id_service" />
+			</index>
+		</table>
+		<table name="sexe" row_count="0" spec="" >
+			<column name="id_sexe" type="integer" jt="4" mandatory="y" >
+				<defo><![CDATA[nextval('sexe_id_sexe_seq'::regclass)]]></defo>
+			</column>
+			<column name="sexe" type="varchar" length="20" jt="12" />
+			<column name="status" type="numeric" jt="2" />
+			<index name="sexe_pkey" unique="PRIMARY_KEY" >
+				<column name="id_sexe" />
+			</index>
+		</table>
+		<table name="sexe_note" row_count="0" spec="" >
+			<column name="id_wanted_profile" type="integer" jt="4" />
+			<column name="id_sexe" type="integer" jt="4" />
+			<column name="note" type="numeric" jt="2" />
+			<fk name="sexe_note_id_sexe_fkey" to_schema="public" to_table="sexe" options="" >
+				<fk_column name="id_sexe" pk="id_sexe" />
+			</fk>
+			<fk name="sexe_note_id_wanted_profile_fkey" to_schema="public" to_table="wanted_profile" options="" >
+				<fk_column name="id_wanted_profile" pk="id_wanted_profile" />
+			</fk>
+		</table>
+		<table name="society" row_count="0" spec="" >
+			<column name="name" type="varchar" length="50" jt="12" />
+			<column name="adresse" type="varchar" length="50" jt="12" />
+			<column name="nif" type="varchar" length="50" jt="12" />
+			<column name="contact" type="varchar" length="25" jt="12" />
+			<column name="secteur" type="varchar" length="20" jt="12" />
+			<column name="legal_statut" type="numeric" jt="2" />
+		</table>
+		<table name="task" row_count="0" spec="" >
+			<column name="id_task" type="integer" jt="4" mandatory="y" >
+				<defo><![CDATA[nextval('task_id_task_seq'::regclass)]]></defo>
+			</column>
+			<column name="id_besoin" type="integer" jt="4" />
+			<column name="task" type="varchar" length="150" jt="12" />
+			<column name="status" type="numeric" jt="2" />
+			<index name="task_pkey" unique="PRIMARY_KEY" >
+				<column name="id_task" />
+			</index>
+			<fk name="task_id_besoin_fkey" to_schema="public" to_table="besoin" options="" >
+				<fk_column name="id_besoin" pk="id_besoin" />
+			</fk>
+		</table>
+		<table name="unity" row_count="0" spec="" >
+			<column name="id_unity" type="integer" jt="4" mandatory="y" >
+				<defo><![CDATA[nextval('unity_id_unity_seq'::regclass)]]></defo>
+			</column>
+			<column name="unity" type="varchar" length="20" jt="12" />
+			<column name="status" type="numeric" jt="2" />
+			<index name="unity_pkey" unique="PRIMARY_KEY" >
+				<column name="id_unity" />
+			</index>
+		</table>
+		<table name="utilisateur" row_count="0" spec="" >
+			<column name="id_utilisateur" type="integer" jt="4" mandatory="y" >
+				<defo><![CDATA[nextval('utilisateur_id_utilisateur_seq'::regclass)]]></defo>
+			</column>
+			<column name="id_service" type="integer" jt="4" />
+			<column name="username" type="varchar" length="20" jt="12" />
+			<column name="password" type="varchar" length="20" jt="12" />
+			<column name="mail" type="varchar" length="30" jt="12" />
+			<column name="status" type="numeric" jt="2" />
+			<index name="utilisateur_pkey" unique="PRIMARY_KEY" >
+				<column name="id_utilisateur" />
+			</index>
+			<fk name="utilisateur_id_service_fkey" to_schema="public" to_table="service" options="" >
+				<fk_column name="id_service" pk="id_service" />
+			</fk>
+		</table>
+		<table name="wanted_profile" row_count="0" spec="" >
+			<column name="id_wanted_profile" type="integer" jt="4" mandatory="y" >
+				<defo><![CDATA[nextval('wanted_profile_id_wanted_profile_seq'::regclass)]]></defo>
+			</column>
+			<column name="poste" type="varchar" length="50" jt="12" />
+			<column name="id_service" type="integer" jt="4" />
+			<column name="status" type="numeric" jt="2" />
+			<index name="wanted_profile_pkey" unique="PRIMARY_KEY" >
+				<column name="id_wanted_profile" />
+			</index>
+			<fk name="wanted_profile_id_service_fkey" to_schema="public" to_table="service" options="" >
+				<fk_column name="id_service" pk="id_service" />
+			</fk>
+		</table>
+		<table name="workload" row_count="0" spec="" >
+			<column name="id_workload" type="integer" jt="4" mandatory="y" >
+				<defo><![CDATA[nextval('workload_id_workload_seq'::regclass)]]></defo>
+			</column>
+			<column name="id_besoin" type="integer" jt="4" />
+			<column name="id_wanted_profile" type="integer" jt="4" />
+			<column name="quantity" type="numeric" jt="2" />
+			<column name="id_unity" type="integer" jt="4" />
+			<index name="workload_pkey" unique="PRIMARY_KEY" >
+				<column name="id_workload" />
+			</index>
+			<fk name="workload_id_besoin_fkey" to_schema="public" to_table="besoin" options="" >
+				<fk_column name="id_besoin" pk="id_besoin" />
+			</fk>
+			<fk name="workload_id_unity_fkey" to_schema="public" to_table="unity" options="" >
+				<fk_column name="id_unity" pk="id_unity" />
+			</fk>
+			<fk name="workload_id_wanted_profile_fkey" to_schema="public" to_table="wanted_profile" options="" >
+				<fk_column name="id_wanted_profile" pk="id_wanted_profile" />
+			</fk>
+		</table>
+		<view name="v_user_service" >
+			<view_script><![CDATA[CREATE OR REPLACE VIEW ${nameWithSchemaName} AS SELECT u.id_utilisateur,     u.id_service,     u.username,     u.password,     u.mail,     u.status,     s.service,     s.fonction,     s.creation_date    FROM (utilisateur u      JOIN service s ON ((u.id_service = s.id_service)))
+ SELECT u.id_utilisateur,
+    u.id_service,
+    u.username,
+    u.password,
+    u.mail,
+    u.status,
+    s.service,
+    s.fonction,
+    s.creation_date
+   FROM (utilisateur u
+     JOIN service s ON ((u.id_service = s.id_service)))]]></view_script>
+			<column name="id_utilisateur" type="integer" />
+			<column name="id_service" type="integer" />
+			<column name="username" type="varchar" />
+			<column name="password" type="varchar" />
+			<column name="mail" type="varchar" />
+			<column name="status" type="numeric" />
+			<column name="service" type="varchar" />
+			<column name="fonction" type="varchar" />
+			<column name="creation_date" type="date" />
+		</view>
+		<sequence name="adresse_id_adresse_seq" options="START WITH 20 INCREMENT BY 1" />
+		<sequence name="answer_id_answer_seq" options="AS integer START WITH 1 INCREMENT BY 1" />
+		<sequence name="answer_id_question_seq" options="AS integer START WITH 1 INCREMENT BY 1" />
+		<sequence name="besoin_id_besoin_seq" options="START WITH 20 INCREMENT BY 1" />
+		<sequence name="diplome_id_diplome_seq" options="START WITH 20 INCREMENT BY 1" />
+		<sequence name="experience_id_experience_seq" options="START WITH 20 INCREMENT BY 1" />
+		<sequence name="question_id_question_seq" options="AS integer START WITH 1 INCREMENT BY 1" />
+		<sequence name="question_id_quiz_seq" options="AS integer START WITH 1 INCREMENT BY 1" />
+		<sequence name="quiz_id_quiz_seq" options="AS integer START WITH 1 INCREMENT BY 1" />
+		<sequence name="quiz_id_quiz_type_seq" options="AS integer START WITH 1 INCREMENT BY 1" />
+		<sequence name="quiz_id_service_seq" options="AS integer START WITH 1 INCREMENT BY 1" />
+		<sequence name="quiz_type_id_quiz_type_seq" options="AS integer START WITH 1 INCREMENT BY 1" />
+		<sequence name="salaire_id_salaire_seq" options="START WITH 20 INCREMENT BY 1" />
+		<sequence name="service_id_service_seq" options="START WITH 20 INCREMENT BY 1" />
+		<sequence name="sexe_id_sexe_seq" options="START WITH 20 INCREMENT BY 1" />
+		<sequence name="task_id_task_seq" options="START WITH 20 INCREMENT BY 1" />
+		<sequence name="unity_id_unity_seq" options="START WITH 20 INCREMENT BY 1" />
+		<sequence name="utilisateur_id_utilisateur_seq" options="START WITH 20 INCREMENT BY 1" />
+		<sequence name="wanted_profile_id_wanted_profile_seq" options="START WITH 20 INCREMENT BY 1" />
+		<sequence name="workload_id_workload_seq" options="START WITH 20 INCREMENT BY 1" />
+	</schema>
+	<connector name="PostgreSQL" database="PostgreSQL" driver_class="org.postgresql.Driver" driver_jar="postgresql-42.6.0.jar" driver_desc="Standard" host="localhost" port="5432" instance="gestion_entreprise" user="postgres" passwd="YWRtaW4=" useSystemProxy="false" />
+	<layout name="Main Layout" id="Layout-110b" show_relation="columns" >
+		<entity schema="public" name="adresse" color="C7F4BE" x="768" y="224" />
+		<entity schema="public" name="adresse_note" color="C7F4BE" x="528" y="224" />
+		<entity schema="public" name="answer" color="F4DDBE" x="1648" y="224" />
+		<entity schema="public" name="besoin" color="D1BEF4" x="1008" y="864" />
+		<entity schema="public" name="diplome" color="C7F4BE" x="768" y="432" />
+		<entity schema="public" name="diplome_note" color="C7F4BE" x="528" y="432" />
+		<entity schema="public" name="experience" color="C7F4BE" x="528" y="624" />
+		<entity schema="public" name="experience_note" color="C7F4BE" x="288" y="432" />
+		<entity schema="public" name="question" color="F4DDBE" x="1440" y="224" />
+		<entity schema="public" name="quiz" color="F4DDBE" x="1232" y="224" />
+		<entity schema="public" name="quiz_type" color="F4DDBE" x="1440" y="448" />
+		<entity schema="public" name="salaire" color="C7F4BE" x="288" y="624" />
+		<entity schema="public" name="salaire_note" color="C7F4BE" x="48" y="432" />
+		<entity schema="public" name="service" color="F4DDBE" x="1008" y="224" />
+		<entity schema="public" name="sexe" color="BEBEF4" x="288" y="864" />
+		<entity schema="public" name="sexe_note" color="BEBEF4" x="48" y="864" />
+		<entity schema="public" name="society" color="BED3F4" x="544" y="864" />
+		<entity schema="public" name="task" color="D1BEF4" x="1232" y="1088" />
+		<entity schema="public" name="unity" color="D1BEF4" x="1472" y="864" />
+		<entity schema="public" name="utilisateur" color="F4DDBE" x="1232" y="448" />
+		<entity schema="public" name="v_user_service" color="BED3F4" x="752" y="864" />
+		<entity schema="public" name="wanted_profile" color="C7F4BE" x="288" y="224" />
+		<entity schema="public" name="workload" color="D1BEF4" x="1232" y="864" />
+		<callout x="288" y="80" pointer="Round" >
+			<comment><![CDATA[This is a layout. You can create multiple layouts with the same or different tables. 
+
+Edit tables by double-clicking the table headers.]]></comment>
+		</callout>
+		<group name="society" color="ECF0F7" >
+			<entity schema="public" name="society" />
+			<entity schema="public" name="v_user_service" />
+		</group>
+		<group name="sexe_note" color="ECECF7" >
+			<entity schema="public" name="sexe_note" />
+			<entity schema="public" name="sexe" />
+		</group>
+		<group name="besoin" color="F0ECF7" >
+			<entity schema="public" name="besoin" />
+			<entity schema="public" name="workload" />
+			<entity schema="public" name="task" />
+			<entity schema="public" name="unity" />
+		</group>
+		<group name="service" color="F7F2EC" >
+			<entity schema="public" name="service" />
+			<entity schema="public" name="question" />
+			<entity schema="public" name="answer" />
+			<entity schema="public" name="quiz_type" />
+			<entity schema="public" name="utilisateur" />
+			<entity schema="public" name="quiz" />
+		</group>
+		<group name="wanted_profile" color="EEF7EC" >
+			<entity schema="public" name="wanted_profile" />
+			<entity schema="public" name="adresse_note" />
+			<entity schema="public" name="diplome_note" />
+			<entity schema="public" name="experience_note" />
+			<entity schema="public" name="salaire_note" />
+			<entity schema="public" name="adresse" />
+			<entity schema="public" name="diplome" />
+			<entity schema="public" name="experience" />
+			<entity schema="public" name="salaire" />
+		</group>
+	</layout>
+	<layout name="~Layout with Sample Tools" id="Layout-230e" show_column_type="y" show_relation="columns" >
+		<entity schema="public" name="adresse" color="C7F4BE" x="912" y="48" />
+		<entity schema="public" name="adresse_note" color="C7F4BE" x="624" y="48" />
+		<entity schema="public" name="answer" color="F4DDBE" x="1984" y="48" />
+		<entity schema="public" name="besoin" color="D1BEF4" x="1200" y="688" />
+		<entity schema="public" name="diplome" color="C7F4BE" x="912" y="256" />
+		<entity schema="public" name="diplome_note" color="C7F4BE" x="624" y="256" />
+		<entity schema="public" name="experience" color="C7F4BE" x="624" y="448" />
+		<entity schema="public" name="experience_note" color="C7F4BE" x="336" y="256" />
+		<entity schema="public" name="question" color="F4DDBE" x="1728" y="48" />
+		<entity schema="public" name="quiz" color="F4DDBE" x="1456" y="48" />
+		<entity schema="public" name="quiz_type" color="F4DDBE" x="1728" y="272" />
+		<entity schema="public" name="salaire" color="C7F4BE" x="336" y="448" />
+		<entity schema="public" name="salaire_note" color="C7F4BE" x="48" y="256" />
+		<entity schema="public" name="service" color="F4DDBE" x="1200" y="48" />
+		<entity schema="public" name="sexe" color="BEBEF4" x="336" y="688" />
+		<entity schema="public" name="sexe_note" color="BEBEF4" x="48" y="688" />
+		<entity schema="public" name="society" color="BED3F4" x="656" y="688" />
+		<entity schema="public" name="task" color="D1BEF4" x="1472" y="912" />
+		<entity schema="public" name="unity" color="D1BEF4" x="1760" y="688" />
+		<entity schema="public" name="utilisateur" color="F4DDBE" x="1456" y="272" />
+		<entity schema="public" name="v_user_service" color="BED3F4" x="912" y="688" />
+		<entity schema="public" name="wanted_profile" color="C7F4BE" x="336" y="48" />
+		<entity schema="public" name="workload" color="D1BEF4" x="1472" y="688" />
+		<script name="SQL Editor" id="Editor-bd7" language="SQL" >
+			<string><![CDATA[SELECT
+	id_wanted_profile, poste, id_service, status
+FROM
+	"public".wanted_profile e;]]></string>
+		</script>
+		<browser id="Browse-86b" name="Relational Data Explorer" confirm_updates="y" >
+			<browse_table schema="public" entity="wanted_profile" x="-2147483648" y="-2147483648" width="-2147483648" height="-2147483648" >
+				<browse_table schema="public" entity="adresse_note" fk="adresse_note_id_wanted_profile_fkey" x="40" y="-2147483648" width="500" height="350" >
+					<browse_table schema="public" entity="adresse" fk="adresse_note_id_adresse_fkey" x="580" y="-2147483648" width="500" height="350" record_view="y" />
+				</browse_table>
+			</browse_table>
+		</browser>
+		<query id="Query-2405" name="Query Builder" >
+			<query_table schema="public" name="wanted_profile" alias="wp" x="48" y="48" >
+				<column name="id_wanted_profile" />
+				<column name="poste" />
+				<column name="id_service" />
+				<column name="status" />
+				<query_table schema="public" name="adresse_note" alias="an" x="288" y="48" fk="adresse_note_id_wanted_profile_fkey" type="Inner Join" >
+					<column name="id_wanted_profile" />
+					<column name="id_adresse" />
+					<column name="note" />
+					<query_table schema="public" name="adresse" alias="a" x="528" y="48" fk="adresse_note_id_adresse_fkey" type="Inner Join" >
+						<column name="id_adresse" />
+						<column name="adresse" />
+						<column name="status" />
+					</query_table>
+				</query_table>
+			</query_table>
+		</query>
+		<form name="Report" id="Report-541" template="Page" css="container-fluid" view="frame" >
+			<var name="samplePageNumber" type="4" value="0" mandatory="n" />
+			<var name="sampleRecordsPerPage" type="4" value="100" mandatory="n" />
+			<body name="Body" template="Grid" pos="0,0,0,0,f,f" layout="{{-2,-2,-2,-2,-1},{-2,-2,-2,-2}}" scroll="n" html="n" >
+				<cell type="label" name="Wanted_profile Data" template="H3" pos="0,0,1,0,l,c" />
+				<cell type="chart" name="Pie" template="Pie" pos="0,1,4,1,l,c" max_records="20" >
+					<form_script type="DataSource" language="SQL" >
+						<var name="id_wanted_profile" type="4" />
+						<var name="poste" type="-1" />
+						<var name="id_service" type="4" />
+						<var name="status" type="2" />
+						<script ><![CDATA[SELECT * FROM "public".wanted_profile]]></script>
+					</form_script>
+					<param name="item" value="poste" />
+					<param name="width" value="100%" />
+					<param name="title" value="Sample Chart" />
+					<param name="value" value="id_wanted_profile" />
+					<param name="height" value="400px" />
+				</cell>
+				<tableview name="sample" template="Table" css="table table-striped table-sm table-hover" pos="0,2,4,2,f,f" layout="{{-2,-2,-2,-2,-2},{-2,-2}}" scroll="n" html="n" header_rows="1" >
+					<form_script type="DataSource" language="SQL" >
+						<var name="id_wanted_profile" type="4" />
+						<var name="poste" type="-1" />
+						<var name="id_service" type="4" />
+						<var name="status" type="2" />
+						<script ><![CDATA[SELECT * FROM "public".wanted_profile]]></script>
+					</form_script>
+					<cell type="label" name="id_wanted_profile" template="Plain" pos="0,0,0,0,c,c" />
+					<cell type="label" name="poste" template="Plain" pos="1,0,1,0,c,c" />
+					<cell type="label" name="id_service" template="Plain" pos="2,0,2,0,c,c" />
+					<cell type="label" name="status" template="Plain" pos="3,0,3,0,c,c" />
+					<cell type="label" name="${id_wanted_profile}" template="Plain" pos="0,1,0,1,l,c" />
+					<cell type="label" name="${poste}" template="Plain" pos="1,1,1,1,l,c" />
+					<cell type="label" name="${id_service}" template="Plain" pos="2,1,2,1,l,c" />
+					<cell type="label" name="${status}" template="Plain" pos="3,1,3,1,l,c" />
+					<cell type="button" name="More" template="Plain" css="btn btn-sm btn-secondary" pos="4,1,4,1,c,c" ref_id="Report-541" />
+				</tableview>
+				<cell type="href" name="" template="Plain" disabled="${samplePageNumber&lt;1}" pos="0,3,0,3,l,c" glyph="bi-chevron_double_left" ref_id="Report-541" >
+					<var name="samplePageNumber" value="0" />
+				</cell>
+				<cell type="href" name="" template="Plain" disabled="${samplePageNumber&lt;1}" pos="1,3,1,3,l,c" glyph="bi-chevron_left" ref_id="Report-541" >
+					<var name="samplePageNumber" value="${Math.max(0,samplePageNumber-1)}" />
+				</cell>
+				<cell type="label" name="Page ${samplePageNumber+1}" template="Plain" pos="2,3,2,3,l,c" />
+				<cell type="href" name="" template="Plain" disabled="${!sampleHasNextPage}" pos="3,3,3,3,l,c" glyph="bi-chevron_right" ref_id="Report-541" >
+					<var name="samplePageNumber" value="${( samplePageNumber+1 )}" />
+				</cell>
+			</body>
+		</form>
+	</layout>
+</project>
