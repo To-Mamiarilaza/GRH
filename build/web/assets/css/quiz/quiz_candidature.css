@@ -1,0 +1,44 @@
+.little-width {
+  width: 70%;
+}
+
+.quizzes-list .quiz {
+  border: solid 1px lightgray;
+  border-radius: 5px;
+  margin-right: 3rem;
+}
+.quizzes-list .quiz .quiz-header h4 {
+  margin: 0;
+  font-size: 16px;
+}
+.quizzes-list .quiz .quiz-header button {
+  border: none;
+  outline: none;
+  background: none;
+}
+.quizzes-list .quiz .quiz-header i {
+  font-size: 20px;
+}
+
+.answer-list {
+  height: 110px;
+  overflow-y: auto;
+  padding-right: 10px;
+}
+.answer-list .answer span {
+  margin-left: 5%;
+}
+.answer-list .answer .form-check {
+  margin: 5px 0px !important;
+}
+.answer-list .answer .form-check .form-check-label {
+  margin-left: 2.75rem;
+}
+.answer-list .answer .remove .remove-button {
+  width: 20px !important;
+  height: 20px !important;
+  border-radius: 100% !important;
+  padding: 0 !important;
+  margin-right: 1rem;
+  margin-left: 2rem;
+}/*# sourceMappingURL=quiz_candidature.css.map */
