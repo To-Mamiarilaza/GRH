@@ -13,6 +13,8 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.util.ArrayList;
+import java.util.List;
 import model.requis.User;
 
 /**
@@ -41,10 +43,22 @@ public class HomeServlet extends HttpServlet {
         
         
         if (user == null) {
-            RequestDispatcher dispatch = request.getRequestDispatcher("pages/home/login.jsp");
+            RequestDispatcher dispatch = request.getRequestDispatcher("./pages/home/login.jsp");
             dispatch.forward(request, response);
         } else {
-            RequestDispatcher dispatch = request.getRequestDispatcher("pages/home/welcome.jsp");
+            
+            List<String> css = new ArrayList<>();
+            css.add("./assets/css/quiz/quiz_creation.css");
+            
+            List<String> js = new ArrayList<>();
+            js.add("./assets/js/quiz/quiz-creation.js");
+            
+            request.setAttribute("title", "Gestion Ressource Humaine");
+            request.setAttribute("contentPage", "./pages/home/welcome.jsp");
+            request.setAttribute("css", css);
+            request.setAttribute("js", js);
+            
+            RequestDispatcher dispatch = request.getRequestDispatcher("./template.jsp");
             dispatch.forward(request, response);
         }
         
