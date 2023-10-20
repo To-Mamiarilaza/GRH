@@ -1,4 +1,4 @@
-<!-- <%@ page contentType="text/html; charset=UTF-8" %> -->
+<%@ page contentType="text/html; charset=UTF-8" %>
 <%@page import="java.util.List" %>
 <% 
     List<String> css = (List<String>) request.getAttribute("css");

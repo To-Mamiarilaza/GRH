@@ -2,29 +2,25 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package servlet.quiz;
+package servlet.conge;
 
 import jakarta.servlet.RequestDispatcher;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
-import java.util.ArrayList;
-import java.util.List;
-import model.quiz.Quiz;
-import model.quiz.QuizType;
-import model.requis.Service;
 
 /**
  *
  * @author To Mamiarilaza
  */
-@WebServlet(name = "QuizCreationServlet", urlPatterns = {"/quiz-create"})
-public class QuizCreationServlet extends HttpServlet {
+@WebServlet(name = "DemandeCongesServlet", urlPatterns = {"/DemandeConges"})
+public class DemandeCongesServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,32 +34,19 @@ public class QuizCreationServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        // Mise en session du servlet
-        HttpSession session = request.getSession();
         try {
-            Service service = new Service();
-            service.setIdService(3);
-            
-            Quiz quiz = new Quiz();
-            quiz.setService(service);
-            quiz.setType(new QuizType(1, "Question"));
-            session.setAttribute("quiz", quiz);
-            quiz.getInformation();
-            
             List<String> css = new ArrayList<>();
-            css.add("./assets/css/quiz/quiz_creation.css");
+            css.add("./assets/css/conges/conges-personnel.css");
             
             List<String> js = new ArrayList<>();
-            js.add("./assets/js/quiz/quiz-creation.js");
             
-            request.setAttribute("title", "Création QUIZ");
-            request.setAttribute("contentPage", "./pages/quiz/quiz_creation.jsp");
+            request.setAttribute("title", "Gestion Ressource Humaine");
+            request.setAttribute("contentPage", "./pages/conges/demandeCongeInsertion.jsp");
             request.setAttribute("css", css);
             request.setAttribute("js", js);
             
             RequestDispatcher dispatch = request.getRequestDispatcher("./template.jsp");
             dispatch.forward(request, response);
-            
         } catch (Exception e) {
             e.printStackTrace();
         }

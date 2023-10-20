@@ -93,6 +93,8 @@ CREATE TABLE candidature_test (
     note INTEGER,
     id_quiz SERIAL,
     quiz_date TIMESTAMP,
-    FOREIGN KEY(id_quiz) REFERENCES quiz(id_quiz)
+    status INTEGER,
+    FOREIGN KEY(id_quiz) REFERENCES quiz(id_quiz),
+    FOREIGN KEY(id_candidature) REFERENCES candidature(id_candidature)
     -- Don't forget to add constraint to id_candidature
 );
