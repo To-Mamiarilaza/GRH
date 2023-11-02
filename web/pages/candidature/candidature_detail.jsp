@@ -295,8 +295,8 @@
                                     <p>Apres avoir analyser la candidature, prenez votre décision maintenant. <br> Nous envoyons le lien d'access au test si vous validez sa candidature</p>
                                   </div>
                                   <div class="d-flex mt-4">
-                                    <a href="" class="btn btn-gradient-danger">Refuser</a>
-                                    <a href="" class="btn btn-gradient-success mx-5">Accepter</a>
+                                    <a href="./TraitStatusCandidature?id_help=0" class="btn btn-gradient-danger">Refuser</a>
+                                    <a href="./TraitStatusCandidature?id_help=1" class="btn btn-gradient-success mx-5">Accepter</a>
                                   </div>
                                 </div>
                               </div>

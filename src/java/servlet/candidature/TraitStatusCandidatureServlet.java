@@ -5,7 +5,6 @@
 package servlet.candidature;
 
 import framework.database.utilitaire.GConnection;
-import jakarta.servlet.RequestDispatcher;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -14,18 +13,14 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.sql.Connection;
-import java.util.ArrayList;
-import java.util.List;
 import model.candidature.Candidature;
-import model.gestionProfile.WantedProfile;
-import model.requis.Service;
 
 /**
  *
  * @author chalman
  */
-@WebServlet(name = "CandidatureFilterServlet", urlPatterns = {"/candidatureFilter"})
-public class CandidatureFilterServlet extends HttpServlet {
+@WebServlet(name = "ProfessionalCareerInsertionServlet", urlPatterns = {"/TraitStatusCandidature"})
+public class TraitStatusCandidatureServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -44,10 +39,10 @@ public class CandidatureFilterServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet CandidatureFilterServlet</title>");            
+            out.println("<title>Servlet TraitStatusCandidatureServlet</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet CandidatureFilterServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet TraitStatusCandidatureServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -65,27 +60,23 @@ public class CandidatureFilterServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-            response.setContentType("text/plain");
-          PrintWriter out = response.getWriter();
-         try {
-                Connection conn = GConnection.getSimpleConnection();
-              
-                Integer idService = Integer.valueOf(request.getParameter("service"));
-                Integer idPoste = Integer.valueOf(request.getParameter("poste"));
-                Service service = Service.getById(conn, idService);
-                WantedProfile wp = WantedProfile.getById(conn, idPoste);
-                ArrayList<Candidature> candidatures = Candidature.getAllInServicePoste(conn, service, wp);
-             
-                request.setAttribute("candidatureList", candidatures);
-              
-              
-              conn.close();
-          } catch (Exception exe) {
-                exe.printStackTrace();
-                request.setAttribute("erreur", exe.getMessage());
-          }
-          RequestDispatcher dispat = request.getRequestDispatcher("listCandidature");
-        dispat.forward(request, response);
+        try {
+            Connection conn = GConnection.getSimpleConnection();
+            Integer idCandidat = Integer.valueOf(request.getParameter("idCandidat"));
+            
+            Candidature candidat = Candidature.getById(conn, idCandidat);
+            
+            if(request.getParameter("status").equals("0")) {    //Refuser
+                candidat.changeStatus(conn, 0);
+            }
+            else {
+                candidat.changeStatus(conn, 2);
+            }
+            
+            conn.close();
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -99,25 +90,7 @@ public class CandidatureFilterServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-            response.setContentType("text/plain");
-          PrintWriter out = response.getWriter();
-        try {
-            Connection conn = GConnection.getSimpleConnection();
-              
-            //Integer idService = Integer.valueOf(request.getParameter("service"));
-            Integer idPoste = Integer.valueOf(request.getParameter("poste"));
-            //Service service = Service.getById(conn, idService);s
-            WantedProfile wp = WantedProfile.getById(conn, idPoste);
-            ArrayList<Candidature> candidatures = Candidature.getAllInServicePoste(conn, null, wp);
-            request.setAttribute("candidatureList", candidatures);
-              
-            conn.close();
-        } catch (Exception exe) {
-            exe.printStackTrace();
-            request.setAttribute("erreur", exe.getMessage());
-        }
-        RequestDispatcher dispat = request.getRequestDispatcher("listCandidature");
-        dispat.forward(request, response);
+        processRequest(request, response);
     }
 
     /**

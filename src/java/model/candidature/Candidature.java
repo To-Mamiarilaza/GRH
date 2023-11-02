@@ -466,11 +466,11 @@ public class Candidature {
     //Avoir toutes les candidats dans une service et poste
     public static ArrayList<Candidature> getAllInServicePoste(Connection conn, Service service, WantedProfile wantedProfile) throws Exception {
         Statement work = conn.createStatement();
-        String req = "SELECT * FROM candidature id_service=" + service.getIdService() + " AND id_wanted_profile=" + wantedProfile.getIdWantedProfile();
+        String req = "SELECT * FROM candidature WHERE id_wanted_profile="+wantedProfile.getIdWantedProfile();
         ResultSet result = work.executeQuery(req);
         ArrayList<Candidature> candidats = new ArrayList<>();
 
-        while (result.next()) {
+        while(result.next()) {
             //Candidature(int idCandidature, PersonnalInformation PersonnalInformation, ProfessionalCareer ProfessionalCareer, FormationPath FormationPath, String interestCareer, double SalaryExpectation, String selfProfile, String photo, String dossier, double note, int status) {
             //PersonnalInformation(String name, String firstName, Date birthDate, Adresse adresse, String email, String telephone, Sexe sexe)
             PersonnalInformation pi = new PersonnalInformation(result.getString("name"), result.getString("first_name"), result.getDate("birth_date"), Adresse.getById(conn, result.getInt("id_adresse")), result.getString("email"), "0345091434", Sexe.getById(conn, result.getInt("id_sexe")));
@@ -479,7 +479,7 @@ public class Candidature {
             Candidature candidat = new Candidature(result.getInt("id_candidature"), WantedProfile.getById(conn, result.getInt("id_wanted_profile")), result.getDate("deposit_date"), pi, pc, fp, result.getString("interest_center"), result.getDouble("salary_expectation"), result.getString("self_profile"), result.getString("photo"), result.getString("dossier"), result.getDouble("note"), result.getInt("status"));
             candidats.add(candidat);
         }
-
+        
         return candidats;
     }
 
@@ -551,5 +551,36 @@ public class Candidature {
             }
             throw e;
         }
+    }
+    
+    //Candidat embauche
+    public void candidatEmbauched(Connection conn) throws Exception {
+        Statement work = conn.createStatement();
+        String req = "UPDATE candidature SET status=20 WHERE id_candidature="+this.getIdCandidature();
+        work.execute(req);
+        conn.setAutoCommit(true);
+    }
+    
+    //Changer le statut
+    public void changeStatus(Connection conn, Integer status) throws Exception {
+        Statement work = conn.createStatement();
+        String req = "UPDATE candidature SET status="+status+" WHERE id_candidature="+this.getIdCandidature();
+        work.execute(req);
+        conn.setAutoCommit(true);
+    }
+    
+    public static String getTitle(Integer status) {
+        switch (status) {
+            case 7:
+                return "Liste des candidats ayant refuse le recrutement";
+            case 10:
+                return "Liste des candidats ayant refuse le contrat";
+            case 20:
+                return "Liste des candidats ayant valide le contrat";
+            default:
+                break;
+        }
+        System.out.println("Zay ve");
+        return "Liste des candidats recrutes";
     }
 }

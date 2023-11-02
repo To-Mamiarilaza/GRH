@@ -198,7 +198,8 @@ CREATE TABLE rappel_periode (
     id_rappel_periode SERIAL PRIMARY KEY,
     date DATE,
     modification_salaire DECIMAL(4, 1),
-    nombre_mois INTEGER
+    nombre_mois INTEGER,
+    etat INTEGER
 );
 
 CREATE TABLE departement_rappel_periode (
