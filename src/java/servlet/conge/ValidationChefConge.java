@@ -4,7 +4,7 @@
  */
 package servlet.conge;
 
-import jakarta.servlet.RequestDispatcher;
+import framework.database.utilitaire.GConnection;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -12,15 +12,18 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
-import java.util.List;
+import java.sql.Connection;
+import model.conge.Conge;
+import model.conge.service.CongeManager;
+import model.conge.service.ValidationDemande;
+import model.requis.User;
 
 /**
  *
  * @author To Mamiarilaza
  */
-@WebServlet(name = "CongesDemandeListServlet", urlPatterns = {"/CongesDemandeList"})
-public class CongesDemandeListServlet extends HttpServlet {
+@WebServlet(name = "ValidationConge", urlPatterns = {"/ValidationChefConge"})
+public class ValidationChefConge extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,18 +38,19 @@ public class CongesDemandeListServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try {
-            List<String> css = new ArrayList<>();
-            css.add("./assets/css/conges/conges-personnel.css");
-            
-            List<String> js = new ArrayList<>();
-            
-            request.setAttribute("title", "Gestion Ressource Humaine");
-            request.setAttribute("contentPage", "./pages/conges/congesDemandeList.jsp");
-            request.setAttribute("css", css);
-            request.setAttribute("js", js);
-            
-            RequestDispatcher dispatch = request.getRequestDispatcher("./template.jsp");
-            dispatch.forward(request, response);
+            User user = (User) request.getSession().getAttribute("user");
+
+            Connection connection = GConnection.getSimpleConnection();
+
+            int idResponsable = Integer.valueOf(request.getParameter("idResponsable"));
+            int idConge = Integer.valueOf(request.getParameter("idConge"));
+            Conge conge = CongeManager.getCongeById(idConge, connection);
+            String remarque = request.getParameter("remarque");
+
+            int resultat = request.getParameter("valider") != null ? 1 : 0;
+            ValidationDemande.validateDemandeCongeByChef(idConge, idResponsable, remarque, resultat, null);
+
+            response.sendRedirect("./CongesChefDemandeDetail?idConge=" + idConge);
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -12,8 +12,14 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import model.conge.Conge;
+import model.conge.service.CongeManager;
+import model.conge.CongePersonnel;
+import model.conge.Personnel;
+import model.requis.User;
 
 /**
  *
@@ -35,17 +41,30 @@ public class CongesPersonnelServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try {
+            User user = (User) request.getSession().getAttribute("user");
+            CongePersonnel congePersonnel = CongeManager.getCongePersonnelInfo(user.getIdPersonnel(), null);
+
+            List<Conge> congeList = null;
+            if (request.getParameter("demande") != null) {
+                congeList = congePersonnel.getDemandeConge();
+            } else {
+                congeList = congePersonnel.getHistoriqueConge();
+            }
+
             List<String> css = new ArrayList<>();
             css.add("./assets/css/conges/conges-personnel.css");
-            
+
             List<String> js = new ArrayList<>();
-            js.add("./assets/js/quiz/quiz-creation.js");
-            
+            js.add("./assets/js/conge/conge.js");
+
+            request.setAttribute("congeList", congeList);
+            request.setAttribute("congePersonnelInfo", congePersonnel);
+
             request.setAttribute("title", "Gestion Ressource Humaine");
             request.setAttribute("contentPage", "./pages/conges/congesPersonnel.jsp");
             request.setAttribute("css", css);
             request.setAttribute("js", js);
-            
+
             RequestDispatcher dispatch = request.getRequestDispatcher("./template.jsp");
             dispatch.forward(request, response);
         } catch (Exception e) {

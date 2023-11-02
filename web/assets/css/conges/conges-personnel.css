@@ -26,4 +26,8 @@
 
 .list-espaced li {
   line-height: 30px;
+}
+
+.disabled {
+  cursor: default;
 }/*# sourceMappingURL=conges-personnel.css.map */

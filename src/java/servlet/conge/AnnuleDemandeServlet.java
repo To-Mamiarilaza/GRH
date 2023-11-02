@@ -4,23 +4,20 @@
  */
 package servlet.conge;
 
-import jakarta.servlet.RequestDispatcher;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.List;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import model.conge.service.ValidationDemande;
 
 /**
  *
  * @author To Mamiarilaza
  */
-@WebServlet(name = "CongesDemandeDetailServlet", urlPatterns = {"/CongesDemandeDetail"})
-public class CongesDemandeDetailServlet extends HttpServlet {
+@WebServlet(name = "AnnuleDemandeServlet", urlPatterns = {"/AnnuleDemande"})
+public class AnnuleDemandeServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,18 +32,9 @@ public class CongesDemandeDetailServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try {
-            List<String> css = new ArrayList<>();
-            css.add("./assets/css/conges/conges-personnel.css");
-            
-            List<String> js = new ArrayList<>();
-            
-            request.setAttribute("title", "Gestion Ressource Humaine");
-            request.setAttribute("contentPage", "./pages/conges/congesDemandeDetail.jsp");
-            request.setAttribute("css", css);
-            request.setAttribute("js", js);
-            
-            RequestDispatcher dispatch = request.getRequestDispatcher("./template.jsp");
-            dispatch.forward(request, response);
+            int idConge = Integer.valueOf(request.getParameter("idConge"));
+            ValidationDemande.annulerDemandeConge(idConge, null);
+            response.sendRedirect("./CongesPersonnel");
         } catch (Exception e) {
             e.printStackTrace();
         }

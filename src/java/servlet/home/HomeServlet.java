@@ -33,35 +33,39 @@ public class HomeServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+    final String RH_DEPARTEMENT = "Ressources humaines";
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
+
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("user");
-        
-        
-        
+
         if (user == null) {
             RequestDispatcher dispatch = request.getRequestDispatcher("./pages/home/login.jsp");
             dispatch.forward(request, response);
         } else {
+
+            request.setAttribute("RH_DEPARTEMENT", RH_DEPARTEMENT);
             
             List<String> css = new ArrayList<>();
             css.add("./assets/css/quiz/quiz_creation.css");
-            
+
             List<String> js = new ArrayList<>();
             js.add("./assets/js/quiz/quiz-creation.js");
-            
+
             request.setAttribute("title", "Gestion Ressource Humaine");
             request.setAttribute("contentPage", "./pages/home/welcome.jsp");
             request.setAttribute("css", css);
             request.setAttribute("js", js);
             
+
             RequestDispatcher dispatch = request.getRequestDispatcher("./template.jsp");
             dispatch.forward(request, response);
+
         }
-        
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

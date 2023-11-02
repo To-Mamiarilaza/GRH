@@ -1,6 +1,9 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
-<%@page import="java.util.List" %>
+<%@page import="java.util.List, model.requis.User, model.conge.Personnel" %>
 <% 
+    User user = (User) session.getAttribute("user");
+    Personnel personnel = Personnel.getPersonnelById(user.getIdPersonnel(), null);
+
     List<String> css = (List<String>) request.getAttribute("css");
     List<String> js = (List<String>) request.getAttribute("js");
 %>
@@ -17,11 +20,11 @@
         <link rel="stylesheet" href="./assets/vendors/mdi/css/materialdesignicons.min.css">
         <link rel="stylesheet" href="./assets/css/besoin/besoin-insertion.css">
         <link rel="stylesheet" href="./assets/vendors/css/vendor.bundle.base.css">
-        
+
         <% for(String cssElement : css) { %>
-            <link rel="stylesheet" href="<%= cssElement %>">
+        <link rel="stylesheet" href="<%= cssElement %>">
         <% } %>
-        
+
         <!-- endinject -->
         <!-- Plugin css for this page -->
         <!-- End plugin css for this page -->
@@ -224,12 +227,42 @@
                                 <i class="mdi mdi-bookmark-check text-success nav-profile-badge"></i>
                             </a>
                         </li>
-                        <li class="nav-item active">
+                        <li class="nav-item">
                             <a class="nav-link" href="./index.html">
-                                <span class="menu-title">Dashboard</span>
-                                <i class="mdi mdi-home menu-icon"></i>
+                                <span class="menu-title">Mon Profil</span>
+                                <i class="mdi mdi-account menu-icon"></i>
                             </a>
                         </li>
+
+                        <% if(user.isAdmin()) { %>
+                        <li class="nav-item">
+                            <a class="nav-link" href="./index.html">
+                                <span class="menu-title">Envoie des besoins</span>
+                                <i class="mdi mdi-account-multiple menu-icon"></i>
+                            </a>
+                        </li>
+                        <% } %>
+
+                        <li class="nav-item">
+                            <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic-1" aria-expanded="false"
+                               aria-controls="ui-basic">
+                                <span class="menu-title">Gestion congés</span>
+                                <i class="mdi mdi-calendar menu-icon"></i>
+                            </a>
+                            <div class="collapse" id="ui-basic-1">
+                                <ul class="nav flex-column sub-menu">
+                                    <li class="nav-item"> <a class="nav-link" href="./CongesPersonnel">Mes congés</a></li>
+                                    <% if(personnel.getSubordonnes().size() != 0) { %>
+                                    <li class="nav-item"> <a class="nav-link" href="./CongesSubordonneDemandeList">Demandes des subordonnes</a></li>
+                                    <% } %>
+                                    <% if(user.getService().getService().equals("Ressources humaines")) { %>
+                                    <li class="nav-item"> <a class="nav-link" href="./CongesRHDemandeList">En attente de validation</a></li>
+                                    <% } %>
+                                </ul>
+                            </div>
+                        </li>
+
+                        <% if(user.getService().getService().equals("Ressources humaines")) { %>
 
                         <li class="nav-item">
                             <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic" aria-expanded="false"
@@ -239,7 +272,6 @@
                             </a>
                             <div class="collapse" id="ui-basic">
                                 <ul class="nav flex-column sub-menu">
-                                    <li class="nav-item"> <a class="nav-link" href="./besoin-insertion">Insertion d'un besoin</a></li>
                                     <li class="nav-item"> <a class="nav-link" href="listBesoins">Besoins
                                             des services</a></li>
                                     <li class="nav-item"> <a class="nav-link"
@@ -256,13 +288,15 @@
                                 </ul>
                             </div>
                         </li>
+
+                        <% } %>
                     </ul>
                 </nav>
 
                 <!-- partial -->
                 <div class="main-panel">
                     <div class="content-wrapper">
-                        
+
                         <jsp:include page="${contentPage}" />
                     </div>
                     <!-- content-wrapper ends -->
@@ -295,7 +329,7 @@
         <!-- endinject -->
         <!-- Custom js for this page -->
         <% for(String jsElement : js) { %>
-            <script src="<%= jsElement %>"></script>
+        <script src="<%= jsElement %>"></script>
         <% } %>
         <!-- End custom js for this page -->
     </body>

@@ -1,3 +1,3 @@
 <% 
-    response.sendRedirect("./quiz-create");
+    response.sendRedirect("./login");
 %>

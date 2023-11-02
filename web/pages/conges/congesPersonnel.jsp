@@ -1,8 +1,26 @@
+<%@page import="java.util.List, java.time.LocalDate, model.conge.Conge, model.conge.CongePersonnel, model.conge.Personnel" %>
+<%
+    List<Conge> congeList = (List<Conge>) request.getAttribute("congeList");
+    CongePersonnel congePersonnelInfo = (CongePersonnel) request.getAttribute("congePersonnelInfo");
+    Conge currentConge = congePersonnelInfo.getCurrentConge();
+    Personnel personnel = congePersonnelInfo.getPersonnel();
+    
+    LocalDate currentCongeDebut = null;
+    LocalDate currentCongeFin = null;
+    String motif = null;
+    
+    if(currentConge != null) {
+        currentCongeDebut = currentConge.getDateDebutReel() != null ? currentConge.getDateDebutReel() : currentConge.getDateDebutDemande();
+        currentCongeFin = currentConge.getDateFinReel() != null ? currentConge.getDateFinReel() : currentConge.getDateFinDemande();
+        motif = currentConge.getTypeConge().getTypeCongeName();
+    }
+    
+%>
 <div class="page-header">
     <h3 class="page-title">
         <span class="page-title-icon bg-gradient-primary text-white me-2">
             <i class="mdi mdi-calendar"></i>
-        </span> Gestion des congés
+        </span> Gestion des congï¿½s
     </h3>
     <nav aria-label="breadcrumb">
         <ul class="breadcrumb">
@@ -23,40 +41,40 @@
                     <div class="row mt-3">
                         <div class="col-md-3">
                             <label for="" class="form-label mb-3">Date debut</label>
-                            <input type="text" value="10/12/23" class="form-control form-control-sm" readonly>
+                            <input type="text" value="<% if(currentCongeDebut == null) { out.print("..."); } else { out.print(currentCongeDebut); } %>" class="form-control form-control-sm" readonly>
                         </div>
                         <div class="col-md-3">
                             <label for="" class="form-label mb-3">Date fin</label>
-                            <input type="text" value="13/12/23" class="form-control form-control-sm" readonly>
+                            <input type="text" value="<% if(currentCongeFin == null) { out.print("..."); } else { out.print(currentCongeFin); } %>" class="form-control form-control-sm" readonly>
                         </div>
                         <div class="col-md-3">
                             <label for="" class="form-label mb-3">Motif</label>
-                            <input type="text" value="Repos médicale" class="form-control form-control-sm" readonly>
+                            <input type="text" value="<% if(motif == null) { out.print("..."); } else { out.print(motif); } %>" class="form-control form-control-sm" readonly>
                         </div>
                     </div>
                 </div>
                 <div class="reste-solde mt-4 mb-3">
-                    <p>SOLDE RESTANT : <span class="nb-jour">30 jour</span></p>
+                    <p>SOLDE RESTANT : <span class="nb-jour"><%= congePersonnelInfo.getSoldeRestant() %> jour</span></p>
                 </div>
                 <hr>
                 <div class="mt-4">
                     <div class="action-conges row">
                         <div class="col-md-4">
-                            <a href="" class="btn btn-gradient-primary"> Envoyer demande de
+                            <a href="./DemandeConges" class="btn btn-gradient-primary"> Envoyer demande de
                                 conges</a>
                         </div>
                         <div class="col-md-4">
-                            <a href="" class="btn btn-gradient-primary"> Mes demandes de conges</a>
+                            <a href="./CongesPersonnel?demande=1" class="btn btn-gradient-primary"> Mes demandes de conges</a>
                         </div>
                         <div class="col-md-4">
-                            <a href="" class="btn btn-gradient-primary"> Historiques de conges</a>
+                            <a href="./CongesPersonnel" class="btn btn-gradient-primary"> Historiques de conges</a>
                         </div>
                     </div>
                     <div class="list-conges mt-4">
                         <table class="table">
                             <thead>
                                 <tr>
-                                    <th>Depot congés</th>
+                                    <th>Depot congï¿½s</th>
                                     <th>Date debut</th>
                                     <th>Date fin</th>
                                     <th>Motif</th>
@@ -66,28 +84,28 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                <% for(Conge conge: congeList) { %>
+                                <% 
+                                    String chefName = conge.getChefHierarchique().getNom() + " " + conge.getChefHierarchique().getPrenom();
+                                    String rhName = conge.getResponsableRH().getNom() + " " + conge.getResponsableRH().getPrenom();
+                                %>
                                 <tr>
-                                    <td>10/12/23</td>
-                                    <td>25/12/23</td>
-                                    <td>30/12/23</td>
-                                    <td>Vacance de noel</td>
-                                    <td>En attente</td>
-                                    <td><a href="" data-bs-toggle="modal" data-bs-target="#exampleModal"><i
+                                    <td><%= conge.getDepositDate() %></td>
+                                    <td><%= conge.getDateDebut() %></td>
+                                    <td><%= conge.getDateFin() %></td>
+                                    <td><%= conge.getTypeConge().getTypeCongeName() %></td>
+                                    <td><%= conge.getCongeEtat() %></td>
+                                    <td><a href="#" onclick="updateInfoModal('<%= chefName %>', '<%= conge.getRemarqueChef() %>', '<%= rhName %>', '<%= conge.getRemarqueRH() %>')" data-bs-toggle="modal" data-bs-target="#exampleModal"><i
                                                 class="mdi mdi-information-variant little-big-font"></i></a></td>
-                                    <td><a href="" class="text-danger little-big-font"><i
+                                    <% if(conge.getEtat() == 2) { %>
+                                    <td><a  href="./AnnuleDemande?idConge=<%= conge.getIdConge() %>" class="text-danger little-big-font"><i
                                                 class="mdi mdi-minus-circle-outline"></i></a></td>
-                                </tr>
-                                <tr>
-                                    <td>10/12/23</td>
-                                    <td>25/12/23</td>
-                                    <td>30/12/23</td>
-                                    <td>Vacance de noel</td>
-                                    <td>En attente</td>
-                                    <td><a href="" data-bs-toggle="modal" data-bs-target="#exampleModal"><i
-                                                class="mdi mdi-information-variant little-big-font"></i></a></td>
-                                    <td><a href="" class="text-danger little-big-font"><i
+                                    <% } else { %>
+                                    <td><a href="#" class="text-black little-big-font disabled"><i
                                                 class="mdi mdi-minus-circle-outline"></i></a></td>
+                                    <% } %>
                                 </tr>
+                                <% } %>
                             </tbody>
                         </table>
 
@@ -97,19 +115,19 @@
                             <div class="modal-dialog modal-dialog-centered">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">Note des validateurs
+                                        <h5 class="modal-title" id="exampleModalLabel">Remarque des validateurs
                                         </h5>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal"
                                             aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
-                                        <p class="validateur text-primary">RAKOTOARISOLO maela</p>
-                                        <p class="content">
+                                        <p class="validateur text-primary" id="chefName">RAKOTOARISOLO maela</p>
+                                        <p class="content" id="chefRemarque">
                                             Mila tafaverina aloha ihany ianao fa mila anao izahay
                                         </p>
                                         <hr>
-                                        <p class="validateur text-primary">ZOKY Seanona</p>
-                                        <p class="content">
+                                        <p class="validateur text-primary" id="rhName">ZOKY Seanona</p>
+                                        <p class="content" id="rhRemarque">
                                             Manaova fety sambatra ary e !
                                         </p>
                                     </div>

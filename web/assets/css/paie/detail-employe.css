@@ -1,0 +1,94 @@
+.profile-pic {
+  width: 220px;
+  height: 220px;
+  border-radius: 5px;
+}
+
+.color-primary {
+  color: #b66dff;
+}
+
+.underline {
+  padding-bottom: 10px;
+  border-bottom: solid 1px #b66dff;
+}
+
+.black-underline {
+  padding-bottom: 10px;
+  border-bottom: solid 1px lightgray;
+}
+
+.no-style-list {
+  list-style: none;
+  padding-left: 0;
+}
+
+.list-style-i {
+  margin-right: 20px;
+  font-size: 20px;
+}
+
+.contrat {
+  padding: 20px;
+  box-shadow: 5px 5px 8px lightgray;
+  border: 1px solid lightgray;
+}
+
+.licenciement-information {
+  margin-left: 15px !important;
+}
+
+.inside-link .horizontal-list {
+  display: flex;
+}
+.inside-link .horizontal-list li {
+  margin-right: 25px;
+  color: #b66dff;
+}
+
+.employe-list {
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+.employe-list .employe {
+  width: 45%;
+  display: flex;
+  border: 1px solid lightgray;
+  border-radius: 10px;
+  align-items: center;
+  padding: 5px;
+}
+.employe-list .employe img {
+  width: 40px;
+  height: 40px;
+  border-radius: 100%;
+}
+.employe-list .employe .name {
+  font-size: 14px;
+  margin-left: 10px;
+  font-weight: 600;
+}
+
+.paie-element-insertion {
+  padding-left: 50px;
+}
+
+.link-no-style {
+  text-decoration: none;
+}
+
+.text-normal {
+  font-size: 15px;
+}
+
+.little-field {
+  padding: 12px 8px !important;
+}
+.little-field input {
+  height: 20px;
+  font-size: 10px;
+}
+
+.big-title {
+  font-size: 30px;
+}/*# sourceMappingURL=detail-employe.css.map */

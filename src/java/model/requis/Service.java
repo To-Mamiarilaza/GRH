@@ -5,6 +5,7 @@
  */
 package model.requis;
 
+import framework.database.utilitaire.GConnection;
 import java.sql.*;
 import java.util.ArrayList;
 
