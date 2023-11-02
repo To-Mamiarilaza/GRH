@@ -105,7 +105,7 @@ public class PersonalInformationInsertionServlet extends HttpServlet {
             
             can.setPersonnalInformation(per);
 
-            response.sendRedirect("/RessourceHumaine/ProfessionalCareerInsertionServlet");
+            response.sendRedirect("/GRH/ProfessionalCareerInsertionServlet");
         } catch (ParseException ex) {
             Logger.getLogger(PersonalInformationInsertionServlet.class.getName()).log(Level.SEVERE, null, ex);
         }

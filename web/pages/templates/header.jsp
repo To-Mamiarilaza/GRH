@@ -240,7 +240,7 @@
                                     <li class="nav-item"> <a class="nav-link"
                                                              href="pages/ui-features/typography.html">Résultats des tests</a></li>
                                     <li class="nav-item"> <a class="nav-link"
-                                                             href="pages/ui-features/typography.html">Programme d'entretien</a></li>
+                                                             href="EntretientServlet">Programme d'entretien</a></li>
                                     <li class="nav-item"> <a class="nav-link"
                                                              href="pages/ui-features/typography.html">Résultat candidature</a></li>
                                 </ul>

@@ -4,7 +4,6 @@
  */
 package servlet.besoin;
 
-import com.google.gson.Gson;
 import framework.database.utilitaire.GConnection;
 import jakarta.servlet.RequestDispatcher;
 import java.io.IOException;
@@ -17,10 +16,7 @@ import jakarta.servlet.http.HttpSession;
 import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import model.gestionBesoin.Besoin;
-import model.gestionBesoin.Task;
 import model.gestionBesoin.Unity;
 import model.gestionProfile.AdresseNote;
 import model.gestionProfile.BestCritere;
@@ -31,7 +27,6 @@ import model.gestionProfile.SexeNote;
 import model.gestionProfile.WantedProfile;
 import model.requis.Service;
 import model.requis.User;
-import servlet.profil.ListeProfileServlet;
 
 /**
  *
@@ -54,11 +49,6 @@ public class BesoinServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
 
         WantedProfile wp = new WantedProfile();
-        DiplomeNote dn = new DiplomeNote();
-        AdresseNote an = new AdresseNote();
-        SalaireNote san = new SalaireNote();
-        SexeNote sen = new SexeNote();
-        ExperienceNote en = new ExperienceNote();
         HttpSession session = request.getSession();
         session.setAttribute("wantedprofile", wp);
 
@@ -78,25 +68,30 @@ public class BesoinServlet extends HttpServlet {
             request.setAttribute("unitys", unitys);
 
             // Récupérer les indices des profils recherchés
-            List<Integer> lsIndice = wp.getIdWantedProfile(connex);
-            List<String> lsPoste = wp.getPostById(connex);
-            List<DiplomeNote> bestDiplome = dn.findBestDiplome(lsIndice, connex);
-            List<AdresseNote> bestAdresse = an.findBestAdresse(lsIndice, connex);
-            List<SexeNote> bestSexe = sen.findBestSexe(lsIndice, connex);
-            List<ExperienceNote> bestExperience = en.findBestExperience(lsIndice, connex);
-            List<SalaireNote> bestSalaire = san.findBestSalaire(lsIndice, connex);
-            BestCritere bc = new BestCritere(lsIndice, lsPoste, bestDiplome, bestAdresse, bestSexe, bestSalaire, bestExperience);
-            Gson gson = new Gson();
-            String json = gson.toJson(bc);
-            response.setContentType("application/json");
-            response.getWriter().write(json);
+            List<Integer> lsIndice = wp.getIdWantedProfile(null);
+            BestCritere bc = new BestCritere();
+            List<BestCritere> listep = bc.getListeProfile(lsIndice, null);
             
-            connex.close();
+            //pour le css
+              List<String> css = new ArrayList<>();
+            css.add("./assets/css/besoin/besoin-insertion.css");
+            
+            List<String> js = new ArrayList<>();
+            js.add("./assets/js/besoin/besoin-insertion.js");
+            
+            request.setAttribute("title", "insertion besoin");
+            request.setAttribute("contentPage", "./pages/besoin/besoin_insertion.jsp");
+            request.setAttribute("css", css);
+            request.setAttribute("js", js);
+
+            response.getWriter().println(listep.size());
+            request.setAttribute("listeProfile", listep);
+            
         } catch (Exception exe) {
             request.setAttribute("erreur", exe.getMessage());
         }
         // dispatch to target servlet
-        RequestDispatcher dispatch = request.getRequestDispatcher("./pages/besoin/besoin_insertion.jsp");
+        RequestDispatcher dispatch = request.getRequestDispatcher("./template.jsp");
         dispatch.forward(request, response);
 
     }

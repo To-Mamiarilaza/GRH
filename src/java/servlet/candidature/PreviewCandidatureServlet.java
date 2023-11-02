@@ -72,11 +72,15 @@ public class PreviewCandidatureServlet extends HttpServlet {
         can.setPhoto(photoName);
         can.setDossier(dossierName);
 
-        String baseUploadDirectory = "D:\\ITU\\L3\\Gestion_d'entreprise(MrTovo)\\RessourcesHumaines\\web\\uploads\\";
+        String baseUploadDirectory1 = this.getServletContext().getRealPath("/dossier_justificative/");
+        String baseUploadDirectory2 = this.getServletContext().getRealPath("/photo_identity/");
 
-        String uniqueDossierUploadDirectory = baseUploadDirectory + "dossier" + File.separator + dossierName + File.separator;
-        String uniquePhotoUploadDirectory = baseUploadDirectory + "photo" + File.separator + photoName + File.separator;
+        String uniqueDossierUploadDirectory = baseUploadDirectory1 + dossierName + File.separator;
+        String uniquePhotoUploadDirectory = baseUploadDirectory2 + photoName + File.separator;
 
+        System.out.println("up1 : "+uniqueDossierUploadDirectory);
+        System.out.println("up2 : "+uniquePhotoUploadDirectory);
+        
         filePartDossier.write(uniqueDossierUploadDirectory);
         filePartPhoto.write(uniquePhotoUploadDirectory);
 

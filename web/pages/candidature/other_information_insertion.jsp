@@ -34,7 +34,6 @@
                                 </div>
                                 <h4>Autre information pouvant être utile</h4>
                                 <h6 class="font-weight-light little-line-height">Nous aimerons vous connaître un peu plus, alors présentez vous</h6>
-                                <form class="pt-3 form" action="/RessourceHumaine/OtherInformationInsertionServlet">
                                     <div class="row mt-3">
                                         <div class="col-md-6">
                                             <hr>
@@ -123,11 +122,11 @@
                                                 var salaire = document.getElementById("salaire").value;
                                                 var ambitions = document.getElementById("ambitions").value;
                                                 var xhr = new XMLHttpRequest();
-                                                xhr.open("POST", "/RessourceHumaine/OtherInformationInsertionServlet", true);
+                                                xhr.open("POST", "/GRH/OtherInformationInsertionServlet", true);
                                                 xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
                                                 xhr.onload = function () {
                                                     if (xhr.readyState === 4 && xhr.status === 200) {
-                                                        window.location.href = "/RessourceHumaine/PreviewCandidatureServlet";
+                                                        window.location.href = "/GRH/PreviewCandidatureServlet";
                                                     }
                                                 };
                                                 var formData = "salaire=" + encodeURIComponent(salaire) + "&ambitions=" + encodeURIComponent(ambitions) + "&interet=" + encodeURIComponent(interetString);
@@ -138,7 +137,6 @@
                                     </script>
                             </div>
 
-                            </form>
                         </div>
                     </div>
                 </div>

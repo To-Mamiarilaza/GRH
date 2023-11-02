@@ -16,6 +16,7 @@ import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.annotation.WebServlet;
 import java.sql.Connection;
 import java.util.ArrayList;
+import java.util.List;
 import model.gestionBesoin.Besoin;
 import model.gestionBesoin.Task;
 import model.gestionBesoin.WorkLoad;
@@ -29,7 +30,19 @@ public class DetailsBesoinServlet extends HttpServlet {
           PrintWriter out = res.getWriter();
           
           try {
-              Connection conn = GConnection.getSimpleConnection();
+                Connection conn = GConnection.getSimpleConnection();
+              
+              
+                List<String> css = new ArrayList<>();
+                css.add("./assets/css/quiz/quiz_creation.css");
+
+                List<String> js = new ArrayList<>();
+                js.add("./assets/js/quiz/quiz-creation.js");
+
+                req.setAttribute("title", "Detail besoin");
+                req.setAttribute("contentPage", "./pages/besoin/besoin_detail.jsp");
+                req.setAttribute("css", css);
+                req.setAttribute("js", js);
               
                Integer idBesoin = Integer.valueOf(req.getParameter("idBesoin"));
                Besoin besoin = Besoin.getById(conn, idBesoin);
@@ -42,8 +55,9 @@ public class DetailsBesoinServlet extends HttpServlet {
                conn.close();
           } catch (Exception exe) {
                req.setAttribute("erreur", exe.getMessage());
+               exe.printStackTrace();
           }
-          RequestDispatcher dispat = req.getRequestDispatcher("pages/besoin/besoin_detail.jsp");
+          RequestDispatcher dispat = req.getRequestDispatcher("./template.jsp");
           dispat.forward(req, res);
      }
 

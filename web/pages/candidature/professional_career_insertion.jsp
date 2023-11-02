@@ -43,7 +43,7 @@
                                 <h4>Nous allons maintenant entrer votre carriÃ¨re professionel</h4>
                                 <h6 class="font-weight-light little-line-height">Ajouter petit Ã  petit les carriÃ¨res professionels que
                                     vous avez faits ainsi que vos qualifications</h6>
-                                <form class="pt-3 form" method="post" action="/RessourceHumaine/ProfessionalCareerInsertionServlet">
+                                <form class="pt-3 form" method="post" action="/GRH/ProfessionalCareerInsertionServlet">
                                     <div class="form-group row align-items-center">
                                         <label for="experience" class="form-label target-poste col-sm-2">AnnÃ©e d'Ã©xperience</label>
                                         <div class="col-sm-5">
@@ -91,7 +91,7 @@
                                                             event.preventDefault();
                                                             var task = document.getElementById("tache").value;
                                                             var xhr = new XMLHttpRequest();
-                                                            xhr.open("POST", "/RessourceHumaine/ProfessionalCareerInsertionServlet", true);
+                                                            xhr.open("POST", "/GRH/ProfessionalCareerInsertionServlet", true);
                                                             xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 
                                                             var taskCase = document.getElementById("taskCase");
@@ -156,7 +156,7 @@
                                                         var experience = document.getElementById("experience").value;
                                                         var poste = document.getElementById("ancienPoste").value;
                                                         var xhr = new XMLHttpRequest();
-                                                        xhr.open("POST", "/RessourceHumaine/ProfessionalCareerInsertionServlet", true);
+                                                        xhr.open("POST", "/GRH/ProfessionalCareerInsertionServlet", true);
                                                         xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 
                                                         var careerCase = document.getElementById("careerCase");
@@ -228,7 +228,7 @@
                                                 </div>
                                                 <div class="">
                                                     <a class="btn btn-block btn-gradient-primary font-weight-medium auth-form-btn"
-                                                       href="/RessourceHumaine/ProfessionalCareerInsertionServlet?finish">SUIVANT</a>
+                                                       href="/GRH/ProfessionalCareerInsertionServlet?finish">SUIVANT</a>
                                                 </div>
                                             </div>
                                         </div>

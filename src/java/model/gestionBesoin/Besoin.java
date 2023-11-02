@@ -5,7 +5,10 @@
  */
 package model.gestionBesoin;
 
+import framework.database.utilitaire.GConnection;
 import java.sql.Connection;
+import java.sql.Date;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.time.LocalDate;
@@ -103,18 +106,55 @@ public class Besoin extends Model {
     }
 
 ///Fonctions de la classe
-    //Creer un besoin
-    public void create(Connection conn)  throws Exception { 
-        Statement work = conn.createStatement();
-        String req = "INSERT INTO besoin (id_besoin, id_service, creation_date, description, status) VALUES (DEFAULT,"+this.getService().getIdService()+",'"+this.getCreationDate()+"','"+this.getDescription()+"',"+this.getStatus()+")";
-        work.execute(req);
-        conn.setAutoCommit(true);
+    // Enregistre le quiz dans la base de données
+    public void create(Connection connection) throws Exception {
+        String query = "INSERT INTO besoin (id_service, creation_date, description,status) VALUES (?, ?, ?, ?)";
+
+        boolean closeable = false;
+        if (connection == null) {
+            closeable = true;
+            connection = GConnection.getSimpleConnection();
+            connection.setAutoCommit(false);
+        }
+
+        PreparedStatement statement = null;
+        ResultSet resultset = null;
+
+        try {
+            statement = connection.prepareStatement(query);
+            statement.setInt(1, getService().getIdService());
+            statement.setDate(2, Date.valueOf(getCreationDate().toString()));
+            statement.setString(3, getDescription());
+            statement.setInt(4, 1);
+            System.out.println("Query : " + statement.toString());
+            statement.executeUpdate();
+            statement.close();
+
+            if (closeable) {
+                connection.commit();
+                connection.close();
+            }
+
+        } catch (Exception e) {
+            if (resultset != null) {
+                resultset.close();
+            }
+            if (statement != null) {
+                statement.close();
+            }
+            if (connection != null) {
+                connection.rollback();
+                connection.close();
+            }
+            throw e;
+        }
     }
+
     
     //Avoir tous les besoins
     public static ArrayList<Besoin> getBesoinsService(Connection conn, Service service)  throws Exception { 
         Statement work = conn.createStatement();
-        String req = "SELECT * FROM besoin WHERE id_service="+service.getIdService()+" AND status!=0";
+        String req = "SELECT * FROM besoin WHERE id_service="+service.getIdService()+" AND status!=0 ORDER BY id_besoin DESC";
         System.out.println("Req : "+req);
         ResultSet result = work.executeQuery(req);
         ArrayList<Besoin> besoins = new ArrayList<>();
@@ -133,7 +173,7 @@ public class Besoin extends Model {
             status = "1";
         }
         Statement work = conn.createStatement();
-        String req = "SELECT * FROM besoin WHERE status = "+status+ " AND id_service="+service.getIdService();
+        String req = "SELECT * FROM besoin WHERE status = "+status+ " AND id_service="+service.getIdService()+" ORDER BY id_besoin DESC";
         ResultSet result = work.executeQuery(req);
         ArrayList<Besoin> besoins = new ArrayList<>();
         while(result.next()) {

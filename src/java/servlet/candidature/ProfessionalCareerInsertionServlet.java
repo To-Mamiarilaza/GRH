@@ -77,7 +77,7 @@ public class ProfessionalCareerInsertionServlet extends HttpServlet {
             Candidature can = (Candidature) session.getAttribute("candidature");
             can.setProfessionalCareer(pc);
 
-            response.sendRedirect("/RessourceHumaine/FormationPathInsertionServlet");
+            response.sendRedirect("/GRH/FormationPathInsertionServlet");
         }
     }
 

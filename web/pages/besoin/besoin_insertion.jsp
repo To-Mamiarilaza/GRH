@@ -1,4 +1,3 @@
-<!-- <%@ page contentType="text/html; charset=UTF-8" %> -->
 <%@page import="java.util.ArrayList"%>
 <%@page import="model.requis.Service"%>
 <%@page import="model.gestionBesoin.Unity"%>
@@ -8,243 +7,15 @@
 <%@page import=" model.gestionProfile.Salaire "%>
 <%@page import=" model.gestionProfile.Sexe "%>
 <%@page import=" model.gestionProfile.Experience "%>
+<%@page import=" model.gestionProfile.BestCritere "%>
 <%
     List<Diplome> listeDiplome = (List<Diplome>) request.getAttribute("listeDiplome");
     List<Adresse> listeAdresse = (List<Adresse>) request.getAttribute("listeAdresse");
     List<Experience> listeExperience = (List<Experience>) request.getAttribute("listeExperience");
     List<Salaire> listeSalaire = (List<Salaire>) request.getAttribute("listeSalaire");
     List<Sexe> listeSexe = (List<Sexe>) request.getAttribute("listeSexe");
+    List<BestCritere> listeProfile = (List<BestCritere>) request.getAttribute("listeProfile");
 %>
-<!DOCTYPE html>
-<html lang="en">
-
-    <head>
-        <!-- Required meta tags -->
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <title>Insertion des besoins</title>
-
-        <!-- plugins:css -->
-        <link rel="stylesheet" href="./assets/vendors/mdi/css/materialdesignicons.min.css">
-        <link rel="stylesheet" href="./assets/css/besoin/besoin-insertion.css">
-        <link rel="stylesheet" href="./assets/vendors/css/vendor.bundle.base.css">
-        <!-- endinject -->
-        <!-- Plugin css for this page -->
-        <!-- End plugin css for this page -->
-        <!-- inject:css -->
-        <!-- endinject -->
-        <!-- Layout styles -->
-        <link rel="stylesheet" href="./assets/css/style.css">
-        <!-- End layout styles -->
-        <link rel="shortcut icon" href="./assets/images/favicon.ico" />
-    </head>
-
-    <body>
-        <div class="container-scroller">
-            <!-- partial:./partials/_navbar.html -->
-            <nav class="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
-                <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
-                    <a class="d-flex align-items-center d-navbar-brand brand-logo"
-                       style="text-decoration: none; color: #da8cff;" href="./index.html">
-                        <i class="mdi mdi-account-box" style="font-size: 35px;margin-right: 25px;"></i>
-                        <h2 style="margin: 0;">GRH</h2>
-                    </a>
-                    <a class="navbar-brand brand-logo-mini" href="./index.html"><img
-                            src="./assets/images/logo-mini.svg" alt="logo" /></a>
-                </div>
-                <div class="navbar-menu-wrapper d-flex align-items-stretch">
-                    <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
-                        <span class="mdi mdi-menu"></span>
-                    </button>
-                    <div class="search-field d-none d-md-block">
-                        <form class="d-flex align-items-center h-100" action="#">
-                            <div class="input-group">
-                                <div class="input-group-prepend bg-transparent">
-                                    <i class="input-group-text border-0 mdi mdi-magnify"></i>
-                                </div>
-                                <input type="text" class="form-control bg-transparent border-0"
-                                       placeholder="Search projects">
-                            </div>
-                        </form>
-                    </div>
-                    <ul class="navbar-nav navbar-nav-right">
-                        <li class="nav-item nav-profile dropdown">
-                            <a class="nav-link dropdown-toggle" id="profileDropdown" href="#" data-bs-toggle="dropdown"
-                               aria-expanded="false">
-                                <div class="nav-profile-img">
-                                    <img src="./assets/images/faces/face1.jpg" alt="image">
-                                    <span class="availability-status online"></span>
-                                </div>
-                                <div class="nav-profile-text">
-                                    <p class="mb-1 text-black">David Greymaax</p>
-                                </div>
-                            </a>
-                            <div class="dropdown-menu navbar-dropdown" aria-labelledby="profileDropdown">
-                                <a class="dropdown-item" href="#">
-                                    <i class="mdi mdi-cached me-2 text-success"></i> Activity Log </a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#">
-                                    <i class="mdi mdi-logout me-2 text-primary"></i> Signout </a>
-                            </div>
-                        </li>
-                        <li class="nav-item d-none d-lg-block full-screen-link">
-                            <a class="nav-link">
-                                <i class="mdi mdi-fullscreen" id="fullscreen-button"></i>
-                            </a>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link count-indicator dropdown-toggle" id="messageDropdown" href="#"
-                               data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class="mdi mdi-email-outline"></i>
-                                <span class="count-symbol bg-warning"></span>
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list"
-                                 aria-labelledby="messageDropdown">
-                                <h6 class="p-3 mb-0">Messages</h6>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item preview-item">
-                                    <div class="preview-thumbnail">
-                                        <img src="./assets/images/faces/face4.jpg" alt="image" class="profile-pic">
-                                    </div>
-                                    <div
-                                        class="preview-item-content d-flex align-items-start flex-column justify-content-center">
-                                        <h6 class="preview-subject ellipsis mb-1 font-weight-normal">Mark send you a message
-                                        </h6>
-                                        <p class="text-gray mb-0"> 1 Minutes ago </p>
-                                    </div>
-                                </a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item preview-item">
-                                    <div class="preview-thumbnail">
-                                        <img src="./assets/images/faces/face2.jpg" alt="image" class="profile-pic">
-                                    </div>
-                                    <div
-                                        class="preview-item-content d-flex align-items-start flex-column justify-content-center">
-                                        <h6 class="preview-subject ellipsis mb-1 font-weight-normal">Cregh send you a
-                                            message</h6>
-                                        <p class="text-gray mb-0"> 15 Minutes ago </p>
-                                    </div>
-                                </a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item preview-item">
-                                    <div class="preview-thumbnail">
-                                        <img src="./assets/images/faces/face3.jpg" alt="image" class="profile-pic">
-                                    </div>
-                                    <div
-                                        class="preview-item-content d-flex align-items-start flex-column justify-content-center">
-                                        <h6 class="preview-subject ellipsis mb-1 font-weight-normal">Profile picture updated
-                                        </h6>
-                                        <p class="text-gray mb-0"> 18 Minutes ago </p>
-                                    </div>
-                                </a>
-                                <div class="dropdown-divider"></div>
-                                <h6 class="p-3 mb-0 text-center">4 new messages</h6>
-                            </div>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link count-indicator dropdown-toggle" id="notificationDropdown" href="#"
-                               data-bs-toggle="dropdown">
-                                <i class="mdi mdi-bell-outline"></i>
-                                <span class="count-symbol bg-danger"></span>
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list"
-                                 aria-labelledby="notificationDropdown">
-                                <h6 class="p-3 mb-0">Notifications</h6>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item preview-item">
-                                    <div class="preview-thumbnail">
-                                        <div class="preview-icon bg-success">
-                                            <i class="mdi mdi-calendar"></i>
-                                        </div>
-                                    </div>
-                                    <div
-                                        class="preview-item-content d-flex align-items-start flex-column justify-content-center">
-                                        <h6 class="preview-subject font-weight-normal mb-1">Event today</h6>
-                                        <p class="text-gray ellipsis mb-0"> Just a reminder that you have an event today
-                                        </p>
-                                    </div>
-                                </a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item preview-item">
-                                    <div class="preview-thumbnail">
-                                        <div class="preview-icon bg-warning">
-                                            <i class="mdi mdi-settings"></i>
-                                        </div>
-                                    </div>
-                                    <div
-                                        class="preview-item-content d-flex align-items-start flex-column justify-content-center">
-                                        <h6 class="preview-subject font-weight-normal mb-1">Settings</h6>
-                                        <p class="text-gray ellipsis mb-0"> Update dashboard </p>
-                                    </div>
-                                </a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item preview-item">
-                                    <div class="preview-thumbnail">
-                                        <div class="preview-icon bg-info">
-                                            <i class="mdi mdi-link-variant"></i>
-                                        </div>
-                                    </div>
-                                    <div
-                                        class="preview-item-content d-flex align-items-start flex-column justify-content-center">
-                                        <h6 class="preview-subject font-weight-normal mb-1">Launch Admin</h6>
-                                        <p class="text-gray ellipsis mb-0"> New admin wow! </p>
-                                    </div>
-                                </a>
-                                <div class="dropdown-divider"></div>
-                                <h6 class="p-3 mb-0 text-center">See all notifications</h6>
-                            </div>
-                        </li>
-                        <li class="nav-item nav-logout d-none d-lg-block">
-                            <a class="nav-link" href="#">
-                                <i class="mdi mdi-power"></i>
-                            </a>
-                        </li>
-                        <li class="nav-item nav-settings d-none d-lg-block">
-                            <a class="nav-link" href="#">
-                                <i class="mdi mdi-format-line-spacing"></i>
-                            </a>
-                        </li>
-                    </ul>
-                    <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button"
-                            data-toggle="offcanvas">
-                        <span class="mdi mdi-menu"></span>
-                    </button>
-                </div>
-            </nav>
-            <!-- partial -->
-            <div class="container-fluid page-body-wrapper">
-                <!-- partial:./partials/_sidebar.html -->
-                <nav class="sidebar sidebar-offcanvas" id="sidebar">
-                    <ul class="nav">
-                        <li class="nav-item nav-profile">
-                            <a href="#" class="nav-link">
-                                <div class="nav-profile-image">
-                                    <img src="./assets/images/faces/face1.jpg" alt="profile">
-                                    <span class="login-status online"></span>
-                                    <!--change to offline or busy as needed-->
-                                </div>
-                                <div class="nav-profile-text d-flex flex-column">
-                                    <span class="font-weight-bold mb-2">David Grey. H</span>
-                                    <span class="text-secondary text-small">Project Manager</span>
-                                </div>
-                                <i class="mdi mdi-bookmark-check text-success nav-profile-badge"></i>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="./index.html">
-                                <span class="menu-title">Dashboard</span>
-                                <i class="mdi mdi-home menu-icon"></i>
-                            </a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link" href="./pages/icons/mdi.html">
-                                <span class="menu-title">Recrutements</span>
-                                <i class="mdi mdi-contacts menu-icon"></i>
-                            </a>
-                        </li>
-                    </ul>
-                </nav>
 
                 <!-- Modal pour l'insertion d'un nouveau profil -->
                 <div class="modal fade" id="newProfil" tabindex="-1" aria-labelledby="newProfilLabel" aria-hidden="true">
@@ -256,7 +27,7 @@
                                 <hr>
                             </div>
 
-                            <form class="forms-sample" method="get" action="/RessourceHumaine/AjaxProfileServlet">
+                            <form class="forms-sample" method="get" action="/GRH/AjaxProfileServlet">
                                 <div class="form-group row">
                                     <label for="profileName" class="col-sm-2 col-form-label"> Poste </label>
                                     <div class="col-sm-5">
@@ -306,7 +77,7 @@
                                                 var diplomeNote = document.getElementById("diplomeNote").value;
                                                 var diplomeCase = document.getElementById("diplomeCase");
                                                 var xhr = new XMLHttpRequest();
-                                                xhr.open("POST", "/RessourceHumaine/AjaxProfileServlet", true);
+                                                xhr.open("POST", "/GRH/AjaxProfileServlet", true);
                                                 xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
                                                 xhr.onload = function () {
                                                     if (xhr.status === 200) {
@@ -327,7 +98,7 @@
                                                             (function (ListeIdWp) {
                                                                 dele.onclick = function () {
                                                                     var xhr = new XMLHttpRequest();
-                                                                    xhr.open("GET", "/RessourceHumaine/DeleteProfileServlet?idDiplome=" + ListeIdWp, true);
+                                                                    xhr.open("GET", "/GRH/DeleteProfileServlet?idDiplome=" + ListeIdWp, true);
                                                                     xhr.onreadystatechange = function () {
                                                                         if (xhr.readyState === 4) {
                                                                             if (xhr.status === 200) {
@@ -346,10 +117,10 @@
                                                             diplomeCase.appendChild(paragraphe3);
                                                         }
                                                     } else {
-                                                        alert("Erreur lors de la requÃªte : " + xhr.status);
+                                                        alert("Erreur lors de la requête : " + xhr.status);
                                                     }
                                                 };
-                                                // Envoyez les donnÃ©es au Servlet
+                                                // Envoyez les données au Servlet
                                                 var formData = "diplome=" + encodeURIComponent(diplome) + "&diplomenote=" + encodeURIComponent(diplomeNote);
                                                 xhr.send(formData);
                                                 return false;
@@ -395,7 +166,7 @@
                                                 var diplomeNote = document.getElementById("experienceNote").value;
                                                 var diplomeCase = document.getElementById("experienceCase");
                                                 var xhr = new XMLHttpRequest();
-                                                xhr.open("POST", "/RessourceHumaine/AjaxProfileServlet", true);
+                                                xhr.open("POST", "/GRH/AjaxProfileServlet", true);
                                                 xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
                                                 xhr.onload = function () {
                                                     if (xhr.status === 200) {
@@ -416,7 +187,7 @@
                                                             (function (ListeIdWp) {
                                                                 dele.onclick = function () {
                                                                     var xhr = new XMLHttpRequest();
-                                                                    xhr.open("GET", "/RessourceHumaine/DeleteProfileServlet?idExperience=" + ListeIdWp, true);
+                                                                    xhr.open("GET", "/GRH/DeleteProfileServlet?idExperience=" + ListeIdWp, true);
                                                                     xhr.onreadystatechange = function () {
                                                                         if (xhr.readyState === 4) {
                                                                             if (xhr.status === 200) {
@@ -435,10 +206,10 @@
                                                             diplomeCase.appendChild(paragraphe3);
                                                         }
                                                     } else {
-                                                        alert("Erreur lors de la requÃªte : " + xhr.status);
+                                                        alert("Erreur lors de la requête : " + xhr.status);
                                                     }
                                                 };
-                                                // Envoyez les donnÃ©es au Servlet
+                                                // Envoyez les données au Servlet
                                                 var formData = "experience=" + encodeURIComponent(diplome) + "&experiencenote=" + encodeURIComponent(diplomeNote);
                                                 xhr.send(formData);
                                                 return false;
@@ -484,7 +255,7 @@
                                                 var diplomeNote = document.getElementById("salaireNote").value;
                                                 var diplomeCase = document.getElementById("salaireCase");
                                                 var xhr = new XMLHttpRequest();
-                                                xhr.open("POST", "/RessourceHumaine/AjaxProfileServlet", true);
+                                                xhr.open("POST", "/GRH/AjaxProfileServlet", true);
                                                 xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
                                                 xhr.onload = function () {
                                                     if (xhr.status === 200) {
@@ -505,7 +276,7 @@
                                                             (function (ListeIdWp) {
                                                                 dele.onclick = function () {
                                                                     var xhr = new XMLHttpRequest();
-                                                                    xhr.open("GET", "/RessourceHumaine/DeleteProfileServlet?idSalaire=" + ListeIdWp, true);
+                                                                    xhr.open("GET", "/GRH/DeleteProfileServlet?idSalaire=" + ListeIdWp, true);
                                                                     xhr.onreadystatechange = function () {
                                                                         if (xhr.readyState === 4) {
                                                                             if (xhr.status === 200) {
@@ -524,10 +295,10 @@
                                                             diplomeCase.appendChild(paragraphe3);
                                                         }
                                                     } else {
-                                                        alert("Erreur lors de la requÃªte : " + xhr.status);
+                                                        alert("Erreur lors de la requête : " + xhr.status);
                                                     }
                                                 };
-                                                // Envoyez les donnÃ©es au Servlet
+                                                // Envoyez les données au Servlet
                                                 var formData = "salaire=" + encodeURIComponent(diplome) + "&salairenote=" + encodeURIComponent(diplomeNote);
                                                 xhr.send(formData);
                                                 return false;
@@ -573,7 +344,7 @@
                                                 var diplomeNote = document.getElementById("sexeNote").value;
                                                 var diplomeCase = document.getElementById("sexeCase");
                                                 var xhr = new XMLHttpRequest();
-                                                xhr.open("POST", "/RessourceHumaine/AjaxProfileServlet", true);
+                                                xhr.open("POST", "/GRH/AjaxProfileServlet", true);
                                                 xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
                                                 xhr.onload = function () {
                                                     if (xhr.status === 200) {
@@ -594,7 +365,7 @@
                                                             (function (ListeIdWp) {
                                                                 dele.onclick = function () {
                                                                     var xhr = new XMLHttpRequest();
-                                                                    xhr.open("GET", "/RessourceHumaine/DeleteProfileServlet?idSexe=" + ListeIdWp, true);
+                                                                    xhr.open("GET", "/GRH/DeleteProfileServlet?idSexe=" + ListeIdWp, true);
                                                                     xhr.onreadystatechange = function () {
                                                                         if (xhr.readyState === 4) {
                                                                             if (xhr.status === 200) {
@@ -613,10 +384,10 @@
                                                             diplomeCase.appendChild(paragraphe3);
                                                         }
                                                     } else {
-                                                        alert("Erreur lors de la requÃªte : " + xhr.status);
+                                                        alert("Erreur lors de la requête : " + xhr.status);
                                                     }
                                                 };
-                                                // Envoyez les donnÃ©es au Servlet
+                                                // Envoyez les données au Servlet
                                                 var formData = "sexe=" + encodeURIComponent(diplome) + "&sexenote=" + encodeURIComponent(diplomeNote);
                                                 xhr.send(formData);
                                                 return false;
@@ -662,7 +433,7 @@
                                                 var diplomeNote = document.getElementById("adresseNote").value;
                                                 var diplomeCase = document.getElementById("adresseCase");
                                                 var xhr = new XMLHttpRequest();
-                                                xhr.open("POST", "/RessourceHumaine/AjaxProfileServlet", true);
+                                                xhr.open("POST", "/GRH/AjaxProfileServlet", true);
                                                 xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
                                                 xhr.onload = function () {
                                                     if (xhr.status === 200) {
@@ -683,7 +454,7 @@
                                                             (function (ListeIdWp) {
                                                                 dele.onclick = function () {
                                                                     var xhr = new XMLHttpRequest();
-                                                                    xhr.open("GET", "/RessourceHumaine/DeleteProfileServlet?idAdresse=" + ListeIdWp, true);
+                                                                    xhr.open("GET", "/GRH/DeleteProfileServlet?idAdresse=" + ListeIdWp, true);
                                                                     xhr.onreadystatechange = function () {
                                                                         if (xhr.readyState === 4) {
                                                                             if (xhr.status === 200) {
@@ -702,10 +473,10 @@
                                                             diplomeCase.appendChild(paragraphe3);
                                                         }
                                                     } else {
-                                                        alert("Erreur lors de la requÃªte : " + xhr.status);
+                                                        alert("Erreur lors de la requête : " + xhr.status);
                                                     }
                                                 };
-                                                // Envoyez les donnÃ©es au Servlet
+                                                // Envoyez les données au Servlet
                                                 var formData = "adresse=" + encodeURIComponent(diplome) + "&adressenote=" + encodeURIComponent(diplomeNote);
                                                 xhr.send(formData);
                                                 return false;
@@ -735,18 +506,37 @@
                             </div>
                             <div class="modal-body">
                                 <button type="submit" class="btn btn-gradient-primary me-2" data-bs-toggle="modal" id="nouveauProfile"
-                                        data-bs-target="#newProfil">CrÃ©e un nouveau profile</button>
+                                        data-bs-target="#newProfil">Crée un nouveau profile</button>
 
                                 <div class="mt-4">
                                     <h4 class="card-title mb-4">Liste des anciens profiles existants</h4>
                                     <div class="row profile-list" id="profile-list">
+                                        <% for(int i = 0; i<listeProfile.size(); i++) { %>
+                                        <div class="col-md-3 stretch-card grid-margin">
+                                            <div class="card ">
+                                                <div class="profile-card" onclick="clicked(<%= listeProfile.get(i).getListeWantedProfile().get(i).getIdWantedProfile() %>, this)">
+                                                    <div class="remove-floating">
+                                                        <a href="/GRH/DeleteProfileServlet?indice=<%= listeProfile.get(i).getListeWantedProfile().get(i).getIdWantedProfile() %>"><i class="remove mdi mdi-close-circle-outline"></i></a>
+                                                    </div>
+                                                    <h5 class="profile-title"> <%= listeProfile.get(i).getListeWantedProfile().get(i).getPoste() %></h5>
+                                                    <ul>
+                                                        <li class="profile-diplome"> <%= listeProfile.get(i).getListeDiplomeNote().get(i).getDiplome().getDiplome() %> </li>
+                                                        <li class="profile-experience"> <%= listeProfile.get(i).getListeExperienceNote().get(i).getExperience().getExperience() %> </li>
+                                                        <li class="profile-salary"><%= listeProfile.get(i).getListeSalaireNote().get(i).getSalaire().getSalaire() %> Ar</li>
+                                                        <li class="profile-sexe"> <%= listeProfile.get(i).getListeSexeNote().get(i).getSexe().getSexe() %> </li>
+                                                        <li class="profile-adress"> <%= listeProfile.get(i).getListeAdresseNote().get(i).getAdresse().getAdresse() %> </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <% } %>
                                     </div>
                                 </div>
 
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                <button onclick="profileValided()" type="button" class="btn btn-gradient-primary">Valider</button>
+                                <button onclick="profileValided()" type="button" class="btn btn-gradient-primary" data-bs-dismiss="modal">Valider</button>
                             </div>
                         </div>
                     </div>
@@ -757,15 +547,12 @@
                     ArrayList<Unity> unitys = (ArrayList<Unity>)request.getAttribute("unitys");
                 %>
 
-                <!-- partial -->
-                <div class="main-panel">
-                    <div class="content-wrapper">
                         <div class="row">
                             <div class="col-md-6 grid-margin stretch-card">
                                 <div class="card">
                                     <div class="card-body">
                                         <h4 class="card-title">Service : <%=service.getService() %></h4>
-                                        <p class="card-description"> Veuillez bien remplir les formulaires et bien dÃ©crire
+                                        <p class="card-description"> Veuillez bien remplir les formulaires et bien décrire
                                             vos demandes </p>
                                         <form id="formTask" class="forms-sample" method="post" accept-charset="UTF-8">
                                             <div class="form-group">
@@ -802,10 +589,10 @@
                             <div class="col-md-6 grid-margin stretch-card">
                                 <div class="card">
                                     <div class="card-body">
-                                        <h4 class="">Charge de travail et profil recherchÃ©</h4>
-                                        <button data-bs-toggle="modal" data-bs-target="#exampleModal"
-                                                class="btn btn-gradient-primary me-1" id="profileModal">Choisir le
-                                            profil</button>
+                                        <h4 class="">Charge de travail et profil recherché</h4>
+                                        <a data-bs-toggle="modal" data-bs-target="#exampleModal"
+                                           class="btn btn-gradient-primary me-1" href="ListeProfileServlet">Choisir le
+                                            profil</a>
                                         <form id="formWorkLoad" class="forms-sample mt-3" action="addBesoinServlet" method="post"> 
                                             <div class="row d-flex align-items-start">
                                                 <div class="form-group col-md-4">
@@ -814,7 +601,7 @@
                                                            placeholder="40">
                                                 </div>
                                                 <div class="form-group col-md-4">
-                                                    <label for="unitySelect">UnitÃ©</label>
+                                                    <label for="unitySelect">Unité</label>
                                                     <select name="" id="unitySelect" class="form-control-sm form-select">
                                                         <% for(int i = 0; i < unitys.size(); i++) { %>
                                                         <option value=<%=unitys.get(i).getIdUnity() %>><%=unitys.get(i).getUnity() %></option>
@@ -822,7 +609,7 @@
                                                     </select>
                                                 </div>
                                                 <div class="form-group col-md-4">
-                                                    <label for="unitySelect">UnitÃ©</label>
+                                                    <label for="unitySelect">Unité</label>
                                                     <button
                                                         class="btn btn-gradient-primary me-2">Ajouter</button>
                                                 </div>
@@ -843,175 +630,49 @@
 
                         </div>
 
-
-                    </div>
-                    <!-- content-wrapper ends -->
-                    <!-- partial:/partials/_footer.html -->
-                    <footer class="footer">
-                        <div class="container-fluid d-flex justify-content-between">
-                            <span class="text-muted d-block text-center text-sm-start d-sm-inline-block">Copyright ï¿½
-                                bootstrapdash.com 2021</span>
-                            <span class="float-none float-sm-end mt-1 mt-sm-0 text-end"> Free <a
-                                    href="https://www.bootstrapdash.com/bootstrap-admin-template/" target="_blank">Bootstrap
-                                    admin template</a> from Bootstrapdash.com</span>
-                        </div>
-                    </footer>
-                    <!-- partial -->
-                </div>
                 <% } %>
-                <!-- main-panel ends -->
-            </div>
-            <!-- partial -->
-
-            <!-- container-scroller -->
-            <!-- plugins:js -->
-            <script src="./assets/vendors/js/vendor.bundle.base.js"></script>
-            <!-- endinject -->
-            <!-- Plugin js for this page -->
-            <!-- End plugin js for this page -->
-            <!-- inject:js -->
+           
             <script>
                                             document.addEventListener("DOMContentLoaded", function () {
-                                                var boutonOuvrirModal = document.getElementById("profileModal");
-                                                var profilListe = document.getElementById("profile-list");
-                                                var stopIndice = 0;
-                                                boutonOuvrirModal.addEventListener("click", function () {
-                                                    var xhr = new XMLHttpRequest();
-                                                    xhr.open("GET", "/RessourceHumaine/ListeProfileServlet", true);
-                                                    xhr.setRequestHeader("Content-Type", "application/json");
-                                                    xhr.onload = function () {
-                                                        if (xhr.readyState === 4 && xhr.status === 200) {
-
-                                                            var jsonResponse = JSON.parse(xhr.responseText);
-                                                            var ListeIdWp = jsonResponse.listeIdWp;
-                                                            var ListePoste = jsonResponse.listePost;
-                                                            var BestDiplomeNote = jsonResponse.listeDiplomeNote;
-                                                            var BestAdresseNote = jsonResponse.listeAdresseNote;
-                                                            var BestSexeNote = jsonResponse.listeSexeNote;
-                                                            var BestExperienceNote = jsonResponse.listeExperienceNote;
-                                                            var BestSalaireNote = jsonResponse.listeSalaireNote;
-                                                                if (stopIndice === 0) {
-                                                                    console.log(BestDiplomeNote.length);
-                                                                for (var i = 0; i < BestDiplomeNote.length; i++) {
-                                                                    var profileCard = document.createElement("div");
-                                                                    var id = ListeIdWp[i];
-                                                                    console.log("id : "+id);
-                                                                    profileCard.setAttribute("onclick", "clicked("+id+")");
-                                                                    profileCard.classList.add("profile-card");
-                                                                    var removeFloating = document.createElement("div");
-                                                                    removeFloating.classList.add("remove-floating");
-                                                                    var removeIcon = document.createElement("i");
-                                                                    removeIcon.classList.add("remove", "mdi", "mdi-close-circle-outline");
-                                                                    (function (ListeIdWp) {
-                                                                        removeIcon.onclick = function () {
-                                                                            var xhr = new XMLHttpRequest();
-                                                                            xhr.open("GET", "/RessourceHumaine/DeleteProfileServlet?indice=" + ListeIdWp, true);
-                                                                            xhr.onreadystatechange = function () {
-                                                                                if (xhr.readyState === 4) {
-                                                                                    if (xhr.status === 200) {
-                                                                                        window.location.reload();
-                                                                                    } else {
-                                                                                        alert("Erreur !");
-                                                                                    }
-                                                                                }
-                                                                            };
-                                                                            xhr.send();
-                                                                        };
-                                                                    })(ListeIdWp[i]); // i est capturÃ© comme indice ici
-
-                                                                    var profileTitle = document.createElement("h5");
-                                                                    profileTitle.classList.add("profile-title");
-                                                                    profileTitle.textContent = ListePoste[i];
-                                                                    var ul = document.createElement("ul");
-                                                                    var profileDiplome = document.createElement("li");
-                                                                    profileDiplome.classList.add("profile-diplome");
-                                                                    profileDiplome.textContent = BestDiplomeNote[i].diplome.diplome;
-                                                                    ul.appendChild(profileDiplome);
-                                                                    var profileAdresse = document.createElement("li");
-                                                                    profileAdresse.classList.add("profile-adress");
-                                                                    profileAdresse.textContent = BestAdresseNote[i].adresse.adresse;
-                                                                    ul.appendChild(profileAdresse);
-                                                                    var profileSexe = document.createElement("li");
-                                                                    profileSexe.classList.add("profile-sexe");
-                                                                    profileSexe.textContent = BestSexeNote[i].sexe.sexe;
-                                                                    ul.appendChild(profileSexe);
-                                                                    var profileExperience = document.createElement("li");
-                                                                    profileExperience.classList.add("profile-experience");
-                                                                    profileExperience.textContent = BestExperienceNote[i].experience.experience;
-                                                                    ul.appendChild(profileExperience);
-                                                                    var profileSalary = document.createElement("li");
-                                                                    profileSalary.classList.add("profile-salary");
-                                                                    profileSalary.textContent = BestSalaireNote[i].salaire.salaire.toLocaleString('fr-FR') + " Ar";
-                                                                    ul.appendChild(profileSalary);
-                                                                    removeFloating.appendChild(removeIcon);
-                                                                    profileCard.appendChild(removeFloating);
-                                                                    profileCard.appendChild(profileTitle);
-                                                                    profileCard.appendChild(ul);
-                                                                    var donneeCard = document.createElement("div");
-                                                                    donneeCard.classList.add("card");
-                                                                    donneeCard.appendChild(profileCard);
-                                                                    var profileLayout = document.createElement("div");
-                                                                    profileLayout.classList.add("col-md-3");
-                                                                    profileLayout.classList.add("stretch-card");
-                                                                    profileLayout.classList.add("grid-margin");
-                                                                    profileLayout.appendChild(profileCard);
-                                                                    profilListe.appendChild(profileLayout);
-                                                                    stopIndice = stopIndice + 1;
-                                                                }
-                                                            }
-
-                                                        } else {
-                                                            alert("Une erreur s'est produite lors de la rÃ©cupÃ©ration des donnÃ©es.");
+                                                var xhr = new XMLHttpRequest();
+                                                // Configurez la requête AJAX
+                                                xhr.open("GET", "/GRH/ProfileServlet", true);
+                                                xhr.setRequestHeader("Content-Type", "application/json");
+                                                xhr.onload = function () {
+                                                    if (xhr.readyState === 4 && xhr.status === 200) {
+                                                        var responseData = JSON.parse(xhr.responseText);
+                                                        var listeDiplome = responseData.listeDiplome;
+                                                        var selectDiplome = document.getElementById("diplomeChoice");
+                                                        // Parcourez la liste des diplômes et ajoutez-les au select
+                                                        for (var i = 0; i < listeDiplome.length; i++) {
+                                                            var diplome = listeDiplome[i].diplome;
+                                                            var option = document.createElement("option");
+                                                            option.value = diplome;
+                                                            option.textContent = diplome;
+                                                            selectDiplome.appendChild(option);
                                                         }
-                                                    };
-                                                    // Envoyez la requÃªte AJAX
-                                                    xhr.send();
-                                                });
+                                                    } else {
+                                                        alert("Une erreur s'est produite lors de la récupération des données.");
+                                                    }
+                                                };
+                                                // Envoyez la requête AJAX
+                                                xhr.send();
                                             });
             </script>
 
-            <!-- script pour ajouter les donnÃ©es du diplomes -->
+            <!-- script pour ajouter les données du adresse -->
             <script>
                 document.addEventListener("DOMContentLoaded", function () {
                     var xhr = new XMLHttpRequest();
-                    // Configurez la requÃªte AJAX
-                    xhr.open("GET", "/RessourceHumaine/ProfileServlet", true);
-                    xhr.setRequestHeader("Content-Type", "application/json");
-                    xhr.onload = function () {
-                        if (xhr.readyState === 4 && xhr.status === 200) {
-                            var responseData = JSON.parse(xhr.responseText);
-                            var listeDiplome = responseData.listeDiplome;
-                            var selectDiplome = document.getElementById("diplomeChoice");
-                            // Parcourez la liste des diplÃ´mes et ajoutez-les au select
-                            for (var i = 0; i < listeDiplome.length; i++) {
-                                var diplome = listeDiplome[i].diplome;
-                                var option = document.createElement("option");
-                                option.value = diplome;
-                                option.textContent = diplome;
-                                selectDiplome.appendChild(option);
-                            }
-                        } else {
-                            alert("Une erreur s'est produite lors de la rÃ©cupÃ©ration des donnÃ©es.");
-                        }
-                    };
-                    // Envoyez la requÃªte AJAX
-                    xhr.send();
-                });
-            </script>
-
-            <!-- script pour ajouter les donnÃ©es du adresse -->
-            <script>
-                document.addEventListener("DOMContentLoaded", function () {
-                    var xhr = new XMLHttpRequest();
-                    // Configurez la requÃªte AJAX
-                    xhr.open("GET", "/RessourceHumaine/ProfileServlet", true);
+                    // Configurez la requête AJAX
+                    xhr.open("GET", "/GRH/ProfileServlet", true);
                     xhr.setRequestHeader("Content-Type", "application/json");
                     xhr.onload = function () {
                         if (xhr.readyState === 4 && xhr.status === 200) {
                             var responseData = JSON.parse(xhr.responseText);
                             var listeAdresse = responseData.listeAdresse;
                             var selectAdresse = document.getElementById("adresseChoice");
-                            // Parcourez la liste des diplÃ´mes et ajoutez-les au select
+                            // Parcourez la liste des diplômes et ajoutez-les au select
                             for (var i = 0; i < listeAdresse.length; i++) {
                                 var adresse = listeAdresse[i].adresse;
                                 var option = document.createElement("option");
@@ -1020,28 +681,28 @@
                                 selectAdresse.appendChild(option);
                             }
                         } else {
-                            alert("Une erreur s'est produite lors de la rÃ©cupÃ©ration des donnÃ©es.");
+                            alert("Une erreur s'est produite lors de la récupération des données.");
                         }
                     };
-                    // Envoyez la requÃªte AJAX
+                    // Envoyez la requête AJAX
                     xhr.send();
                 });
             </script>
 
 
-            <!-- script pour ajouter les donnÃ©es du experience -->
+            <!-- script pour ajouter les données du experience -->
             <script>
                 document.addEventListener("DOMContentLoaded", function () {
                     var xhr = new XMLHttpRequest();
-                    // Configurez la requÃªte AJAX
-                    xhr.open("GET", "/RessourceHumaine/ProfileServlet", true);
+                    // Configurez la requête AJAX
+                    xhr.open("GET", "/GRH/ProfileServlet", true);
                     xhr.setRequestHeader("Content-Type", "application/json");
                     xhr.onload = function () {
                         if (xhr.readyState === 4 && xhr.status === 200) {
                             var responseData = JSON.parse(xhr.responseText);
                             var listeExperience = responseData.listeExperience;
                             var selectExperience = document.getElementById("experienceChoice");
-                            // Parcourez la liste des diplÃ´mes et ajoutez-les au select
+                            // Parcourez la liste des diplômes et ajoutez-les au select
                             for (var i = 0; i < listeExperience.length; i++) {
                                 var experience = listeExperience[i].experience;
                                 var option = document.createElement("option");
@@ -1050,27 +711,27 @@
                                 selectExperience.appendChild(option);
                             }
                         } else {
-                            alert("Une erreur s'est produite lors de la rÃ©cupÃ©ration des donnÃ©es.");
+                            alert("Une erreur s'est produite lors de la récupération des données.");
                         }
                     };
-                    // Envoyez la requÃªte AJAX
+                    // Envoyez la requête AJAX
                     xhr.send();
                 });
             </script>
 
-            <!-- script pour ajouter les donnÃ©es du salaire -->
+            <!-- script pour ajouter les données du salaire -->
             <script>
                 document.addEventListener("DOMContentLoaded", function () {
                     var xhr = new XMLHttpRequest();
-                    // Configurez la requÃªte AJAX
-                    xhr.open("GET", "/RessourceHumaine/ProfileServlet", true);
+                    // Configurez la requête AJAX
+                    xhr.open("GET", "/GRH/ProfileServlet", true);
                     xhr.setRequestHeader("Content-Type", "application/json");
                     xhr.onload = function () {
                         if (xhr.readyState === 4 && xhr.status === 200) {
                             var responseData = JSON.parse(xhr.responseText);
                             var listeSalaire = responseData.listeSalaire;
                             var selectSalaire = document.getElementById("salaireChoice");
-                            // Parcourez la liste des diplÃ´mes et ajoutez-les au select
+                            // Parcourez la liste des diplômes et ajoutez-les au select
                             for (var i = 0; i < listeSalaire.length; i++) {
                                 var salaire = listeSalaire[i].salaire;
                                 var option = document.createElement("option");
@@ -1079,27 +740,27 @@
                                 selectSalaire.appendChild(option);
                             }
                         } else {
-                            alert("Une erreur s'est produite lors de la rÃ©cupÃ©ration des donnÃ©es.");
+                            alert("Une erreur s'est produite lors de la récupération des données.");
                         }
                     };
-                    // Envoyez la requÃªte AJAX
+                    // Envoyez la requête AJAX
                     xhr.send();
                 });
             </script>
 
-            <!-- script pour ajouter les donnÃ©es du sexe -->
+            <!-- script pour ajouter les données du sexe -->
             <script>
                 document.addEventListener("DOMContentLoaded", function () {
                     var xhr = new XMLHttpRequest();
-                    // Configurez la requÃªte AJAX
-                    xhr.open("GET", "/RessourceHumaine/ProfileServlet", true);
+                    // Configurez la requête AJAX
+                    xhr.open("GET", "/GRH/ProfileServlet", true);
                     xhr.setRequestHeader("Content-Type", "application/json");
                     xhr.onload = function () {
                         if (xhr.readyState === 4 && xhr.status === 200) {
                             var responseData = JSON.parse(xhr.responseText);
                             var listeSexe = responseData.listeSexe;
                             var selectSexe = document.getElementById("sexeChoice");
-                            // Parcourez la liste des diplÃ´mes et ajoutez-les au select
+                            // Parcourez la liste des diplômes et ajoutez-les au select
                             for (var i = 0; i < listeSexe.length; i++) {
                                 var sexe = listeSexe[i].sexe;
                                 var option = document.createElement("option");
@@ -1108,10 +769,10 @@
                                 selectSexe.appendChild(option);
                             }
                         } else {
-                            alert("Une erreur s'est produite lors de la rÃ©cupÃ©ration des donnÃ©es.");
+                            alert("Une erreur s'est produite lors de la récupération des données.");
                         }
                     };
-                    // Envoyez la requÃªte AJAX
+                    // Envoyez la requête AJAX
                     xhr.send();
                 });
             </script>
@@ -1121,7 +782,7 @@
                 var tableWorkLoad = document.getElementById("tableWorkLoad");
 
                 function remove(logo) {
-                    // RÃ©cupÃ©rer l'Ã©lÃ©ment parent (li) du bouton cliquÃ© et le supprimer
+                    // Récupérer l'élément parent (li) du bouton cliqué et le supprimer
                     var parentElement = logo.parentNode;
                     parentElement.parentNode.removeChild(parentElement);
                     var itemValue = parentElement.childNodes[0].textContent;
@@ -1133,8 +794,8 @@
                     xhr.onreadystatechange = function () {
                         if (xhr.readyState === XMLHttpRequest.DONE) {
                             if (xhr.status === 200) {
-                                // Traitement de la rÃ©ponse si nÃ©cessaire
-                                console.log('RÃ©ponse du serveur : ' + xhr.responseText);
+                                // Traitement de la réponse si nécessaire
+                                console.log('Réponse du serveur : ' + xhr.responseText);
                             } else {
                                 console.error('Une erreur s\'est produite : ' + xhr.status);
                             }
@@ -1145,8 +806,13 @@
                 }
                 ;
 
-                function clicked(id) {
+                function clicked(id, item) {
                     idClicked = id;
+                    var profileDiv = document.getElementsByClassName("profile-card");
+                    for(var i = 0; i < profileDiv.length; i++) {
+                        profileDiv[i].style.backgroundColor = "white";
+                    }
+                    item.style.backgroundColor = "rgba(153, 85, 255, 0.5764705882)";
                 }
                 ;
 
@@ -1160,18 +826,18 @@
                     xhr.onreadystatechange = function () {
                         if (xhr.readyState === XMLHttpRequest.DONE) {
                             if (xhr.status === 200) {
-                                // Traitement de la rÃ©ponse si nÃ©cessaire
-                                console.log('RÃ©ponse du serveur : ' + xhr.responseText);
+                                // Traitement de la réponse si nécessaire
+                                console.log('Réponse du serveur : ' + xhr.responseText);
                             } else {
                                 console.error('Une erreur s\'est produite : ' + xhr.status);
                             }
                         }
                     };
 
-                    // CrÃ©ez une chaÃ®ne de requÃªte avec la valeur Ã  envoyer
+                    // Créez une chaîne de requête avec la valeur à envoyer
                     var formData = 'idValue=' + encodeURIComponent(idValue);
 
-                    // Envoyez la requÃªte
+                    // Envoyez la requête
                     xhr.send(formData);
                 }
                 ;
@@ -1251,8 +917,8 @@
                     xhr.onreadystatechange = function () {
                         if (xhr.readyState === XMLHttpRequest.DONE) {
                             if (xhr.status === 200) {
-                                // Traitement de la rÃ©ponse si nÃ©cessaire
-                                console.log('RÃ©ponse du serveur : ' + xhr.responseText);
+                                // Traitement de la réponse si nécessaire
+                                console.log('Réponse du serveur : ' + xhr.responseText);
                             } else {
                                 console.error('Une erreur s\'est produite : ' + xhr.status);
                             }
@@ -1263,7 +929,7 @@
 
                 }
 
-                // Fonction pour ajouter une tÃ¢che de travail
+                // Fonction pour ajouter une tâche de travail
                 function addWorkLoad() {
                     var volumeHorraire = document.getElementById("volumeHorraire").value;
                     var unitySelect = document.getElementById("unitySelect").value;
@@ -1284,16 +950,16 @@
                         }
                     };
 
-                    // CrÃ©ez une chaÃ®ne de requÃªte avec les donnÃ©es du formulaire
+                    // Créez une chaîne de requête avec les données du formulaire
                     var formData = 'volumeHorraire=' + encodeURIComponent(volumeHorraire) + '&unitySelect=' + encodeURIComponent(unitySelect);
 
-                    // Envoyez la requÃªte
+                    // Envoyez la requête
                     xhr.send(formData);
                 }
 
-                // Ajoutez un gestionnaire d'Ã©vÃ©nements au formulaire
+                // Ajoutez un gestionnaire d'événements au formulaire
                 document.getElementById('formWorkLoad').addEventListener('submit', function (event) {
-                    event.preventDefault();  // EmpÃªche le rechargement de la page
+                    event.preventDefault();  // Empêche le rechargement de la page
                     addWorkLoad();
                 });
 
@@ -1306,17 +972,17 @@
                     xhr.onreadystatechange = function () {
                         if (xhr.readyState === XMLHttpRequest.DONE) {
                             if (xhr.status === 200) {
-
+                                window.location.href = "listBesoins";
                             } else {
                                 console.error('Une erreur s\'est produite : ' + xhr.status);
                             }
                         }
                     };
 
-                    // CrÃ©ez une chaÃ®ne de requÃªte avec les donnÃ©es du formulaire
+                    // Créez une chaîne de requête avec les données du formulaire
                     var formData = 'descri=' + encodeURIComponent(descri);
 
-                    // Envoyez la requÃªte
+                    // Envoyez la requête
                     xhr.send(formData);
 
                 }
@@ -1324,7 +990,7 @@
 
                 //Ajouter une tache
                 document.getElementById('formTask').addEventListener('submit', function (event) {
-                    event.preventDefault();  // EmpÃªche le rechargement de la page
+                    event.preventDefault();  // Empêche le rechargement de la page
 
                     var task = document.getElementById('task').value;
 
@@ -1335,27 +1001,18 @@
                         if (xhr.readyState === XMLHttpRequest.DONE) {
                             if (xhr.status === 200) {
                                 createListItem(xhr.responseText);
+                                document.getElementById('task').value = "";
                             } else {
                                 console.error('Une erreur s\'est produite : ' + xhr.status);
                             }
                         }
                     };
 
-                    // CrÃ©ez une chaÃ®ne de requÃªte avec les donnÃ©es du formulaire
+                    // Créez une chaîne de requête avec les données du formulaire
                     var formData = 'task=' + encodeURIComponent(task);
 
-                    // Envoyez la requÃªte
+                    // Envoyez la requête
                     xhr.send(formData);
                 });
             </script>
 
-
-            <script src="./assets/js/off-canvas.js"></script>
-            <script src="./assets/js/hoverable-collapse.js"></script>
-            <script src="./assets/js/misc.js"></script>
-            <!-- endinject -->
-            <!-- Custom js for this page -->
-            <!-- End custom js for this page -->
-    </body>
-
-</html>

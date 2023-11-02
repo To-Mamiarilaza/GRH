@@ -62,14 +62,14 @@
                                         
                                         <h3> Formations </h3>
                                         <hr>
-                                        <p>Titulaires d'un diplome: <%= can.getFormationPath().getDiplome().getDiplome() %> </p>
+                                        <p>Titulaires d'un diplome de : <%= can.getFormationPath().getDiplome().getDiplome() %> </p>
                                         <% for(int i=0;i<can.getFormationPath().getFormations().size();i++) { %>
                                         <p style="margin-left: 50px;"> <%= can.getFormationPath().getFormations().get(i).getYear() %> : <%= can.getFormationPath().getFormations().get(i).getDiplome() %> <%= can.getFormationPath().getFormations().get(i).getSchool() %></p>
                                         <% } %>
                                     </div>
                                     <div class="col-md-6 p-5">
-                                        <h6 class="card-title">Uploader les dossiers et le photo d'identité ici</h6>
-                                        <form method="post" action="/RessourceHumaine/PreviewCandidatureServlet" enctype="multipart/form-data">
+                                        <h6 class="card-title">Uploader les dossiers justificatives de votre candidature</h6>
+                                        <form method="post" action="/GRH/PreviewCandidatureServlet" enctype="multipart/form-data">
                                             <div class="form-group">
                                                 <input type="file" name="dossier" />
                                             </div>
@@ -80,7 +80,7 @@
                                             </div>
                                             <input type="submit" value="Upload" />
                                         </form>
-                                        <a class="btn form-control  btn-gradient-primary mt-4" href="/RessourceHumaine/FinishedCandidatureServlet">POSTULER VOTRE CANDIDATURE</a>
+                                        <a class="btn form-control  btn-gradient-primary mt-4" href="/GRH/FinishedCandidatureServlet">POSTULER VOTRE CANDIDATURE</a>
                                         <div class="mt-4 d-flex align-items-center">
                                             <div class="">
                                                 <i class="mdi mdi-arrow-left-bold-circle-outline retour-icone"></i>

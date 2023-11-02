@@ -17,12 +17,7 @@ import java.io.PrintWriter;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import model.gestionProfile.AdresseNote;
 import model.gestionProfile.BestCritere;
-import model.gestionProfile.DiplomeNote;
-import model.gestionProfile.ExperienceNote;
-import model.gestionProfile.SalaireNote;
-import model.gestionProfile.SexeNote;
 import model.gestionProfile.WantedProfile;
 
 /**
@@ -54,26 +49,24 @@ public class ListeProfileServlet extends HttpServlet {
             throws ServletException, IOException {
         // Récupérer les indices des profils recherchés
         WantedProfile wp = new WantedProfile();
-        DiplomeNote dn = new DiplomeNote();
-        AdresseNote an = new AdresseNote();
-        SalaireNote san = new SalaireNote();
-        SexeNote sen = new SexeNote();
-        ExperienceNote en = new ExperienceNote();
         HttpSession session = request.getSession();
         session.setAttribute("wantedprofile", wp);
         try {
             List<Integer> lsIndice = wp.getIdWantedProfile(null);
-            List<String> lsPoste = wp.getPostById(null);
-            List<DiplomeNote> bestDiplome = dn.findBestDiplome(lsIndice, null);
-            List<AdresseNote> bestAdresse = an.findBestAdresse(lsIndice, null);
-            List<SexeNote> bestSexe = sen.findBestSexe(lsIndice, null);
-            List<ExperienceNote> bestExperience = en.findBestExperience(lsIndice, null);
-            List<SalaireNote> bestSalaire = san.findBestSalaire(lsIndice, null);
-            BestCritere bc = new BestCritere(lsIndice,lsPoste,bestDiplome, bestAdresse, bestSexe, bestSalaire, bestExperience);
-            Gson gson = new Gson();
-            String json = gson.toJson(bc);
+            BestCritere bc = new BestCritere();
+            List<BestCritere> listep = bc.getListeProfile(lsIndice, null);
+
+            response.getWriter().println(listep.size());
+
             response.setContentType("application/json");
-            response.getWriter().write(json);
+                Gson gson = new Gson();
+                String jsonData = gson.toJson(listep);
+                response.getWriter().write(jsonData);
+                
+                response.getWriter().println(jsonData);
+//            RequestDispatcher req = request.getRequestDispatcher("./pages/besoin/besoin_insertion.jsp");
+//            req.forward(request, response);
+
         } catch (Exception ex) {
             Logger.getLogger(ListeProfileServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
