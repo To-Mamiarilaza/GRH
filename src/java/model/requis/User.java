@@ -24,6 +24,8 @@ public class User extends Model {
     private String password;
     private String mail;
     private Integer status;
+    private boolean admin;
+    private int idPersonnel;
     
     public int getIdUser() {    
         return idUser;
@@ -80,17 +82,35 @@ public class User extends Model {
         this.status = status;
     }
 
+    public boolean isAdmin() {
+        return admin;
+    }
+
+    public void setAdmin(boolean admin) {
+        this.admin = admin;
+    }
+
+    public int getIdPersonnel() {
+        return idPersonnel;
+    }
+
+    public void setIdPersonnel(int idPersonnel) {
+        this.idPersonnel = idPersonnel;
+    }
+    
 ///Constructors
     public User() {
     }
 
-    public User(String name, Service service, String username, String password, String mail, Integer status) {
+    public User(String name, Service service, String username, String password, String mail, Integer status, boolean admin, int idPersonnel) {
         this.name = name;
         this.service = service;
         this.username = username;
         this.password = password;
         this.mail = mail;
         this.status = status;
+        this.admin = admin;
+        this.idPersonnel = idPersonnel;
     } 
     
 ///Fonctions de la classe
@@ -148,6 +168,8 @@ public class User extends Model {
                 user.setId(resultset.getInt("id_utilisateur"));
                 user.setUsername(resultset.getString("username"));
                 user.setMail(resultset.getString("mail"));
+                user.setAdmin(resultset.getBoolean("admin"));
+                user.setIdPersonnel(resultset.getInt("id_personnel"));
                 //user.setPassword(resultset.getString("password"));
                 
                 Service service = new Service();

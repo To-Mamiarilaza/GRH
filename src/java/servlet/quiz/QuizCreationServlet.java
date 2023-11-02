@@ -13,7 +13,10 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.util.ArrayList;
+import java.util.List;
 import model.quiz.Quiz;
+import model.quiz.QuizType;
 import model.requis.Service;
 
 /**
@@ -43,11 +46,24 @@ public class QuizCreationServlet extends HttpServlet {
             
             Quiz quiz = new Quiz();
             quiz.setService(service);
+            quiz.setType(new QuizType(1, "Question"));
             session.setAttribute("quiz", quiz);
             quiz.getInformation();
             
-            RequestDispatcher dispatcher = request.getRequestDispatcher("pages/quiz/quiz_creation.jsp");
-            dispatcher.forward(request, response);
+            List<String> css = new ArrayList<>();
+            css.add("./assets/css/quiz/quiz_creation.css");
+            
+            List<String> js = new ArrayList<>();
+            js.add("./assets/js/quiz/quiz-creation.js");
+            
+            request.setAttribute("title", "Création QUIZ");
+            request.setAttribute("contentPage", "./pages/quiz/quiz_creation.jsp");
+            request.setAttribute("css", css);
+            request.setAttribute("js", js);
+            
+            RequestDispatcher dispatch = request.getRequestDispatcher("./template.jsp");
+            dispatch.forward(request, response);
+            
         } catch (Exception e) {
             e.printStackTrace();
         }

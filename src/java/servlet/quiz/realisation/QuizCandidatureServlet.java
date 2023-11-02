@@ -12,6 +12,9 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
+import java.util.List;
+import model.candidature.Candidature;
 import model.candidature.PersonnalInformation;
 import model.gestionProfile.WantedProfile;
 import model.quiz.Quiz;
@@ -38,15 +41,23 @@ public class QuizCandidatureServlet extends HttpServlet {
         // Id du candidature ( On doit prendre depuis le candidature toutes les informations nécessaire )
         // Tous les informations ici doivent partir du classe candidature
         
-        //String idCandidature = request.getParameter("idCandidature");
-        //Candidature candidature = Candidature.getCandidature();
+        
         
         try {
             PersonnalInformation personalInfo = new PersonnalInformation("MAMIARILAZA", "To", null, null, "mamiarilaza.to@gmail.com", "0341451743", null);
-            WantedProfile wantedProfile = new WantedProfile(0, "Développeur JUNIOR", null);
-            Quiz quiz = Quiz.getQuizById(1);
+            WantedProfile wantedProfile = new WantedProfile(1, "Développeur JUNIOR", null);
+            Quiz quiz = Quiz.getQuizById(48);
             
-            request.setAttribute("idCandidature", 1);
+            String idCandidature = request.getParameter("idCandidature");
+            
+            Candidature candidature = new Candidature();
+            candidature.setIdCandidature(1);
+            candidature.setPersonnalInformation(personalInfo);
+            candidature.setWantedProfile(wantedProfile);
+            
+            request.getSession().setAttribute("candidature", candidature);
+        
+            request.setAttribute("idCandidature", candidature.getIdCandidature());
             request.setAttribute("quiz", quiz);
             request.setAttribute("infoPerso", personalInfo);
             request.setAttribute("wantedProfile", wantedProfile);

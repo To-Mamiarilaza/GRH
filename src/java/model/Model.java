@@ -1,7 +1,7 @@
 package model;
 
-import framework.database.annotation.Champs;
-import framework.database.utilitaire.*;
+import framework.database.annotation.*;
+import framework.database.utilitaire.ObjectBdd;
 
 public class Model extends ObjectBdd {
     @Champs(primarykey=true)

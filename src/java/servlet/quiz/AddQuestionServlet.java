@@ -40,7 +40,7 @@ public class AddQuestionServlet extends HttpServlet {
         try {
             String question = request.getParameter("question");
             String score = request.getParameter("note");
-
+            
             HttpSession session = request.getSession();
             Quiz quiz = (Quiz) session.getAttribute("quiz");
             Question newQuestion = quiz.addQuestion(question, score);
