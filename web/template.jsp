@@ -231,6 +231,39 @@
                             </a>
                         </li>
 
+<<<<<<< Updated upstream
+=======
+                        <% if(user.isAdmin()) { %>
+                        <li class="nav-item">
+                            <a class="nav-link" href="./besoin-insertion">
+                                <span class="menu-title">Envoie des besoins</span>
+                                <i class="mdi mdi-account-multiple menu-icon"></i>
+                            </a>
+                        </li>
+                        <% } %>
+
+                        <li class="nav-item">
+                            <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic-1" aria-expanded="false"
+                               aria-controls="ui-basic">
+                                <span class="menu-title">Gestion congés</span>
+                                <i class="mdi mdi-calendar menu-icon"></i>
+                            </a>
+                            <div class="collapse" id="ui-basic-1">
+                                <ul class="nav flex-column sub-menu">
+                                    <li class="nav-item"> <a class="nav-link" href="./CongesPersonnel">Mes congés</a></li>
+                                    <% if(personnel.getSubordonnes().size() != 0) { %>
+                                    <li class="nav-item"> <a class="nav-link" href="./CongesSubordonneDemandeList">Demandes des subordonnes</a></li>
+                                    <% } %>
+                                    <% if(user.getService().getService().equals("Ressources humaines")) { %>
+                                    <li class="nav-item"> <a class="nav-link" href="./CongesRHDemandeList">En attente de validation</a></li>
+                                    <% } %>
+                                </ul>
+                            </div>
+                        </li>
+
+                        <% if(user.getService().getService().equals("Ressources humaines")) { %>
+
+>>>>>>> Stashed changes
                         <li class="nav-item">
                             <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic" aria-expanded="false"
                                aria-controls="ui-basic">

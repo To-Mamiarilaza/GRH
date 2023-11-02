@@ -1,8 +1,6 @@
 package servlet.profil;
 
 import com.google.gson.Gson;
-import framework.database.utilitaire.GConnection;
-import jakarta.servlet.RequestDispatcher;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -10,7 +8,6 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -27,6 +24,7 @@ import model.gestionProfile.Sexe;
 import model.gestionProfile.SexeNote;
 import model.gestionProfile.WantedProfile;
 import model.requis.Service;
+import model.requis.User;
 
 /**
  *
@@ -50,12 +48,13 @@ public class AjaxProfileServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
-            Connection conn = GConnection.getSimpleConnection();
             String poste = request.getParameter("poste");
+
             HttpSession session = request.getSession();
+            User user = (User) session.getAttribute("user");
             WantedProfile wp = (WantedProfile) session.getAttribute("wantedprofile");
             wp.setPoste(poste);
-            wp.setService(new Service(1, 1));
+            wp.setService(new Service(user.getService().getIdService(), 1));
             wp.createWantedProfile(null);
 
             //l'id du dernier wantedProfile
@@ -173,7 +172,7 @@ public class AjaxProfileServlet extends HttpServlet {
                 wp = (WantedProfile) session.getAttribute("wantedprofile");
                 wp.setAdresseNote(listeAdresseNote);
                 String dip = adresse + ":" + String.valueOf(note);
-                
+
                 adresseString.add(dip);
                 response.setContentType("application/json");
                 Gson gson = new Gson();

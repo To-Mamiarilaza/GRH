@@ -78,7 +78,9 @@ public class AnnonceExportPDFServlet extends HttpServlet {
             String nomAnnonce = dateBesoin + "_" + serviceName + "_" + "annonce.png";
             
             Annonce annonce = new Annonce(besoin, besoin.getService(), nomAnnonce, Date.valueOf(dateBesoin), 1);
-            annonce.create(conn);
+            if(request.getParameter("idHelp") == null) {
+                annonce.create(conn);   
+            }
             
             try (PDDocument document = new PDDocument()) {
                 PDPage page = new PDPage(PDRectangle.A4);
@@ -146,7 +148,6 @@ public class AnnonceExportPDFServlet extends HttpServlet {
                         for(int i = 0; i < vewp.size(); i++) {
                             outil.writeText(contentStream, 75, dynamicY, "-  Ayant plus de " + vewp.get(i).getExperience().getExperience());
                             dynamicY -= lineHeight;
-                            dynamicY -= lineHeight;
                         }     
                     }
 
@@ -170,14 +171,17 @@ public class AnnonceExportPDFServlet extends HttpServlet {
                 
             }
             
-            // Exportation en image
-            PDFRenderer pdfRenderer = new PDFRenderer(document);
-            BufferedImage image = pdfRenderer.renderImage(0);
-            ImageIO.write(image, "PNG", new File(getServletContext().getRealPath("/annonces/" + dateBesoin + "_" + serviceName + "_" + "annonce.png")));
+            if(request.getParameter("idHelp") == null) {
+                // Exportation en image
+                PDFRenderer pdfRenderer = new PDFRenderer(document);
+                BufferedImage image = pdfRenderer.renderImage(0);
+                ImageIO.write(image, "PNG", new File(getServletContext().getRealPath("/annonces/" + dateBesoin + "_" + serviceName + "_" + "annonce.png")));
 
-            // Exportation en pdf
-            document.save(getServletContext().getRealPath("/annonces/" + dateBesoin + "_" + serviceName + "_" + "annonce.pdf"));
-            
+                // Exportation en pdf
+                document.save(getServletContext().getRealPath("/annonces/" + dateBesoin + "_" + serviceName + "_" + "annonce.pdf"));
+                 
+            }
+           
             // Affichage a l'écran
             document.save(response.getOutputStream());
             
