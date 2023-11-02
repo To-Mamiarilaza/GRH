@@ -23,6 +23,7 @@ import model.gestionProfile.SalaireNote;
 import model.gestionProfile.Sexe;
 import model.gestionProfile.SexeNote;
 import model.gestionProfile.WantedProfile;
+import model.quiz.Quiz;
 import model.requis.Service;
 import model.requis.User;
 
@@ -49,12 +50,18 @@ public class AjaxProfileServlet extends HttpServlet {
             throws ServletException, IOException {
         try {
             String poste = request.getParameter("poste");
+            int idQuiz = Integer.valueOf(request.getParameter("quiz"));
 
             HttpSession session = request.getSession();
             User user = (User) session.getAttribute("user");
             WantedProfile wp = (WantedProfile) session.getAttribute("wantedprofile");
             wp.setPoste(poste);
             wp.setService(new Service(user.getService().getIdService(), 1));
+            
+            Quiz quiz = new Quiz();
+            quiz.setIdQuiz(idQuiz);
+            wp.setQuiz(quiz);
+            
             wp.createWantedProfile(null);
 
             //l'id du dernier wantedProfile

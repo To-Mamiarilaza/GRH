@@ -89,7 +89,7 @@ public class OtherInformationInsertionServlet extends HttpServlet {
             double totalNote = diplomeNote + adresseNote + sexeNote + salaireNote + experienceNote;
             
             can.setNote(totalNote);
-            response.sendRedirect("/RessourceHumaine/PreviewCandidatureServlet");
+            response.sendRedirect("/GRH/PreviewCandidatureServlet");
         } catch (Exception ex) {
             Logger.getLogger(OtherInformationInsertionServlet.class.getName()).log(Level.SEVERE, null, ex);
         }

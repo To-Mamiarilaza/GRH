@@ -142,7 +142,7 @@ JOIN personnel p ON c.id_personnel = p.id_personnel;
 -- les demandes de conge
 CREATE VIEW v_demande_conge AS
 SELECT * FROM v_conge_with_type WHERE etat = 2 AND date_debut_demande > NOW();
-
+    
 -- les conges validé par le chef
 CREATE VIEW v_conge_valide_chef AS
 SELECT * FROM v_conge_with_type WHERE etat = 3;

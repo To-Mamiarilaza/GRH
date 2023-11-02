@@ -18,13 +18,9 @@ import java.util.ArrayList;
 import java.util.List;
 import model.gestionBesoin.Besoin;
 import model.gestionBesoin.Unity;
-import model.gestionProfile.AdresseNote;
 import model.gestionProfile.BestCritere;
-import model.gestionProfile.DiplomeNote;
-import model.gestionProfile.ExperienceNote;
-import model.gestionProfile.SalaireNote;
-import model.gestionProfile.SexeNote;
 import model.gestionProfile.WantedProfile;
+import model.quiz.Quiz;
 import model.requis.Service;
 import model.requis.User;
 
@@ -71,6 +67,10 @@ public class BesoinServlet extends HttpServlet {
             List<Integer> lsIndice = wp.getIdWantedProfile(null);
             BestCritere bc = new BestCritere();
             List<BestCritere> listep = bc.getListeProfile(lsIndice, null);
+            
+            // Récuperer tous les quiz
+            List<Quiz> quizzes = Quiz.getAllServiceQuiz(user.getService().getIdService());
+            request.setAttribute("quizzes", quizzes);
             
             //pour le css
               List<String> css = new ArrayList<>();

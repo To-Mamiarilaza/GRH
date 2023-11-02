@@ -37,7 +37,7 @@
               <p class="description mt-5 px-5">Nous vous contacterons à  partir de votre email si vous
                 êtes séléctionnée pour l'entretien</p>
               <div class="d-flex justify-content-center mt-5">
-                <a class="btn btn-outline-primary terminer" href="/RessourceHumaine/home">Terminer</a>
+                <a class="btn btn-outline-primary terminer" href="/GRH/home">Terminer</a>
               </div>
             </div>
           </div>

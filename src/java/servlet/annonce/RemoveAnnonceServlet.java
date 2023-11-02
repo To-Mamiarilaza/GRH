@@ -2,29 +2,27 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package servlet.quiz;
+package servlet.annonce;
 
+import framework.database.utilitaire.GConnection;
 import jakarta.servlet.RequestDispatcher;
 import java.io.IOException;
+import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
-import java.util.ArrayList;
-import java.util.List;
-import model.quiz.Quiz;
-import model.quiz.QuizType;
-import model.requis.Service;
-import model.requis.User;
+import java.sql.Connection;
+import model.annonce.Annonce;
 
 /**
  *
- * @author To Mamiarilaza
+ * @author chalman
  */
-@WebServlet(name = "QuizCreationServlet", urlPatterns = {"/quiz-create"})
-public class QuizCreationServlet extends HttpServlet {
+@WebServlet(name = "RemoveAnnonceServlet", urlPatterns = {"/removeAnnonce"})
+
+public class RemoveAnnonceServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,37 +36,17 @@ public class QuizCreationServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        // Mise en session du servlet
-        HttpSession session = request.getSession();
-        try {
-            User user = (User) request.getSession().getAttribute("user");
-            System.out.println("ID");
-            
-            Service service = new Service();
-            service.setIdService(user.getService().getIdService());
-            
-            Quiz quiz = new Quiz();
-            quiz.setService(service);
-            quiz.setType(new QuizType(1, "Question"));
-            session.setAttribute("quiz", quiz);
-            quiz.getInformation();
-            
-            List<String> css = new ArrayList<>();
-            css.add("./assets/css/quiz/quiz_creation.css");
-            
-            List<String> js = new ArrayList<>();
-            js.add("./assets/js/quiz/quiz-creation.js");
-            
-            request.setAttribute("title", "Création QUIZ");
-            request.setAttribute("contentPage", "./pages/quiz/quiz_creation.jsp");
-            request.setAttribute("css", css);
-            request.setAttribute("js", js);
-            
-            RequestDispatcher dispatch = request.getRequestDispatcher("./template.jsp");
-            dispatch.forward(request, response);
-            
-        } catch (Exception e) {
-            e.printStackTrace();
+        try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet RemoveAnnonceServlet</title>");            
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet RemoveAnnonceServlet at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
         }
     }
 
@@ -84,7 +62,23 @@ public class QuizCreationServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        response.setContentType("text/plain");
+          
+          try {
+                Connection conn = GConnection.getSimpleConnection();
+              
+                Integer idAnnonce = Integer.valueOf(request.getParameter("idAnnonce"));
+                Annonce annonce = Annonce.getById(conn, idAnnonce);
+                annonce.setStatus(0);
+                annonce.update(conn);
+              
+                conn.close();
+          } catch (Exception exe) {
+              exe.printStackTrace();
+               request.setAttribute("erreur", exe.getMessage());
+          }
+          RequestDispatcher dispat = request.getRequestDispatcher("annonce");
+          dispat.forward(request, response);
     }
 
     /**

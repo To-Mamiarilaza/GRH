@@ -4,6 +4,7 @@
  */
 package model.annonce;
 
+import framework.database.utilitaire.GConnection;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.ResultSet;
@@ -164,4 +165,6 @@ public class Annonce {
         work.execute(req);
         conn.setAutoCommit(true);
     }
+    
+    
 }
