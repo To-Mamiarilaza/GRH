@@ -1,0 +1,36 @@
+
+.quiz-result {
+    padding: 1em 2em;
+    border: solid 1px lightgray;
+    border-radius: 10px;
+    overflow-y: auto;
+    padding-right: 20px;
+    height: 580px;
+
+    .question {
+        border-bottom: solid 1px lightgray;
+        padding-bottom: 20px;
+    }
+
+    .description {
+        text-align: left;
+        color: gray;
+    }
+}
+
+.info-person {
+    padding: 1em 2em;
+    border: solid 1px lightgray;
+    border-radius: 10px;
+    min-height: 580px;
+
+    .question {
+        border-bottom: solid 1px lightgray;
+        padding-bottom: 20px;
+    }
+
+    .description {
+        text-align: left;
+        color: gray;
+    }
+}

@@ -55,6 +55,7 @@ public class PersonalInformationInsertionServlet extends HttpServlet {
             throws ServletException, IOException {
         try {
             Candidature can = new Candidature();
+            can.setIdCandidature(0);
             HttpSession session = request.getSession();
             session.setAttribute("candidature", can);
 
@@ -69,7 +70,7 @@ public class PersonalInformationInsertionServlet extends HttpServlet {
             RequestDispatcher req = request.getRequestDispatcher("/pages/candidature/personal_information_insertion.jsp");
             req.forward(request, response);
         } catch (Exception ex) {
-            Logger.getLogger(PersonalInformationInsertionServlet.class.getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace();
         }
     }
 
@@ -78,6 +79,7 @@ public class PersonalInformationInsertionServlet extends HttpServlet {
             throws ServletException, IOException {
         try {
             HttpSession session = request.getSession();
+            System.out.println("Voila candidature : " + request.getSession().getAttribute("candidature"));
             Candidature can = (Candidature) session.getAttribute("candidature");
             
             int idWantedProfile = Integer.valueOf(request.getParameter("poste"));
@@ -105,9 +107,9 @@ public class PersonalInformationInsertionServlet extends HttpServlet {
             
             can.setPersonnalInformation(per);
 
-            response.sendRedirect("/RessourceHumaine/ProfessionalCareerInsertionServlet");
-        } catch (ParseException ex) {
-            Logger.getLogger(PersonalInformationInsertionServlet.class.getName()).log(Level.SEVERE, null, ex);
+            response.sendRedirect("./ProfessionalCareerInsertionServlet");
+        } catch (Exception ex) {
+            ex.printStackTrace();
         }
 
     }

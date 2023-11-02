@@ -1,0 +1,106 @@
+.profile-pic {
+    width: 220px;
+    height: 220px;
+    border-radius: 5px;
+}
+
+.color-primary {
+    color: #b66dff;
+}
+
+.underline {
+    padding-bottom: 10px;
+    border-bottom: solid 1px #b66dff;
+}
+
+.black-underline {
+    padding-bottom: 10px;
+    border-bottom: solid 1px lightgray;
+}
+
+.no-style-list {
+    list-style: none;
+    padding-left: 0;
+}
+
+.list-style-i {
+    margin-right: 20px;
+    font-size: 20px;
+}
+
+.contrat {
+    padding: 20px;
+    box-shadow: 5px 5px 8px lightgray;
+    border: 1px solid lightgray;
+}
+
+.licenciement-information {
+    margin-left: 15px !important;
+}
+
+.inside-link {
+    .horizontal-list {
+        display: flex;
+
+        li {
+            margin-right: 25px;
+            color: #b66dff;
+        }
+    }
+}
+
+.employe-list {
+    margin-top: 15px;
+    margin-bottom: 15px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 10px;
+
+
+    .employe {
+        margin-right: 20px;
+        display: flex;
+        width: 100%;
+        border: 1px solid lightgray;
+        border-radius: 10px;
+        align-items: center;
+        padding: 5px;
+
+        img {
+            width: 40px;
+            height: 40px;
+            border-radius: 100%;
+        }
+
+        .name {
+            font-size: 14px;
+            margin-left: 10px;
+            font-weight: 600;
+        }
+    }
+}
+
+.paie-element-insertion {
+    padding-left: 50px;
+}
+
+.link-no-style {
+    text-decoration: none;
+}
+
+.text-normal {
+    font-size: 15px;
+}
+
+.little-field {
+    padding: 12px 8px !important;
+
+    input {
+        height: 20px;
+        font-size: 10px;
+    }
+}
+
+.big-title {
+    font-size: 30px;
+}

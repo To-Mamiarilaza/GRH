@@ -44,13 +44,32 @@ public class AddBesoinServlet extends HttpServlet {
         PrintWriter out = res.getWriter();
         Connection connex = null;
        try {
-                connex = GConnection.getSimpleConnection();
+                Connection conn = GConnection.getSimpleConnection();
+           
+                HttpSession session = req.getSession();
+                Service service = (Service)session.getAttribute("service");
+                Besoin besoin = (Besoin)session.getAttribute("besoin");
+                String description = req.getParameter("descri");
+                LocalDate dateActuel = LocalDate.now();
+                besoin.setService(service);
+                besoin.setCreationDate(dateActuel);
+                besoin.setDescription(description);
+                besoin.setStatus(1);
+                System.out.println("Tsy tonga");
+                besoin.create(conn);
+                System.out.println("Tonga");
+                Besoin lastBesoin = Besoin.getLastBesoin(conn);
+                Task.insertListTask(conn, besoin.getTasks(), lastBesoin);
+                WorkLoad.insertListWorkLoad(conn, besoin.getWorkLoad(), lastBesoin);
+
+                conn.close();
+           
                 
        }catch(Exception exe){
            exe.printStackTrace();
             req.setAttribute("erreur", exe.getMessage());
        }
-       RequestDispatcher dispat = req.getRequestDispatcher("pages/create_employe.jsp");
+       RequestDispatcher dispat = req.getRequestDispatcher("listBesoins");
         dispat.forward(req,res);
     }
      protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException  { 

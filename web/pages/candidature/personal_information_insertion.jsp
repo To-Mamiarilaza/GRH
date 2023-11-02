@@ -43,7 +43,7 @@
                                 <h4>Bienvenue ! Commençons maintenant </h4>
                                 <h6 class="font-weight-light little-line-height">Pour postuler votre candidature, veillez remplir Ã©tape
                                     par étape tous les champs données.</h6>
-                                <form class="pt-3" method="post" action="/RessourceHumaine/PersonalInformationInsertionServlet">
+                                <form class="pt-3" method="post" action="./PersonalInformationInsertionServlet">
                                     <div class="form-group">
                                         <label for="adresseSelect" class="form-label labeled">Choisir le poste Ã  la quelle vous voulez postuler :</label>
                                         <select name="poste" id="" class="form-control form-select">

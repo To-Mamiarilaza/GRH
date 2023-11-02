@@ -17,6 +17,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpSession;
 import java.sql.Connection;
 import java.util.ArrayList;
+import java.util.List;
 import model.annonce.Annonce;
 import model.gestionBesoin.Besoin;
 import model.requis.Service;
@@ -30,12 +31,24 @@ public class AnnonceServlet extends HttpServlet {
           PrintWriter out = res.getWriter();
           
           try {
-              Connection conn = GConnection.getSimpleConnection();
+                Connection conn = GConnection.getSimpleConnection();
               
-              HttpSession session = req.getSession();
-              User userConnected = (User)session.getAttribute("user");
-              ArrayList<Service> services = Service.getAll(conn);
-              req.setAttribute("services", services);
+                HttpSession session = req.getSession();
+                User userConnected = (User)session.getAttribute("user");
+                ArrayList<Service> services = Service.getAll(conn);
+                req.setAttribute("services", services);
+              
+              
+                List<String> css = new ArrayList<>();
+                css.add("./assets/css/annonce/annonce-list.css");
+
+                List<String> js = new ArrayList<>();
+
+                req.setAttribute("title", "list annonce");
+                req.setAttribute("contentPage", "./pages/annonce/annonce_list.jsp");
+                req.setAttribute("css", css);
+                req.setAttribute("js", js);
+              
 
                 if(req.getAttribute("annonces") != null) {
                     req.setAttribute("annonces", req.getAttribute("annonces"));
@@ -50,7 +63,7 @@ public class AnnonceServlet extends HttpServlet {
               exe.printStackTrace();
                req.setAttribute("erreur", exe.getMessage());
           }
-          RequestDispatcher dispat = req.getRequestDispatcher("./pages/annonce/annonce_list.jsp");
+          RequestDispatcher dispat = req.getRequestDispatcher("./template.jsp");
           dispat.forward(req, res);
      }
 
@@ -58,14 +71,17 @@ public class AnnonceServlet extends HttpServlet {
           res.setContentType("text/plain");
           PrintWriter out = res.getWriter();
           try {
-             Connection conn = GConnection.getSimpleConnection();
-            
-            Integer idService = Integer.valueOf(req.getParameter("service"));
-            Service service = Service.getById(conn, idService);
-            ArrayList<Annonce> annonceFilter = Annonce.getAnnonceByStatus(conn, "1", service);
-            req.setAttribute("annonces", annonceFilter);
-            
-            conn.close();
+                Connection conn = GConnection.getSimpleConnection();
+                
+                if(req.getParameter("service")!=null) {
+                    String status = req.getParameter("status");
+                    Integer idService = Integer.valueOf(req.getParameter("service"));
+                    Service service = Service.getById(conn, idService);
+                    ArrayList<Annonce> annonceFilter = Annonce.getAnnonceByStatus(conn, status, service);
+                    req.setAttribute("annonces", annonceFilter);   
+                }
+
+                conn.close();
         } catch (Exception exe) {
             exe.printStackTrace();
             req.setAttribute("erreur", exe.getMessage());

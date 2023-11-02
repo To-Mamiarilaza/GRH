@@ -16,6 +16,7 @@ import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.annotation.WebServlet;
 import java.sql.Connection;
 import java.util.ArrayList;
+import java.util.List;
 import model.gestionBesoin.Besoin;
 import model.requis.Service;
 
@@ -28,6 +29,19 @@ public class ListBesoinsServlet extends HttpServlet {
           
           try {
                 Connection connex = GConnection.getSimpleConnection();
+                
+                List<String> css = new ArrayList<>();
+                css.add("./assets/css/quiz/quiz_creation.css");
+
+                List<String> js = new ArrayList<>();
+                js.add("./assets/js/quiz/quiz-creation.js");
+
+                req.setAttribute("title", "Liste besoins");
+                req.setAttribute("contentPage", "./pages/besoin/besoin_list.jsp");
+                req.setAttribute("css", css);
+                req.setAttribute("js", js);
+                
+                
                 ArrayList<Service> services = Service.getAll(connex);             
                 req.setAttribute("services", services);
                 if(req.getAttribute("allBesoin") != null) {
@@ -44,8 +58,9 @@ public class ListBesoinsServlet extends HttpServlet {
                 connex.close();
           } catch (Exception exe) {
                req.setAttribute("erreur", exe.getMessage());
+               exe.printStackTrace();
           }
-          RequestDispatcher dispat = req.getRequestDispatcher("pages/besoin/besoin_list.jsp");
+          RequestDispatcher dispat = req.getRequestDispatcher("./template.jsp");
           dispat.forward(req, res);
      }
 
@@ -65,6 +80,7 @@ public class ListBesoinsServlet extends HttpServlet {
 
         } catch (Exception exe) {
                req.setAttribute("erreur", exe.getMessage());
+               exe.printStackTrace();
           }
             doGet(req,res);
     }

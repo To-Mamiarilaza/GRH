@@ -5,7 +5,6 @@
  */
 package model.gestionProfile;
 
-import framework.database.annotation.Champs;
 import framework.database.utilitaire.GConnection;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -13,9 +12,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import model.Model;
-import model.annonce.Annonce;
-import model.gestionBesoin.Besoin;
-import model.gestionBesoin.Task;
+import model.quiz.Quiz;
 import model.requis.Service;
 
 /**
@@ -33,6 +30,7 @@ public class WantedProfile extends Model {
     private List<SalaireNote> salaireNote;
     private List<SexeNote> sexeNote;
     private List<AdresseNote> adresseNote;
+    private Quiz quiz;
 
 ///Getters and setters
     public int getIdWantedProfile() {
@@ -42,6 +40,14 @@ public class WantedProfile extends Model {
         this.idWantedProfile = idWantedProfile;
     }
 
+    public Quiz getQuiz() {
+        return quiz;
+    }
+
+    public void setQuiz(Quiz quiz) {
+        this.quiz = quiz;
+    }
+    
     public Service getService() {
         return service;
     }
@@ -260,7 +266,7 @@ public class WantedProfile extends Model {
                 con = GConnection.getSimpleConnection();
                 b = false;
             }
-            String requete = "insert into wanted_profile values (DEFAULT,' " + this.getPoste() + " '," + this.getService().getIdService() + ", 1)";
+            String requete = "insert into wanted_profile values (DEFAULT,' " + this.getPoste() + " '," + this.getService().getIdService() + ", 1, " + this.getQuiz().getIdQuiz() + ")";
             System.out.println(requete);
             Statement s = con.createStatement();
             s.executeUpdate(requete);
@@ -284,6 +290,7 @@ public class WantedProfile extends Model {
             wp.setPoste(result.getString(2));
             wp.setService(Service.getById(conn, result.getInt(3)));
             wp.setStatus(result.getInt(4));
+            wp.setQuiz(Quiz.getQuizById(result.getInt("id_quiz")));
         }
         
         return wp;

@@ -77,7 +77,7 @@ public class ProfessionalCareerInsertionServlet extends HttpServlet {
             Candidature can = (Candidature) session.getAttribute("candidature");
             can.setProfessionalCareer(pc);
 
-            response.sendRedirect("/RessourceHumaine/FormationPathInsertionServlet");
+            response.sendRedirect("/GRH/FormationPathInsertionServlet");
         }
     }
 
@@ -120,6 +120,8 @@ public class ProfessionalCareerInsertionServlet extends HttpServlet {
 
                 lc.add(c);
 
+                listeTask = new ArrayList<>();
+                
                 pc = new ProfessionalCareer(new Experience(experience, 1), lc);
                 response.setContentType("application/json");
                 Gson gson = new Gson();

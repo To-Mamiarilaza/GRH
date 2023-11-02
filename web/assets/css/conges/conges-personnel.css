@@ -1,0 +1,33 @@
+.current-conges input {
+  font-size: 14px;
+}
+
+.reste-solde p {
+  font-size: 16px;
+  letter-spacing: 5px;
+  color: #b66dff;
+}
+.reste-solde .nb-jour {
+  font-weight: 600;
+}
+
+.little-big-font {
+  font-size: 20px;
+}
+
+.same-width {
+  width: 170px;
+}
+
+.bordered {
+  border: solid 1px lightgray;
+  border-radius: 5px;
+}
+
+.list-espaced li {
+  line-height: 30px;
+}
+
+.disabled {
+  cursor: default;
+}/*# sourceMappingURL=conges-personnel.css.map */

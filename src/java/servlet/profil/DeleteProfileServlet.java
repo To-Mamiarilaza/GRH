@@ -52,7 +52,7 @@ public class DeleteProfileServlet extends HttpServlet {
             WantedProfile wp = new WantedProfile();
             try {
                 wp.deleteWantedProfile(indice, null);
-                response.sendRedirect("pages/besoin/besoin_insertion.jsp");
+                response.sendRedirect("/GRH/besoin-insertion");
             } catch (Exception ex) {
                 Logger.getLogger(DeleteProfileServlet.class.getName()).log(Level.SEVERE, null, ex);
             }

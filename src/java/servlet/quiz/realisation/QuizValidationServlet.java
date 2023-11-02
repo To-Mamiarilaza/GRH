@@ -40,13 +40,9 @@ public class QuizValidationServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         // reception des données requiz
         try {
-            String idCandidature = request.getParameter("idCandidature");
-            String idWantedProfile = request.getParameter("idWantedProfile");
-            String idQuiz = request.getParameter("idQuiz");
+            Candidature candidature = (Candidature) request.getSession().getAttribute("candidature");
             
-            Quiz quiz = Quiz.getQuizById(Integer.valueOf(idQuiz));
-            Candidature candidature = new Candidature();
-            candidature.setIdCandidature(0);
+            Quiz quiz = Quiz.getQuizById(Integer.valueOf(48));
             
             WantedProfile wantedProfile = new WantedProfile();
             
