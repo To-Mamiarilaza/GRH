@@ -6,14 +6,15 @@ package model.paie.avance;
 
 import framework.database.utilitaire.GConnection;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.time.LocalDate;
+import java.time.Month;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
-import model.paie.venteconge.VenteConge;
+import model.employe.Employe;
 
 /**
  *
@@ -105,10 +106,30 @@ public class AvanceService {
         }
     }
     
+    // Fonction pour calculer le montant d'avance possible pour un employe
+    public static double calculMontantPossible(int idEmploye, Connection connection) throws Exception {
+        Employe employe = Employe.getById(idEmploye, connection);
+        double salaire = employe.getSalaire();
+        
+        LocalDate now = LocalDate.now();
+        
+        int jourEffectue = (int) ChronoUnit.DAYS.between(LocalDate.of(now.getYear(), now.getMonth(), 1), now) + 1;    // jour du mois deja passé
+        
+        double possible =  (salaire / 30) * jourEffectue;
+        
+        List<Avance> avanceEffectue = getAllAvance(idEmploye, now.getMonth().getValue(), now.getYear(), connection);
+        for (Avance avance : avanceEffectue) {
+            possible -= avance.getMontant();
+        }
+        
+        return possible;
+    }
+    
     public static void main(String[] args) throws Exception {
         List<Avance> avanceList = getAllAvance(12, 10, 2023, null);
         for (Avance avance : avanceList) {
             System.out.println("Montant : " + avance.getMontant());
         }
     }
+
 }

@@ -5,6 +5,7 @@
  */
 package servlet.candidature;
 
+import framework.database.utilitaire.GConnection;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -13,6 +14,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.sql.Connection;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.candidature.Candidature;
@@ -50,18 +52,23 @@ public class FinishedCandidatureServlet extends HttpServlet {
             HttpSession session = request.getSession();
             Candidature can = (Candidature) session.getAttribute("candidature");
             int wp = (Integer) session.getAttribute("wp");
-            can.create(null, wp, can.getPersonnalInformation().getAdresse().getAdresse(), Integer.valueOf(can.getPersonnalInformation().getSexe().getSexe()), can.getProfessionalCareer().getExperience().getExperience(), can.getFormationPath().getDiplome().getDiplome());
-            int id = new Candidature().getLastId(null);
-            System.out.println(id);
+            
+            Connection connection = GConnection.getSimpleConnection();
+            
+            can.create(connection, wp, can.getPersonnalInformation().getAdresse().getAdresse(), Integer.valueOf(can.getPersonnalInformation().getSexe().getSexe()), can.getProfessionalCareer().getExperience().getExperience(), can.getFormationPath().getDiplome().getDiplome());
+            int id = new Candidature().getLastId(connection);
+            
+            String candidaturePictureName = "_00" + id + "_" + can.getPersonnalInformation().getName() + "_" + can.getPersonnalInformation().getFirstName() + "_" + "candidature";
+            can.setPictureName(id, candidaturePictureName, connection);
+            
             Career c = can.getProfessionalCareer().getCareers().get(0);
-            c.create(null, id);
+            c.create(connection, id);
             Formation f = can.getFormationPath().getFormations().get(0);
-            f.create(null, id);
+            f.create(connection, id);
             
             
             response.sendRedirect("/GRH/CandidatureExportPDFServlet");
         } catch (Exception ex) {
-            Logger.getLogger(FinishedCandidatureServlet.class.getName()).log(Level.SEVERE, null, ex);
             ex.printStackTrace();
         }
 

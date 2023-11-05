@@ -5,6 +5,7 @@
 package servlet.candidature;
 
 import framework.database.utilitaire.GConnection;
+import jakarta.servlet.RequestDispatcher;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -19,7 +20,7 @@ import model.candidature.Candidature;
  *
  * @author chalman
  */
-@WebServlet(name = "ProfessionalCareerInsertionServlet", urlPatterns = {"/TraitStatusCandidature"})
+@WebServlet(name = "TraitStatusCandidatureServlet", urlPatterns = {"/TraitStatusCandidature"})
 public class TraitStatusCandidatureServlet extends HttpServlet {
 
     /**
@@ -77,6 +78,8 @@ public class TraitStatusCandidatureServlet extends HttpServlet {
         } catch(Exception e) {
             e.printStackTrace();
         }
+        RequestDispatcher dispat = request.getRequestDispatcher("./listCandidature");
+        dispat.forward(request, response);
     }
 
     /**

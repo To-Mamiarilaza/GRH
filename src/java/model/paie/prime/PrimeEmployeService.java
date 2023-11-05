@@ -14,7 +14,6 @@ import java.sql.Statement;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import model.conge.Personnel;
 
 /**
  *
@@ -50,7 +49,7 @@ public class PrimeEmployeService {
                 statement.close();
             }
             if (connection != null) {
-                connection.rollback();
+                //connection.rollback();
                 connection.close();
             }
             throw e;
@@ -68,7 +67,7 @@ public class PrimeEmployeService {
 
         // Pour avoir l'id du quiz inséré
         List<PrimeEmploye> primeList = new ArrayList<>();
-        String query = "SELECT * FROM prime_employe WHERE etat = 1 AND EXTRACT(MONTH FROM date_prime) = %d AND EXTRACT(YEAR FROM date_prime) = %d AND id_employe = %d";
+        String query = "SELECT * FROM prime_employe WHERE etat = 1 AND EXTRACT(MONTH FROM date_prime) = %d AND EXTRACT(YEAR FROM date_prime) = %d AND id_employe = %d  ORDER BY date_prime DESC";
         query = String.format(query, mois, annee, idEmploye);
         
         Statement statement = null;

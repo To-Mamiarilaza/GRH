@@ -68,7 +68,7 @@ public class VenteCongeService {
 
         // Pour avoir l'id du quiz inséré
         List<VenteConge> venteList = new ArrayList<>();
-        String query = "SELECT * FROM vente_conge WHERE etat = 1 AND EXTRACT(MONTH FROM debut) = %d AND EXTRACT(YEAR FROM debut) = %d AND id_employe = %d";
+        String query = "SELECT * FROM vente_conge WHERE etat = 1 AND EXTRACT(MONTH FROM debut) = %d AND EXTRACT(YEAR FROM debut) = %d AND id_employe = %d ORDER BY debut DESC";
         query = String.format(query, mois, annee, idEmploye);
         
         Statement statement = null;

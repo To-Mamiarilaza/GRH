@@ -46,7 +46,7 @@
                                                         <p class="text-black"> <span class="mx-1">Date : <strong> <%=candidatures.get(i).getDepositDate() %> </strong></span><span class="mx-1">Service : <strong> <%=candidatures.get(i).getWantedProfile().getService().getService() %> </strong></span></p>
                                                     </div>
                                                     <div class="pdf-container">
-                                                        <img src="./candidatures/2023-01-23_Jean_Couturier_Informatique_candidature.png" class="pdf-image-view" alt="">
+                                                        <img src="./candidatures/<%=candidatures.get(i).getCandidaturePNG() %>" class="pdf-image-view" alt="">
                                                     </div>
                                                 </div>
                                             </a>

@@ -35,7 +35,7 @@
                         <div class="quiz-result">
                             <div class="d-flex">
                                 <h6>Resultat du test</h6>
-                                <h6 class="mx-5">Note : <%= candidatureTest.getCandidature().getNote() %></h6>
+                                <h6 class="mx-5">Note : <%= candidatureTest.getNote() %></h6>
                             </div>
                             <% for(Question question : candidatureTest.getAnswer().getQuestions()) { %>
                             <div class="question mt-3">

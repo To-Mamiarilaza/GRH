@@ -93,7 +93,7 @@ public class DemandeCongesServlet extends HttpServlet {
             LocalDate dateDebut = LocalDate.parse(request.getParameter("dateDebut"));
             LocalDate dateFin = LocalDate.parse(request.getParameter("dateFin"));
             
-            CongeManager.demanderConge(user.getIdPersonnel(), explication, idTypeConge, dateDebut, dateFin, null);
+            CongeManager.demanderConge(user.getIdEmploye(), explication, idTypeConge, dateDebut, dateFin, null);
             
             response.sendRedirect("./CongesPersonnel");
         } catch (Exception e) {

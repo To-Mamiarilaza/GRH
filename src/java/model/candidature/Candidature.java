@@ -11,12 +11,14 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.sql.Date;
+import java.sql.PreparedStatement;
 import java.util.List;
 import model.gestionProfile.Adresse;
 import model.gestionProfile.Diplome;
 import model.gestionProfile.Experience;
 import model.gestionProfile.Sexe;
 import model.gestionProfile.WantedProfile;
+import model.quiz.Question;
 import model.requis.Service;
 
 /**
@@ -36,6 +38,7 @@ public class Candidature {
     String selfProfile;
     String photo;
     String dossier;
+    String candidaturePicture;
     double note;
     int status;
 
@@ -69,6 +72,23 @@ public class Candidature {
         this.status = status;
     }
 
+    public Candidature(int idCandidature, WantedProfile wantedProfile, Date depositDate, PersonnalInformation PersonnalInformation, ProfessionalCareer ProfessionalCareer, FormationPath FormationPath, String interestCenter, double SalaryExpectation, String selfProfile, String photo, String dossier, double note, int status, String candidaturePicture) {
+        this.idCandidature = idCandidature;
+        this.wantedProfile = wantedProfile;
+        this.depositDate = depositDate;
+        this.PersonnalInformation = PersonnalInformation;
+        this.ProfessionalCareer = ProfessionalCareer;
+        this.FormationPath = FormationPath;
+        this.interestCenter = interestCenter;
+        this.SalaryExpectation = SalaryExpectation;
+        this.selfProfile = selfProfile;
+        this.photo = photo;
+        this.dossier = dossier;
+        this.note = note;
+        this.status = status;
+        this.candidaturePicture = candidaturePicture;
+    }
+
     public List<Candidature> getRefusedCandidat(int id_wanted_profile, Date date, Connection con) throws Exception {
         boolean b = true;
         List<Candidature> listeCandidats = new ArrayList<>();
@@ -95,6 +115,7 @@ public class Candidature {
                 can.setPhoto(rs.getString("photo"));
                 can.setPersonnalInformation(per);
                 can.setDepositDate(rs.getDate("deposit_date"));
+                can.setCandidaturePicture(rs.getString("candidature_picture"));
                 listeCandidats.add(can);
             }
         } catch (Exception exe) {
@@ -134,6 +155,8 @@ public class Candidature {
                 can.setPersonnalInformation(per);
                 can.setDepositDate(rs.getDate("deposit_date"));
                 can.setStatus(rs.getInt("status"));
+                can.setCandidaturePicture(rs.getString("candidature_picture"));
+
                 listeCandidats.add(can);
             }
         } catch (Exception exe) {
@@ -189,7 +212,7 @@ public class Candidature {
     public String checkResult(int res) {
         if (res == 0) {
             return "<p style='color:red;'> refuser </p>";
-        } else if (res == 5) {
+        } else if (res == 6) {
             return "<p style='color:green;'>valider</p>";
         }
         return "";
@@ -203,7 +226,7 @@ public class Candidature {
                 con = GConnection.getSimpleConnection();
                 b = false;
             }
-            String requete = "select * from candidature where status = 5 or status = 0";
+            String requete = "select * from candidature where status = 6 or status = 0";
             System.out.println(requete);
             Statement s = con.createStatement();
             s.executeQuery(requete);
@@ -223,6 +246,8 @@ public class Candidature {
                 can.setNote(rs.getDouble("note"));
                 can.setStatus(rs.getInt("status"));
                 can.setDepositDate(rs.getDate("deposit_date"));
+                can.setCandidaturePicture(rs.getString("candidature_picture"));
+
                 listeCandidats.add(can);
             }
         } catch (Exception exe) {
@@ -263,8 +288,9 @@ public class Candidature {
                 can.setPersonnalInformation(per);
                 can.setNote(rs.getDouble("note"));
                 can.setDepositDate(rs.getDate("deposit_date"));
+                can.setCandidaturePicture(rs.getString("candidature_picture"));
                 can.setStatus(status);
-                
+
                 listeCandidats.add(can);
             }
         } catch (Exception exe) {
@@ -315,7 +341,7 @@ public class Candidature {
                     + this.getPersonnalInformation().getAdresse().getIdByName(adresse, null) + ", '" + this.getPersonnalInformation().getEmail() + "', "
                     + this.getPersonnalInformation().getSexe().getSexe() + ", " + this.getProfessionalCareer().getExperience().getIdByName(experience, null) + ", "
                     + this.getFormationPath().getDiplome().getIdByName(diplome, null) + ", '" + this.getInterestCareer() + "', " + this.getSalaryExpectation() + ", '" + this.getSelfProfile() + "', '"
-                    + this.getPhoto() + "', '" + this.getDossier() + "', " + this.getNote() + ", 1, '"+ this.getPersonnalInformation().getTelephone() +"')";
+                    + this.getPhoto() + "', '" + this.getDossier() + "', " + this.getNote() + ", 1, '" + this.getPersonnalInformation().getTelephone() + "')";
             System.out.println(requete);
             Statement s = con.createStatement();
             s.executeUpdate(requete);
@@ -325,6 +351,39 @@ public class Candidature {
             if (con != null && !b) {
                 con.close();
             }
+        }
+    }
+
+    public void setPictureName(int idCandidature, String candidaturePicture, Connection connection) throws Exception {
+        String query = "UPDATE candidature SET candidature_picture = ? WHERE id_candidature = ?";
+
+        boolean closeable = false;
+        if (connection == null) {
+            closeable = true;
+            connection = GConnection.getSimpleConnection();
+        }
+
+        PreparedStatement statement = null;
+        ResultSet resultset = null;
+
+        try {
+            statement = connection.prepareStatement(query);
+            statement.setString(1, candidaturePicture);
+            statement.setInt(2, idCandidature);
+            statement.execute();
+
+        } catch (Exception e) {
+            if (resultset != null) {
+                resultset.close();
+            }
+            if (statement != null) {
+                statement.close();
+            }
+            if (connection != null) {
+                connection.rollback();
+                connection.close();
+            }
+            throw e;
         }
     }
 
@@ -443,10 +502,28 @@ public class Candidature {
         this.interestCenter = interestCenter;
     }
 
+    public String getCandidaturePicture() {
+        return candidaturePicture;
+    }
+
+    public void setCandidaturePicture(String candidaturePicture) {
+        this.candidaturePicture = candidaturePicture;
+    }
+
+    // Fonction pour avoir le nom du pdf du candidature
+    public String getCandidaturePDF() {
+        return this.candidaturePicture + ".pdf";
+    }
+
+    // Fonction pour avoir le nom du pdf du candidature
+    public String getCandidaturePNG() {
+        return this.candidaturePicture + ".png";
+    }
+
     //Avoir toutes les candidats
     public static ArrayList<Candidature> getAll(Connection conn) throws Exception {
         Statement work = conn.createStatement();
-        String req = "SELECT * FROM candidature";
+        String req = "SELECT * FROM candidature WHERE status = 1";
         ResultSet result = work.executeQuery(req);
         ArrayList<Candidature> candidats = new ArrayList<>();
 
@@ -457,6 +534,7 @@ public class Candidature {
             ProfessionalCareer pc = new ProfessionalCareer(Experience.getById(conn, result.getInt("id_experience")), Career.getCareerCandidat(conn, result.getInt("id_candidature")));
             FormationPath fp = new FormationPath(Diplome.getById(conn, result.getInt("id_diplome")), Formation.getFormationCandidat(conn, result.getInt("id_candidature")));
             Candidature candidat = new Candidature(result.getInt("id_candidature"), WantedProfile.getById(conn, result.getInt("id_wanted_profile")), result.getDate("deposit_date"), pi, pc, fp, result.getString("interest_center"), result.getDouble("salary_expectation"), result.getString("self_profile"), result.getString("photo"), result.getString("dossier"), result.getDouble("note"), result.getInt("status"));
+            candidat.setCandidaturePicture(result.getString("candidature_picture"));
             candidats.add(candidat);
         }
 
@@ -466,20 +544,21 @@ public class Candidature {
     //Avoir toutes les candidats dans une service et poste
     public static ArrayList<Candidature> getAllInServicePoste(Connection conn, Service service, WantedProfile wantedProfile) throws Exception {
         Statement work = conn.createStatement();
-        String req = "SELECT * FROM candidature WHERE id_wanted_profile="+wantedProfile.getIdWantedProfile();
+        String req = "SELECT * FROM candidature WHERE id_wanted_profile=" + wantedProfile.getIdWantedProfile()+" AND status = 1";
         ResultSet result = work.executeQuery(req);
         ArrayList<Candidature> candidats = new ArrayList<>();
 
-        while(result.next()) {
+        while (result.next()) {
             //Candidature(int idCandidature, PersonnalInformation PersonnalInformation, ProfessionalCareer ProfessionalCareer, FormationPath FormationPath, String interestCareer, double SalaryExpectation, String selfProfile, String photo, String dossier, double note, int status) {
             //PersonnalInformation(String name, String firstName, Date birthDate, Adresse adresse, String email, String telephone, Sexe sexe)
             PersonnalInformation pi = new PersonnalInformation(result.getString("name"), result.getString("first_name"), result.getDate("birth_date"), Adresse.getById(conn, result.getInt("id_adresse")), result.getString("email"), "0345091434", Sexe.getById(conn, result.getInt("id_sexe")));
             ProfessionalCareer pc = new ProfessionalCareer(Experience.getById(conn, result.getInt("id_experience")), Career.getCareerCandidat(conn, result.getInt("id_candidature")));
             FormationPath fp = new FormationPath(Diplome.getById(conn, result.getInt("id_diplome")), Formation.getFormationCandidat(conn, result.getInt("id_candidature")));
             Candidature candidat = new Candidature(result.getInt("id_candidature"), WantedProfile.getById(conn, result.getInt("id_wanted_profile")), result.getDate("deposit_date"), pi, pc, fp, result.getString("interest_center"), result.getDouble("salary_expectation"), result.getString("self_profile"), result.getString("photo"), result.getString("dossier"), result.getDouble("note"), result.getInt("status"));
+            candidat.setCandidaturePicture(result.getString("candidature_picture"));
             candidats.add(candidat);
         }
-        
+
         return candidats;
     }
 
@@ -507,18 +586,19 @@ public class Candidature {
             candidature.setNote(result.getDouble("note"));
             candidature.setStatus(result.getInt("status"));
             candidature.setWantedProfile(WantedProfile.getById(conn, result.getInt("id_wanted_profile")));
+            candidature.setCandidaturePicture(result.getString("candidature_picture"));
         }
 
         return candidature;
     }
-    
+
     // Valider l'entretien d'un candidature
     public static void validateCandidatureToEntretien(int idCandidature, int idCandidatureTest, int reponse) throws Exception {
         // Save 
-        reponse = reponse == 0 ? 0 : 3;
+        reponse = reponse == 0 ? 0 : 4;
         String query = "UPDATE candidature SET status = %d WHERE id_candidature = %d";
         query = String.format(query, reponse, idCandidature);
-        
+
         String query2 = "UPDATE candidature_test SET status = 2 WHERE id_candidature_test = %d";
         query2 = String.format(query2, idCandidatureTest);
 
@@ -529,7 +609,7 @@ public class Candidature {
         try {
             connection = GConnection.getSimpleConnection();
             connection.setAutoCommit(false);
-            
+
             statement = connection.createStatement();
             statement.execute(query);
             statement.execute(query2);
@@ -537,7 +617,7 @@ public class Candidature {
             statement.close();
             connection.commit();
             connection.close();
-            
+
         } catch (Exception e) {
             if (resultset != null) {
                 resultset.close();
@@ -552,23 +632,23 @@ public class Candidature {
             throw e;
         }
     }
-    
+
     //Candidat embauche
     public void candidatEmbauched(Connection conn) throws Exception {
         Statement work = conn.createStatement();
-        String req = "UPDATE candidature SET status=20 WHERE id_candidature="+this.getIdCandidature();
+        String req = "UPDATE candidature SET status=20 WHERE id_candidature=" + this.getIdCandidature();
         work.execute(req);
         conn.setAutoCommit(true);
     }
-    
+
     //Changer le statut
     public void changeStatus(Connection conn, Integer status) throws Exception {
         Statement work = conn.createStatement();
-        String req = "UPDATE candidature SET status="+status+" WHERE id_candidature="+this.getIdCandidature();
+        String req = "UPDATE candidature SET status=" + status + " WHERE id_candidature=" + this.getIdCandidature();
         work.execute(req);
         conn.setAutoCommit(true);
     }
-    
+
     public static String getTitle(Integer status) {
         switch (status) {
             case 7:
@@ -583,4 +663,53 @@ public class Candidature {
         System.out.println("Zay ve");
         return "Liste des candidats recrutes";
     }
+    
+    
+    //Avoir toutes les candidats recrutes
+    public static ArrayList<Candidature> getAllRecrutes(Connection conn) throws Exception {
+        Statement work = conn.createStatement();
+        String req = "SELECT * FROM candidature WHERE status=6";
+        ResultSet result = work.executeQuery(req);
+        ArrayList<Candidature> candidats = new ArrayList<>();
+
+        while(result.next()) {
+            //Candidature(int idCandidature, PersonnalInformation PersonnalInformation, ProfessionalCareer ProfessionalCareer, FormationPath FormationPath, String interestCareer, double SalaryExpectation, String selfProfile, String photo, String dossier, double note, int status) {
+            //PersonnalInformation(String name, String firstName, Date birthDate, Adresse adresse, String email, String telephone, Sexe sexe)
+            PersonnalInformation pi = new PersonnalInformation(result.getString("name"), result.getString("first_name"), result.getDate("birth_date"), Adresse.getById(conn, result.getInt("id_adresse")), result.getString("email"), "0345091434", Sexe.getById(conn, result.getInt("id_sexe")));
+            ProfessionalCareer pc = new ProfessionalCareer(Experience.getById(conn, result.getInt("id_experience")), Career.getCareerCandidat(conn, result.getInt("id_candidature")));
+            FormationPath fp = new FormationPath(Diplome.getById(conn, result.getInt("id_diplome")), Formation.getFormationCandidat(conn, result.getInt("id_candidature")));
+            Candidature candidat = new Candidature(result.getInt("id_candidature"), WantedProfile.getById(conn, result.getInt("id_wanted_profile")), result.getDate("deposit_date"), pi, pc, fp, result.getString("interest_center"), result.getDouble("salary_expectation"), result.getString("self_profile"), result.getString("photo"), result.getString("dossier"), result.getDouble("note"), result.getInt("status"));
+            candidats.add(candidat);
+        }
+        
+        return candidats;
+    }
+    
+      //Avoir toutes les candidats recrutes dans une service et poste
+    public static ArrayList<Candidature> getRecruteInPoste(Connection conn, Integer status, WantedProfile wantedProfile) throws Exception {
+        Statement work = conn.createStatement();
+        String req = "";
+        if(wantedProfile==null) {
+            req = "SELECT * FROM candidature WHERE status="+status;
+        }
+        else {
+            req = "SELECT * FROM candidature WHERE id_wanted_profile="+wantedProfile.getIdWantedProfile()+" AND status="+status;
+        }
+       System.out.println("Requete : "+req);
+        ResultSet result = work.executeQuery(req);
+        ArrayList<Candidature> candidats = new ArrayList<>();
+
+        while(result.next()) {
+            //Candidature(int idCandidature, PersonnalInformation PersonnalInformation, ProfessionalCareer ProfessionalCareer, FormationPath FormationPath, String interestCareer, double SalaryExpectation, String selfProfile, String photo, String dossier, double note, int status) {
+            //PersonnalInformation(String name, String firstName, Date birthDate, Adresse adresse, String email, String telephone, Sexe sexe)
+            PersonnalInformation pi = new PersonnalInformation(result.getString("name"), result.getString("first_name"), result.getDate("birth_date"), Adresse.getById(conn, result.getInt("id_adresse")), result.getString("email"), "0345091434", Sexe.getById(conn, result.getInt("id_sexe")));
+            ProfessionalCareer pc = new ProfessionalCareer(Experience.getById(conn, result.getInt("id_experience")), Career.getCareerCandidat(conn, result.getInt("id_candidature")));
+            FormationPath fp = new FormationPath(Diplome.getById(conn, result.getInt("id_diplome")), Formation.getFormationCandidat(conn, result.getInt("id_candidature")));
+            Candidature candidat = new Candidature(result.getInt("id_candidature"), WantedProfile.getById(conn, result.getInt("id_wanted_profile")), result.getDate("deposit_date"), pi, pc, fp, result.getString("interest_center"), result.getDouble("salary_expectation"), result.getString("self_profile"), result.getString("photo"), result.getString("dossier"), result.getDouble("note"), result.getInt("status"));
+            candidats.add(candidat);
+        }
+        
+        return candidats;
+    }
+    
 }

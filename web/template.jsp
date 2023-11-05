@@ -1,8 +1,8 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
-<%@page import="java.util.List, model.requis.User, model.conge.Personnel" %>
+<%@page import="java.util.List, model.requis.User, model.conge.Personnel, model.employe.Employe" %>
 <% 
     User user = (User) session.getAttribute("user");
-    Personnel personnel = Personnel.getPersonnelById(user.getIdPersonnel(), null);
+    Employe employe = Employe.getById(user.getIdEmploye());
 
     List<String> css = (List<String>) request.getAttribute("css");
     List<String> js = (List<String>) request.getAttribute("js");
@@ -252,7 +252,7 @@
                             <div class="collapse" id="ui-basic-1">
                                 <ul class="nav flex-column sub-menu">
                                     <li class="nav-item"> <a class="nav-link" href="./CongesPersonnel">Mes congés</a></li>
-                                    <% if(personnel.getSubordonnes().size() != 0) { %>
+                                    <% if(employe.getSubordonnesNb(null) != 0) { %>
                                     <li class="nav-item"> <a class="nav-link" href="./CongesSubordonneDemandeList">Demandes des subordonnes</a></li>
                                     <% } %>
                                     <% if(user.getService().getService().equals("Ressources humaines")) { %>
@@ -279,11 +279,15 @@
                                     <li class="nav-item"> <a class="nav-link"
                                                              href="./listCandidature">Réceptions des CV</a></li>
                                     <li class="nav-item"> <a class="nav-link"
-                                                             href="pages/ui-features/typography.html">Résultats des tests</a></li>
+                                                             href="./ReadyForQuizList">Prêts pour le tests</a></li>
+                                    <li class="nav-item"> <a class="nav-link"
+                                                             href="./quiz-results">Résultats des tests</a></li>
                                     <li class="nav-item"> <a class="nav-link"
                                                              href="./EntretientServlet">Programme d'entretien</a></li>
                                     <li class="nav-item"> <a class="nav-link"
-                                                             href="pages/ui-features/typography.html">Résultat candidature</a></li>
+                                                             href="./listCandidatRecrute">Embauchement</a></li>
+                                    <li class="nav-item"> <a class="nav-link"
+                                                             href="./listPersonnel">Employe</a></li>
                                 </ul>
                             </div>
                         </li>

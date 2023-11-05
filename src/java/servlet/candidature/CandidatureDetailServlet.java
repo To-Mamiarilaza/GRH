@@ -14,13 +14,10 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.HttpSession;
 import java.sql.Connection;
 import java.util.ArrayList;
-import model.annonce.Annonce;
-import model.gestionBesoin.Besoin;
-import model.requis.Service;
-import model.requis.User;
+import java.util.List;
+import model.candidature.Candidature;
 
 @WebServlet(name = "CandidatureDetailServlet", urlPatterns = {"/candidatureDetail"})
 public class CandidatureDetailServlet extends HttpServlet {
@@ -30,16 +27,28 @@ public class CandidatureDetailServlet extends HttpServlet {
           PrintWriter out = res.getWriter();
           
           try {
-              Connection conn = GConnection.getSimpleConnection();
+                Connection conn = GConnection.getSimpleConnection();
               
-                       
+                Integer idCandidature = Integer.valueOf(req.getParameter("idCandidature"));
+                Candidature candidat = Candidature.getById(conn, idCandidature);
+                req.setAttribute("candidat", candidat);
+                         
+                List<String> css = new ArrayList<>();
+                css.add("./assets/css/annonce/annonce-list.css");
+
+                List<String> js = new ArrayList<>();
+
+                req.setAttribute("title", "list candidature");
+                req.setAttribute("contentPage", "./pages/candidature/candidature_detail.jsp");
+                req.setAttribute("css", css);
+                req.setAttribute("js", js);
               
               conn.close();
           } catch (Exception exe) {
               exe.printStackTrace();
                req.setAttribute("erreur", exe.getMessage());
           }
-          RequestDispatcher dispat = req.getRequestDispatcher("./pages/candidature/candidature_detail.jsp");
+          RequestDispatcher dispat = req.getRequestDispatcher("./template.jsp");
           dispat.forward(req, res);
      }
 

@@ -41,11 +41,11 @@
                                     <h3 style="margin: 0;">Huile de bongolava</h3>
                                 </div>
                                 <h4>Nous allons maintenant entrer votre carrière professionel</h4>
-                                <h6 class="font-weight-light little-line-height">Ajouter petit Ã  petit les carriÃ¨res professionels que
+                                <h6 class="font-weight-light little-line-height">Ajouter petit à  petit les carrières professionels que
                                     vous avez faits ainsi que vos qualifications</h6>
                                 <form class="pt-3 form" method="post" action="./ProfessionalCareerInsertionServlet">
                                     <div class="form-group row align-items-center">
-                                        <label for="experience" class="form-label target-poste col-sm-2">AnnÃ©e d'Ã©xperience</label>
+                                        <label for="experience" class="form-label target-poste col-sm-2">Année d'éxperience</label>
                                         <div class="col-sm-5">
                                             <select name="experience" id="experience" class="form-control form-select">
                                                 <% for(int i = 0;i<listeExperience.size();i++) { %>
@@ -61,12 +61,12 @@
                                                 <label for="date" class="col-sm-4 target-poste">Date du parcours</label>
                                                 <div class="col-sm-8 d-flex align-items-center justify-content-between">
                                                     <input type="date" class="form-control form-control-sm" name="startDate" id="startDate">
-                                                    <label for="" class="target-poste mx-3"> Ã  </label>
+                                                    <label for="" class="target-poste mx-3"> à  </label>
                                                     <input type="date" class="form-control form-control-sm" name="endDate" id="endDate">
                                                 </div>
                                             </div>
                                             <div class="form-group align-items-center row">
-                                                <label for="societe" class="target-poste col-sm-4">SociÃ©tÃ©</label>
+                                                <label for="societe" class="target-poste col-sm-4">Société</label>
                                                 <div class="col-sm-8">
                                                     <input type="text" class="form-control" placeholder="Nom du societe" name="societe" id="societe">
                                                 </div>

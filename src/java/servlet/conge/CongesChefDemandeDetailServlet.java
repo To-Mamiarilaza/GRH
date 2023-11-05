@@ -44,7 +44,7 @@ public class CongesChefDemandeDetailServlet extends HttpServlet {
             Connection connection = GConnection.getSimpleConnection();
             int idConge = Integer.valueOf(request.getParameter("idConge"));
             Conge conge = CongeManager.getCongeById(idConge, connection);
-            CongePersonnel congePersonnel = CongeManager.getCongePersonnelInfo(conge.getPersonnel().getIdPersonnel(), connection);
+            CongePersonnel congePersonnel = CongeManager.getCongePersonnelInfo(conge.getPersonnel().getIdEmploye(), connection);
             
             conge.getRemarqueChef();
             
