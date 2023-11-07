@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package servlet.employe;
+package servlet.paie;
 
 import framework.database.utilitaire.GConnection;
 import jakarta.servlet.RequestDispatcher;
@@ -14,16 +14,19 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.sql.Connection;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import model.employe.Employe;
+import model.paie.rappelperiode.RappelPeriode;
+import model.paie.rappelperiode.RappelPeriodeService;
+import model.requis.Service;
 
 /**
  *
  * @author To Mamiarilaza
  */
-@WebServlet(name = "DetailEmploye", urlPatterns = {"/DetailEmploye"})
-public class DetailEmploye extends HttpServlet {
+@WebServlet(name = "RappelAnterieurServlet", urlPatterns = {"/RappelPeriode"})
+public class RappelAnterieurServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -42,10 +45,10 @@ public class DetailEmploye extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet DetailEmploye</title>");
+            out.println("<title>Servlet RappelAnterieurServlet</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet DetailEmploye at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet RappelAnterieurServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -64,31 +67,39 @@ public class DetailEmploye extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
-            int idEmploye = Integer.valueOf(request.getParameter("idEmploye"));
-            
             Connection connection = GConnection.getSimpleConnection();
+
+            int mois = LocalDate.now().getMonthValue();
+            int year = LocalDate.now().getYear();
+
+            if (request.getParameter("mois") != null) {
+                mois = Integer.valueOf(request.getParameter("mois"));
+                year = Integer.valueOf(request.getParameter("year"));
+            }
+
+            request.setAttribute("mois", mois);
+            request.setAttribute("year", year);
+
+            List<RappelPeriode> rappels = RappelPeriodeService.getAllRappelPeriode(mois, year, connection);
+            request.setAttribute("rappels", rappels);
             
-            Employe employe = Employe.getById(idEmploye, connection);
-            request.setAttribute("employe", employe);
-            
-            List<Employe> subordonnes = employe.getSubordonnes(connection);
-            request.setAttribute("subordonnes", subordonnes);
-            
-            connection.close();
-            
+            List<Service> services = Service.getAll(connection);
+            request.setAttribute("services", services);
+
             List<String> css = new ArrayList<>();
             css.add("./assets/css/paie/detail-employe.css");
 
             List<String> js = new ArrayList<>();
-            js.add("./assets/js/quiz/quiz-creation.js");
 
-            request.setAttribute("title", "Liste personnel");
-            request.setAttribute("contentPage", "./pages/employe/detailEmploye.jsp");
+            request.setAttribute("title", "Periode de rappel");
+            request.setAttribute("contentPage", "./pages/paie/periodeAnterieur.jsp");
             request.setAttribute("css", css);
             request.setAttribute("js", js);
-            
-            RequestDispatcher dispatcher = request.getRequestDispatcher("./template.jsp");
-            dispatcher.forward(request, response);
+
+            connection.close();
+
+            RequestDispatcher dispatch = request.getRequestDispatcher("./template.jsp");
+            dispatch.forward(request, response);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -105,7 +116,22 @@ public class DetailEmploye extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            int nbMois = Integer.valueOf(request.getParameter("nbMois"));
+            double modification = Double.valueOf(request.getParameter("modification"));
+
+            List<Service> serviceList = new ArrayList<>();
+            String[] idServices = request.getParameterValues("services");
+            for (String idService : idServices) {
+                serviceList.add(new Service(Integer.valueOf(idService), 1));
+            }
+            
+            RappelPeriodeService.addNewRappelle(nbMois, modification, serviceList);
+            
+            response.sendRedirect("./RappelPeriode");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     /**

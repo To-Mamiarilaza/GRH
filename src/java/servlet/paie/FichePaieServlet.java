@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package servlet.employe;
+package servlet.paie;
 
 import framework.database.utilitaire.GConnection;
 import jakarta.servlet.RequestDispatcher;
@@ -14,16 +14,18 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.sql.Connection;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import model.employe.Employe;
+import model.paie.fiche.FichePaie;
+import model.paie.fiche.FichePaieManager;
 
 /**
  *
  * @author To Mamiarilaza
  */
-@WebServlet(name = "DetailEmploye", urlPatterns = {"/DetailEmploye"})
-public class DetailEmploye extends HttpServlet {
+@WebServlet(name = "FichePaieServlet", urlPatterns = {"/FichePaie"})
+public class FichePaieServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -42,10 +44,10 @@ public class DetailEmploye extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet DetailEmploye</title>");
+            out.println("<title>Servlet FichePaieServlet</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet DetailEmploye at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet FichePaieServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -64,34 +66,45 @@ public class DetailEmploye extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
-            int idEmploye = Integer.valueOf(request.getParameter("idEmploye"));
-            
             Connection connection = GConnection.getSimpleConnection();
+                    
+            int idEmploye = Integer.valueOf(request.getParameter("idEmploye"));
+            request.setAttribute("idEmploye", idEmploye);
             
-            Employe employe = Employe.getById(idEmploye, connection);
-            request.setAttribute("employe", employe);
+            // Date par defaut
+            LocalDate dateFin = LocalDate.now();
+            LocalDate dateDebut = LocalDate.of(dateFin.getYear(), dateFin.getMonthValue(), 1);
             
-            List<Employe> subordonnes = employe.getSubordonnes(connection);
-            request.setAttribute("subordonnes", subordonnes);
+            if (request.getParameter("dateDebut") != null) {
+                dateDebut = LocalDate.parse(request.getParameter("dateDebut"));
+                dateFin = LocalDate.parse(request.getParameter("dateFin"));
+            }
             
-            connection.close();
+            request.setAttribute("dateDebut", dateDebut);
+            request.setAttribute("dateFin", dateFin);
             
+            
+            FichePaie fichePaie = FichePaieManager.getFichePaie(idEmploye, dateDebut, dateFin, connection);
+            request.setAttribute("fichePaie", fichePaie);
+                    
             List<String> css = new ArrayList<>();
             css.add("./assets/css/paie/detail-employe.css");
 
             List<String> js = new ArrayList<>();
-            js.add("./assets/js/quiz/quiz-creation.js");
 
-            request.setAttribute("title", "Liste personnel");
-            request.setAttribute("contentPage", "./pages/employe/detailEmploye.jsp");
+            request.setAttribute("title", "Prime d'employee");
+            request.setAttribute("contentPage", "./pages/paie/fichePaieEmploye.jsp");
             request.setAttribute("css", css);
             request.setAttribute("js", js);
+
+            connection.close();
             
-            RequestDispatcher dispatcher = request.getRequestDispatcher("./template.jsp");
-            dispatcher.forward(request, response);
+            RequestDispatcher dispatch = request.getRequestDispatcher("./template.jsp");
+            dispatch.forward(request, response);
         } catch (Exception e) {
             e.printStackTrace();
         }
+        
     }
 
     /**

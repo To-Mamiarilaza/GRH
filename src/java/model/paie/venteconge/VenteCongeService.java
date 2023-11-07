@@ -107,4 +107,58 @@ public class VenteCongeService {
             throw e;
         }
     }
+    
+    public static List<VenteConge> getVenteConge(int idEmploye, LocalDate dateDebut, LocalDate dateFin, Connection connection) throws Exception {
+        // Etat de fermeture
+        boolean closeable = false;
+        if (connection == null) {
+            closeable = true;
+            connection = GConnection.getSimpleConnection();
+        }
+
+        // Pour avoir l'id du quiz inséré
+        List<VenteConge> venteList = new ArrayList<>();
+        String query = "SELECT * FROM vente_conge WHERE etat = 1 AND debut >= ? AND fin <= ? AND id_employe = ?";
+        
+        PreparedStatement statement = null;
+        ResultSet resultset = null;
+
+        try {
+            statement = connection.prepareStatement(query);
+            statement.setDate(1, Date.valueOf(dateDebut));
+            statement.setDate(2, Date.valueOf(dateFin));
+            statement.setInt(3, idEmploye);
+            
+            
+            resultset = statement.executeQuery();
+
+            while (resultset.next()) {
+                int idVenteConge = resultset.getInt("id_vente_conge");
+                LocalDate debut = resultset.getDate("debut").toLocalDate();
+                LocalDate fin = resultset.getDate("fin").toLocalDate();
+                double montant = resultset.getDouble("montant");
+                
+                venteList.add(new VenteConge(idVenteConge, idEmploye, debut, fin, montant, 1));
+            }
+
+            resultset.close();
+            statement.close();
+            if (closeable) {
+                connection.close();
+            }
+
+            return venteList;
+        } catch (Exception e) {
+            if (resultset != null) {
+                resultset.close();
+            }
+            if (statement != null) {
+                statement.close();
+            }
+            if (connection != null) {
+                connection.close();
+            }
+            throw e;
+        }
+    }
 }

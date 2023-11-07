@@ -12,11 +12,13 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.Period;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import model.conge.CongeReport;
 import model.embauchement.Contrat;
+import model.requis.Service;
 
 /**
  *
@@ -81,6 +83,34 @@ public class Employe {
     }
 
     // Fonction  pour avoir le nom facilement
+    public String getAnciennete() {
+        Period period = Period.between(getContrat().getContratDate().toLocalDate(), LocalDate.now());
+        
+        int years = period.getYears();
+        int months = period.getMonths();
+        int days = period.getDays();
+        
+        String result = "";
+        
+        if (years != 0) {
+            result += years + " ans ";
+        }
+        
+        if (months != 0) {
+            result += months + " mois ";
+        }
+        
+        if (days != 0) {
+            result += days + " jour ";
+        }
+        
+        return result;
+    }
+    
+    public String getPhoto() {
+        return getContrat().getCandidature().getPhoto();
+    }
+    
     public String getNom() {
         return getContrat().getCandidature().getPersonnalInformation().getName();
     }
@@ -116,6 +146,14 @@ public class Employe {
     
     public double getSalaire() {
         return getContrat().getSalary();
+    }
+    
+    public Service getService() {
+        return getContrat().getPoste().getService();
+    }
+    
+    public String getNumCNAPS() {
+        return "000.000.000.000";
     }
 
 ///Constructors
@@ -189,6 +227,39 @@ public class Employe {
     }
 
     // Fonction pour avoir tous les subordonnées d'un employe dans un contrat
+    public static int countEmploye(Connection connection) throws Exception {
+        int nombre = 0;
+        String query = "SELECT count(*) as nombre FROM employe";
+
+        Statement statement = null;
+        ResultSet resultset = null;
+
+        try {
+            statement = connection.createStatement();
+            resultset = statement.executeQuery(query);
+
+            if (resultset.next()) {
+                nombre = resultset.getInt("nombre");
+            }
+
+            resultset.close();
+            statement.close();
+
+            return nombre;
+        } catch (Exception e) {
+            if (resultset != null) {
+                resultset.close();
+            }
+            if (statement != null) {
+                statement.close();
+            }
+            if (connection != null) {
+                connection.close();
+            }
+            throw e;
+        }
+    }
+    
     public List<Employe> getSubordonnes(Connection connection) throws Exception {
         // Etat de fermeture
         boolean closeable = false;
@@ -402,6 +473,8 @@ public class Employe {
             throw e;
         }
     }
+    
+    
 
     //Avoir tous les contrats d'essai
     public static List<Employe> getAll() throws Exception {
@@ -424,6 +497,41 @@ public class Employe {
             resultset.close();
             statement.close();
             connection.close();
+
+            return employes;
+        } catch (Exception e) {
+            if (resultset != null) {
+                resultset.close();
+            }
+            if (statement != null) {
+                statement.close();
+            }
+            if (connection != null) {
+                connection.close();
+            }
+            throw e;
+        }
+    }
+    
+    public static List<Employe> getAllId(Connection connection) throws Exception {
+        List<Employe> employes = new ArrayList<>();
+        String query = "SELECT * FROM employe WHERE status != 0";
+
+        Statement statement = null;
+        ResultSet resultset = null;
+
+        try {
+            connection = GConnection.getSimpleConnection();
+            statement = connection.createStatement();
+            resultset = statement.executeQuery(query);
+            while (resultset.next()) {
+                Employe employe = new Employe();
+                employe.setIdEmploye(resultset.getInt("id_employe"));
+                employes.add(employe);
+            }
+
+            resultset.close();
+            statement.close();
 
             return employes;
         } catch (Exception e) {

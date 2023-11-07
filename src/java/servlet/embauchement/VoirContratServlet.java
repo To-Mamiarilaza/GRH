@@ -198,7 +198,7 @@ public class VoirContratServlet extends HttpServlet {
 
                     //Concernant le salaire du salarie
                     contentStream.setFont(PDType1Font.HELVETICA, 12);
-                    line = outil.writeMultilineText(contentStream, 65, dynamicY, "La renumeration est fixe a " + salaireMois + " ariary par mois soit " + salaireSemaine + " ariary par semaine.", lineHeight, 70);
+                    line = outil.writeMultilineText(contentStream, 65, dynamicY, "La renumeration est fixe a " + salaireMois + " ariary par mois.", lineHeight, 70);
                     dynamicY -= lineHeight;
                     dynamicY -= lineHeight;
 

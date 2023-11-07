@@ -1,11 +1,9 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@page import="model.paie.venteconge.VenteConge, java.util.List" %>
+<%@page import="model.paie.heuresup.HeureSupplementaire, java.util.List" %>
 
 <%
     int idEmploye = (int) request.getAttribute("idEmploye");
-    List<VenteConge> venteConges = (List<VenteConge>) request.getAttribute("venteConges");
-    
-    int congeRestant = (int) request.getAttribute("congeRestant");
+    List<HeureSupplementaire> heureSups = (List<HeureSupplementaire>) request.getAttribute("heureSups");
     
     int mois = (int) request.getAttribute("mois");
     int year = (int) request.getAttribute("year");
@@ -42,11 +40,10 @@
                     </ul>
                 </div>
                 <hr>
-                <h4 class="card-title">VENTES DE CONGES</h4>
+                <h4 class="card-title">HEURES SUPPLEMENTAIRES</h4>
                 <div class="row">
-                    <p class="text-small color-primary m-0">Solde de conge restant :<span class="font-weight-bold mx-3"><%= congeRestant %> jour</span></p>
                     <div class="col-md-8">
-                        <form action="./VenteConge" method="GET" class="mt-3">
+                        <form action="./HeureSupplementaire" method="GET" class="mt-3">
                             <label for="" class="form-label">Filtrer le resultat par mois</label>
                             <div class="form-group row mt-3">
                                 <input type="hidden" name="idEmploye" value="<%= idEmploye %>"/>
@@ -67,16 +64,14 @@
                                 <tr>
                                     <td>Debut</td>
                                     <td>Fin</td>
-                                    <td>Montant</td>
                                     <td>Option</td>
                                 </tr>
                             </thead>
                             <tbody>
-                                <% for(VenteConge vente : venteConges) { %>
+                                <% for(HeureSupplementaire heureSup : heureSups) { %>
                                 <tr>
-                                    <td><%= vente.getDebut() %></td>
-                                    <td><%= vente.getFin() %></td>
-                                    <td><%= vente.getMontant() %> Ar</td>
+                                    <td><%= heureSup.getDebutString() %></td>
+                                    <td><%= heureSup.getFinString() %></td>
                                     <td class="text-danger"><i class="mdi mdi-close list-style-i"></i></td>
                                 </tr>
                                 <% } %>
@@ -84,20 +79,16 @@
                         </table>
                     </div>
                     <div class="col-md-4 paie-element-insertion">
-                        <h4 class="color-primary">Vendre un conge</h4>
-                        <form action="./VenteConge" method="POST" class="form mt-3">
+                        <h4 class="color-primary">Ajouter heure supplementaire</h4>
+                        <form action="./HeureSupplementaire" method="POST" class="form mt-3">
                             <input type="hidden" name="idEmploye" value="<%= idEmploye %>"/>
                             <div class="form-group">
-                                <label for="" class="form-label">Date debut</label>
-                                <input type="date" name="debut" class="form-control mt-2">
+                                <label for="" class="form-label">Date et heure debut</label>
+                                <input type="datetime-local" name="debut" class="form-control mt-2">
                             </div>
                             <div class="form-group">
-                                <label for="" class="form-label">Date fin</label>
-                                <input type="date" name="fin" class="form-control mt-2">
-                            </div>
-                            <div class="form-group">
-                                <label for="" class="form-label">Montant</label>
-                                <input type="number" name="montant" class="form-control mt-2" placeholder="20 000 AR">
+                                <label for="" class="form-label">Date et heure fin</label>
+                                <input type="datetime-local" name="fin" class="form-control mt-2">
                             </div>
                             <div class="form-group">
                                 <input type="submit" class="btn btn-gradient-primary" value="Valider">

@@ -33,7 +33,7 @@
                         <li><a href="./VenteConge?idEmploye=<%= employe.getIdEmploye() %>" class="btn btn-outline-primary btn-sm">Vente conges</a></li>
                         <li><a href="./Abscence?idEmploye=<%= employe.getIdEmploye() %>" class="btn btn-outline-primary btn-sm">Abscence</a></li>
                         <li><a href="./Avance?idEmploye=<%= employe.getIdEmploye() %>" class="btn btn-outline-primary btn-sm">Demande d'avance</a></li>
-                        <li><a class="btn btn-outline-primary btn-sm">Fiche de paie</a></li>
+                        <li><a href="./FichePaie?idEmploye=<%= employe.getIdEmploye() %>" class="btn btn-outline-primary btn-sm">Fiche de paie</a></li>
                     </ul>
                 </div>
                 <hr>
@@ -44,7 +44,7 @@
                         <div class="row info-person mt-3">
                             <div class="col-md-5">
                                 <h3 class="text-small color-primary">Photo de profile</h3>
-                                <img class="profile-pic mt-2" src="./assets/images/faces/face1.jpg"
+                                <img class="profile-pic mt-2" src="./photo_identity/<%= employe.getPhoto() %>"
                                      alt="Profile picture">
                             </div>
                             <div class="col-md-7">
@@ -92,10 +92,10 @@
                                 </ul>
                                 <h4 class="color-primary underline">Son superieur</h4>
                                 <div class="employe-list">
-                                    <% if(employe.getSuperieur() != null) { %>
+                                    <% if(employe.getSuperieur().getContrat() != null) { %>
                                     <div class="employe">
                                         <div class="img">
-                                            <img src="./assets/images/faces/face2.jpg" alt="">
+                                            <img src="./photo_identity/<%= employe.getSuperieur().getPhoto() %>" alt="">
                                         </div>
                                         <div class="name">
                                             <%= employe.getSuperieur().getFullName() %>
@@ -108,7 +108,7 @@
                                     <% for(Employe sub : subordonnes) { %>
                                     <div class="employe">
                                         <div class="img">
-                                            <img src="./assets/images/faces/face3.jpg" alt="">
+                                            <img src="./photo_identity/<%= sub.getPhoto() %>" alt="">
                                         </div>
                                         <div class="name">
                                             <%= sub.getFullName() %>

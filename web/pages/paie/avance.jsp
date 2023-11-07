@@ -33,12 +33,12 @@
             <div class="card-body">
                 <div class="inside-link">
                     <ul class="horizontal-list no-style-list">
-                        <li><a href="./Prime?idEmploye=<%= employe.getIdEmploye() %>" class="btn btn-outline-primary btn-sm">Prime</a> </li>
-                        <li><a href="./HeureSupplementaire?idEmploye=<%= employe.getIdEmploye() %>" class="btn btn-outline-primary btn-sm">Heure supplementaire</a></li>
-                        <li><a href="./VenteConge?idEmploye=<%= employe.getIdEmploye() %>" class="btn btn-outline-primary btn-sm">Vente conges</a></li>
-                        <li><a href="./Abscence?idEmploye=<%= employe.getIdEmploye() %>" class="btn btn-outline-primary btn-sm">Abscence</a></li>
-                        <li><a href="./Avance?idEmploye=<%= employe.getIdEmploye() %>" class="btn btn-outline-primary btn-sm">Demande d'avance</a></li>
-                        <li><a class="btn btn-outline-primary btn-sm">Fiche de paie</a></li>
+                        <li><a href="./Prime?idEmploye=<%= idEmploye %>" class="btn btn-outline-primary btn-sm">Prime</a> </li>
+                        <li><a href="./HeureSupplementaire?idEmploye=<%= idEmploye %>" class="btn btn-outline-primary btn-sm">Heure supplementaire</a></li>
+                        <li><a href="./VenteConge?idEmploye=<%= idEmploye %>" class="btn btn-outline-primary btn-sm">Vente conges</a></li>
+                        <li><a href="./Abscence?idEmploye=<%= idEmploye %>" class="btn btn-outline-primary btn-sm">Abscence</a></li>
+                        <li><a href="./Avance?idEmploye=<%= idEmploye %>" class="btn btn-outline-primary btn-sm">Demande d'avance</a></li>
+                        <li><a href="./FichePaie?idEmploye=<%= idEmploye %>" class="btn btn-outline-primary btn-sm">Fiche de paie</a></li>
                     </ul>
                 </div>
                 <hr>

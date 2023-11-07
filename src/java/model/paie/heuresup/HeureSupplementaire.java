@@ -12,6 +12,8 @@ import java.time.format.DateTimeFormatter;
  * @author To Mamiarilaza
  */
 public class HeureSupplementaire {
+    // L'entrée d'une heure supplementaire se limite a une journée
+    
     /// field
     int idHeureSupplementaire;
     int idEmploye;

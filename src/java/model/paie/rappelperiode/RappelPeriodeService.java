@@ -6,6 +6,7 @@ package model.paie.rappelperiode;
 
 import framework.database.utilitaire.GConnection;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -114,6 +115,62 @@ public class RappelPeriodeService {
         try {
             statement = connection.createStatement();
             resultset = statement.executeQuery(query);
+
+            while (resultset.next()) {
+                int idRappelPeriode = resultset.getInt("id_rappel_periode");
+                LocalDate date = resultset.getDate("date").toLocalDate();
+                double modification = resultset.getDouble("modification_salaire");
+                int nombreMois = resultset.getInt("nombre_mois");
+                int etat = resultset.getInt("etat");
+                
+                RappelPeriode newRappel = new RappelPeriode(idRappelPeriode, date, modification, nombreMois);
+                newRappel.setServices(getAllRappelService(idRappelPeriode, connection));
+                
+                rappelList.add(newRappel);
+            }
+
+            resultset.close();
+            statement.close();
+            if (closeable) {
+                connection.close();
+            }
+
+            return rappelList;
+        } catch (Exception e) {
+            if (resultset != null) {
+                resultset.close();
+            }
+            if (statement != null) {
+                statement.close();
+            }
+            if (connection != null) {
+                connection.close();
+            }
+            throw e;
+        }
+    }
+    
+    // Pour avoir les rappel dans un intervalle donnée
+    public static List<RappelPeriode> getAllRappelPeriode(LocalDate debut, LocalDate fin, Connection connection) throws Exception {
+        // Etat de fermeture
+        boolean closeable = false;
+        if (connection == null) {
+            closeable = true;
+            connection = GConnection.getSimpleConnection();
+        }
+
+        // Pour avoir l'id du quiz inséré
+        List<RappelPeriode> rappelList = new ArrayList<>();
+        String query = "SELECT * FROM rappel_periode WHERE etat = 1 AND date >= ? AND date <= ?";
+        
+        PreparedStatement statement = null;
+        ResultSet resultset = null;
+
+        try {
+            statement = connection.prepareStatement(query);
+            statement.setDate(1, Date.valueOf(debut));
+            statement.setDate(2, Date.valueOf(fin));
+            resultset = statement.executeQuery();
 
             while (resultset.next()) {
                 int idRappelPeriode = resultset.getInt("id_rappel_periode");

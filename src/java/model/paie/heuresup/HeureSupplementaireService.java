@@ -6,16 +6,17 @@ package model.paie.heuresup;
 
 import framework.database.utilitaire.GConnection;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
-import model.paie.prime.Prime;
-import model.paie.prime.PrimeEmploye;
 
 /**
  *
@@ -50,14 +51,67 @@ public class HeureSupplementaireService {
                 statement.close();
             }
             if (connection != null) {
-                connection.rollback();
+                //connection.rollback();
                 connection.close();
             }
             throw e;
         }
     }
     
-    // Pour avoir tous les prime d'une employe dans un moment donnée
+    // Pour avoir les heures supplementaires d'une employe dans un intervalle donnée
+    public static List<HeureSupplementaire> getEmployeHeureSupplementaire(int idEmploye, LocalDate dateDebut, LocalDate dateFin, Connection connection) throws Exception {
+        // Etat de fermeture
+        boolean closeable = false;
+        if (connection == null) {
+            closeable = true;
+            connection = GConnection.getSimpleConnection();
+        }
+
+        // Pour avoir l'id du quiz inséré
+        List<HeureSupplementaire> heureSupList = new ArrayList<>();
+        String query = "SELECT * FROM heure_supplementaire WHERE etat = 1 AND debut >= ? AND debut <= ? AND id_employe = ?";
+        
+        PreparedStatement statement = null;
+        ResultSet resultset = null;
+
+        try {
+            statement = connection.prepareStatement(query);
+            statement.setDate(1, Date.valueOf(dateDebut));
+            statement.setDate(2, Date.valueOf(dateFin));
+            statement.setInt(3, idEmploye);
+            System.out.println("Query : " + statement.toString());
+            
+            resultset = statement.executeQuery();
+
+            while (resultset.next()) {
+                int idHeureSup = resultset.getInt("id_heure_supplementaire");
+                LocalDateTime debut = resultset.getTimestamp("debut").toLocalDateTime();
+                LocalDateTime fin = resultset.getTimestamp("fin").toLocalDateTime();
+                heureSupList.add(new HeureSupplementaire(idHeureSup, idEmploye, debut, fin, 1));
+            }
+
+            resultset.close();
+            statement.close();
+            if (closeable) {
+                connection.close();
+            }
+
+            return heureSupList;
+        } catch (Exception e) {
+            if (resultset != null) {
+                resultset.close();
+            }
+            if (statement != null) {
+                statement.close();
+            }
+            if (connection != null) {
+                connection.close();
+            }
+            throw e;
+        }
+    }
+    
+    // Pour avoir tous les heure supplementaires d'une employe dans un moment donnée
     public static List<HeureSupplementaire> getEmployeHeureSupplementaire(int idEmploye, int mois, int annee, Connection connection) throws Exception {
         // Etat de fermeture
         boolean closeable = false;
@@ -107,7 +161,10 @@ public class HeureSupplementaireService {
     }
     
     public static void main(String[] args) throws Exception {
-        List<HeureSupplementaire> list = getEmployeHeureSupplementaire(12, 10, 2023, null);
+        Connection connection = GConnection.getSimpleConnection();
+        //HeureSupplementaireService.addNewHeureSupplementaire(3, LocalDateTime.of(2023, 11, 3, , 0), LocalDateTime.of(2023, 11, 3, 23, 0));
+        
+        List<HeureSupplementaire> list = getEmployeHeureSupplementaire(3, LocalDate.of(2023, 11, 1), LocalDate.of(2023, 11, 6), connection);
         for (HeureSupplementaire heureSupplementaire : list) {
             System.out.println("ID : " + heureSupplementaire.getIdHeureSupplementaire());
         }
