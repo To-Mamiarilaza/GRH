@@ -135,9 +135,9 @@ VALUES
 
 -- les conges avec leurs types
 CREATE VIEW v_conge_with_type AS
-SELECT c.*, tc.type_conge_name, tc.is_cumulable, tc.sexe_valability, tc.duree, p.id_superieur 
+SELECT c.*, tc.type_conge_name, tc.is_cumulable, tc.sexe_valability, tc.duree, con.id_superieur 
 FROM conge c JOIN type_conge tc ON c.id_type_conge = tc.id_type_conge
-JOIN personnel p ON c.id_personnel = p.id_personnel;
+JOIN employe e ON c.id_personnel = e.id_employe JOIN contrat con ON e.id_contrat = con.id_contrat;
 
 -- les demandes de conge
 CREATE VIEW v_demande_conge AS

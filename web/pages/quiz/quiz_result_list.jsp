@@ -1,8 +1,9 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@page import="model.quiz.CandidatureTest, java.util.List" %>
+<%@page import="model.quiz.CandidatureTest, java.util.List, model.gestionProfile.WantedProfile" %>
 
 <%
     List<CandidatureTest> candidatureTestList = (List<CandidatureTest>) request.getAttribute("candidatureTestList");
+    List<WantedProfile> profiles = (List<WantedProfile>) request.getAttribute("profiles");
 %>
 
 <div class="page-header">
@@ -27,18 +28,14 @@
         <div class="card">
             <div class="card-body">
                 <h4 class="card-title">Listes des candidature avec leurs notes</h4>
-                <form class="form mt-3">
+                <form class="form mt-3" method="POST" action="./quiz-results">
                     <div class="row align-items-end">
-                        <div class="form-group col-md-5 mt-2">
-                            <label for="" class="form-label">Service</label>
-                            <select name="service" id="" class="form-select mt-2">
-                                <option value="1">Informatique</option>
-                            </select>
-                        </div>
                         <div class="form-group col-md-5 mt-2">
                             <label for="" class="form-label">Poste</label>
                             <select name="poste" id="" class="form-select mt-2">
-                                <option value="1">Développeur Web</option>
+                                <% for(WantedProfile profile: profiles) { %>
+                                <option value="<%= profile.getIdWantedProfile() %>"><%= profile.getPoste() %></option>
+                                <% } %>
                             </select>
                         </div>
                         <div class="form-group col-md-2">

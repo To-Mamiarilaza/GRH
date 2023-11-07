@@ -1,8 +1,8 @@
-<%@page import="java.util.List, model.requis.User, java.time.LocalDate, model.conge.Conge, model.conge.CongePersonnel, model.conge.Personnel" %>
+<%@page import="java.util.List, model.requis.User, java.time.LocalDate, model.conge.Conge, model.conge.CongePersonnel, model.employe.Employe" %>
 <%
     Conge conge = (Conge) request.getAttribute("conge");
     CongePersonnel congePerso = (CongePersonnel) request.getAttribute("congePersonnel");
-    Personnel personnel = congePerso.getPersonnel();
+    Employe personnel = congePerso.getPersonnel();
     User user = (User) request.getSession().getAttribute("user");
 %>
 <div class="page-header">
@@ -31,19 +31,29 @@
                             <div class="section mt-3">
                                 <p class="text-primary mb-2">Information personnelle</p>
                                 <ul class="list-espaced">
-                                    <li><strong>Nom :</strong><%= personnel.getNom() %></li>
-                                    <li><strong>Prenom :</strong><%= personnel.getPrenom() %></li>
-                                    <li><strong>Date Naissance :</strong><%= personnel.getDateNaissance() %></li>
-                                    <li><strong>Telephone :</strong><%= personnel.getTelephone() %></li>
+                                    <li><strong>Nom :</strong> <span class="mx-2"><%= personnel.getNom() %></span></li>
+                                    <li><strong>Prenom :</strong><span class="mx-2"><%= personnel.getPrenom() %></span></li>
+                                    <li><strong>Date Naissance :</strong><span class="mx-2"><%= personnel.getDateNaissance() %></span></li>
+                                    <li><strong>Telephone :</strong><span class="mx-2"><%= personnel.getTelephone() %></span></li>
                                 </ul>
                             </div>
                             <div class="section mt-3">
-                                <p class="text-primary mb-2">Information personnelle</p>
+                                <p class="text-primary mb-2">POSTE DE : <strong class="text-black mx-3"><%= personnel.getPoste() %></strong></p>
+                            </div>
+                            <div class="section mt-3">
+                                <p class="text-primary mb-2">Missions et attributions</p>
                                 <ul class="list-espaced">
-                                    <li><strong>Nom :</strong> <%= personnel.getNom() %></li>
-                                    <li><strong>Prenom :</strong><%= personnel.getPrenom() %></li>
-                                    <li><strong>Date Naissance :</strong><%= personnel.getDateNaissance() %></li>
-                                    <li><strong>Telephone :</strong><%= personnel.getTelephone() %></li>
+                                    <li>Accomplir toutes les taches dans l'entreprise</li>
+                                    <li>Respecter toutes les lois regissant a l'interieur du societe</li>
+                                    <li>Assurer la mission spécifique de chaque département</li>
+                                </ul>
+                            </div>
+                            <div class="section mt-3">
+                                <p class="text-primary mb-2">Compétences et aptitudes requises</p>
+                                <ul class="list-espaced">
+                                    <li>Avoir une belle capacité de communication</li>
+                                    <li>A l'ecoute de ces collaborateurs et savoir travailler en equipe</li>
+                                    <li>Les compétences nécessaires prérequis dans la demande du département</li>
                                 </ul>
                             </div>
                         </div>
@@ -64,7 +74,7 @@
                         </div>
                         <div class="bordered detail-conges px-4 py-2 mt-3">
                             <form class="form mt-3" action="./ValidationChefConge" method="POST">
-                                <input type="hidden" name="idResponsable" value="<%= user.getIdPersonnel() %>">
+                                <input type="hidden" name="idResponsable" value="<%= user.getIdEmploye() %>">
                                 <input type="hidden" name="idConge" value="<%= conge.getIdConge() %>">
                                 <h4 class="">Validation du demande</h4>
                                 <div class="form-group mt-3">

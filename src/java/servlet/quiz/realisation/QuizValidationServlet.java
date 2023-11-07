@@ -4,15 +4,15 @@
  */
 package servlet.quiz.realisation;
 
+import framework.database.utilitaire.GConnection;
 import java.io.IOException;
-import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.sql.Connection;
 import java.util.HashMap;
-import java.util.Map;
 import model.candidature.Candidature;
 import model.gestionProfile.WantedProfile;
 import model.quiz.CandidatureTest;
@@ -40,11 +40,13 @@ public class QuizValidationServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         // reception des données requiz
         try {
-            Candidature candidature = (Candidature) request.getSession().getAttribute("candidature");
+            int idCandidature = Integer.valueOf(request.getParameter("idCandidature"));
+            Connection connection = GConnection.getSimpleConnection();
+            Candidature candidature = Candidature.getById(connection, idCandidature);
             
-            Quiz quiz = Quiz.getQuizById(Integer.valueOf(48));
+            WantedProfile wantedProfile = candidature.getWantedProfile();
             
-            WantedProfile wantedProfile = new WantedProfile();
+            Quiz quiz = wantedProfile.getQuiz();
             
             // Prise en main des réponses de l'utilisateur
             HashMap<String, String[]> answers = new HashMap<>();

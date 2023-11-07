@@ -1,8 +1,8 @@
-<%@page import="java.util.List, model.requis.User, java.time.LocalDate, model.conge.Conge, model.conge.CongePersonnel, model.conge.Personnel" %>
+<%@page import="java.util.List, model.requis.User, java.time.LocalDate, model.conge.Conge, model.conge.CongePersonnel, model.employe.Employe" %>
 <%
     Conge conge = (Conge) request.getAttribute("conge");
     CongePersonnel congePerso = (CongePersonnel) request.getAttribute("congePersonnel");
-    Personnel personnel = congePerso.getPersonnel();
+    Employe personnel = congePerso.getPersonnel();
     User user = (User) request.getSession().getAttribute("user");
 %>
 <div class="page-header">
@@ -64,7 +64,7 @@
                         </div>
                         <div class="bordered detail-conges px-4 py-2 mt-3">
                             <form class="form mt-3" action="./ValidationRHConge" method="POST">
-                                <input type="hidden" name="idResponsable" value="<%= user.getIdPersonnel() %>">
+                                <input type="hidden" name="idResponsable" value="<%= user.getIdEmploye() %>">
                                 <input type="hidden" name="idConge" value="<%= conge.getIdConge() %>">
                                 <h4 class="">Validation du demande</h4>
                                 <div class="form-group mt-3">

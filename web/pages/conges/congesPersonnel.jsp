@@ -1,9 +1,9 @@
-<%@page import="java.util.List, java.time.LocalDate, model.conge.Conge, model.conge.CongePersonnel, model.conge.Personnel" %>
+<%@page import="java.util.List, java.time.LocalDate, model.conge.Conge, model.conge.CongePersonnel, model.employe.Employe" %>
 <%
     List<Conge> congeList = (List<Conge>) request.getAttribute("congeList");
     CongePersonnel congePersonnelInfo = (CongePersonnel) request.getAttribute("congePersonnelInfo");
     Conge currentConge = congePersonnelInfo.getCurrentConge();
-    Personnel personnel = congePersonnelInfo.getPersonnel();
+    Employe personnel = congePersonnelInfo.getPersonnel();
     
     LocalDate currentCongeDebut = null;
     LocalDate currentCongeFin = null;
@@ -20,7 +20,7 @@
     <h3 class="page-title">
         <span class="page-title-icon bg-gradient-primary text-white me-2">
             <i class="mdi mdi-calendar"></i>
-        </span> Gestion des congï¿½s
+        </span> Gestion des congés
     </h3>
     <nav aria-label="breadcrumb">
         <ul class="breadcrumb">
@@ -74,7 +74,7 @@
                         <table class="table">
                             <thead>
                                 <tr>
-                                    <th>Depot congï¿½s</th>
+                                    <th>Depot congés</th>
                                     <th>Date debut</th>
                                     <th>Date fin</th>
                                     <th>Motif</th>

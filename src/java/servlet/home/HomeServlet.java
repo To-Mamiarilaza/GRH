@@ -4,17 +4,22 @@
  */
 package servlet.home;
 
+import framework.database.utilitaire.GConnection;
 import jakarta.servlet.RequestDispatcher;
 import java.io.IOException;
-import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.sql.Connection;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import model.employe.Employe;
+import model.gestionBesoin.Besoin;
+import model.paie.fiche.EtatPaie;
 import model.requis.User;
 
 /**
@@ -49,6 +54,27 @@ public class HomeServlet extends HttpServlet {
 
             request.setAttribute("RH_DEPARTEMENT", RH_DEPARTEMENT);
             
+            LocalDate dateFin = LocalDate.now();
+            LocalDate dateDebut = LocalDate.of(dateFin.getYear(), dateFin.getMonthValue(), 1);
+            
+            double totalSalaire = 0;
+            int nombreEmploye = 0;
+            int nombreBesoin = 0;
+            try {
+                Connection connection = GConnection.getSimpleConnection();
+                totalSalaire = EtatPaie.getEtatPaie(dateDebut, dateFin, connection).getNetAPayerTotal();
+                nombreEmploye = Employe.countEmploye(connection);
+                nombreBesoin = Besoin.getNewBesoinsNumber(connection);
+                connection.close();
+            } catch (Exception e) {
+                System.out.println("ERREUR : " + e.getMessage());
+                e.printStackTrace();
+            }
+            
+            request.setAttribute("totalSalaire", totalSalaire);
+            request.setAttribute("nombreEmploye", nombreEmploye);
+            request.setAttribute("nombreBesoin", nombreBesoin);
+            
             List<String> css = new ArrayList<>();
             css.add("./assets/css/quiz/quiz_creation.css");
 
@@ -63,6 +89,8 @@ public class HomeServlet extends HttpServlet {
 
             RequestDispatcher dispatch = request.getRequestDispatcher("./template.jsp");
             dispatch.forward(request, response);
+            
+            System.out.println("OK j'arrive ici");
 
         }
 

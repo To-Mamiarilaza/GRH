@@ -10,7 +10,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.time.LocalDate;
-import model.conge.Personnel;
+import model.employe.Employe;
 
 /**
  *
@@ -26,7 +26,7 @@ public class LicenciementService {
         ResultSet resultset = null;
         
         try {
-            Personnel personnel = Personnel.getPersonnelById(idEmploye, connection);
+            Employe personnel = Employe.getById(idEmploye, connection);
             LocalDate datePreavis = LocalDate.now();
 
             LocalDate dateLicenciement = datePreavis.plusDays(personnel.getClasseEmploye().getDureePreavis());
@@ -35,14 +35,14 @@ public class LicenciementService {
             // Pour le licenciement directe
             if (type == 0) {
                 dateLicenciement = LocalDate.now();
-                droitPreavis = (personnel.getSalaire() / 30) * personnel.getClasseEmploye().getDureePreavis();
+                droitPreavis = (personnel.getContrat().getSalary() / 30) * personnel.getClasseEmploye().getDureePreavis();
             }
 
             // Insertion dans la base de données
             String query = "INSERT INTO licenciement (id_employe, date_preavis, date_licenciement, id_type_licenciement, droit_preavis, etat) VALUES (?, ?, ?, ?, ?, 1)";
 
             statement = connection.prepareStatement(query);
-            statement.setInt(1, personnel.getIdPersonnel());
+            statement.setInt(1, personnel.getIdEmploye());
             statement.setDate(2, Date.valueOf(datePreavis));
             statement.setDate(3, Date.valueOf(dateLicenciement));
             statement.setInt(4, 2);     // Ordre de l'employeur

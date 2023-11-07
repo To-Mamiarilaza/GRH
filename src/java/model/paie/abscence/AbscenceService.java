@@ -14,6 +14,7 @@ import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.Month;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 import model.paie.venteconge.VenteConge;
@@ -110,10 +111,72 @@ public class AbscenceService {
         }
     }
     
-    public static void main(String[] args) throws Exception {
-        List<Abscence> abscenceList = getAllAbscence(12, 3, 2023, null);
-        for (Abscence abscence : abscenceList) {
-            System.out.println("ID : " + abscence.getIdAbscence());
+    // Heure total d'abscence
+    public static int getTotalHourAbscence(List<Abscence> abscences) {
+        int total = 0;
+        for (Abscence abscence : abscences) {
+            total += ChronoUnit.HOURS.between(abscence.getDebut(), abscence.getFin());
         }
+        return total;
+    }
+    
+    // Pour avoir les abscence dans une intervalle donnée
+    public static int getTotalAbscence(int idEmploye, LocalDate beginDate, LocalDate endDate, Connection connection) throws Exception {
+        // Etat de fermeture
+        boolean closeable = false;
+        if (connection == null) {
+            closeable = true;
+            connection = GConnection.getSimpleConnection();
+        }
+
+        // Pour avoir l'id du quiz inséré
+        List<Abscence> abscenceList = new ArrayList<>();
+        String query = "SELECT * FROM abscence WHERE etat = 1 AND date >= ? AND date <= ? AND id_employe = ?";
+        
+        PreparedStatement statement = null;
+        ResultSet resultset = null;
+
+        try {
+            statement = connection.prepareStatement(query);
+            statement.setDate(1, Date.valueOf(beginDate));
+            statement.setDate(2, Date.valueOf(endDate));
+            statement.setInt(3, idEmploye);
+            
+            resultset = statement.executeQuery();
+
+            while (resultset.next()) {
+                int idAbscence = resultset.getInt("id_abscence");
+                LocalDate date = resultset.getDate("date").toLocalDate();
+                LocalTime debut = resultset.getTime("heure_debut").toLocalTime();
+                LocalTime fin = resultset.getTime("heure_fin").toLocalTime();
+                
+                abscenceList.add(new Abscence(idAbscence, idEmploye, date, debut, fin, 1));
+            }
+
+            resultset.close();
+            statement.close();
+            if (closeable) {
+                connection.close();
+            }
+            
+            return getTotalHourAbscence(abscenceList);
+
+        } catch (Exception e) {
+            if (resultset != null) {
+                resultset.close();
+            }
+            if (statement != null) {
+                statement.close();
+            }
+            if (connection != null) {
+                connection.close();
+            }
+            throw e;
+        }
+    }
+    
+    public static void main(String[] args) throws Exception {
+        int heureTotal = getTotalAbscence(3, LocalDate.of(2023, 11, 8), LocalDate.of(2023, 11, 11), null);
+        System.out.println("Heure total : " + heureTotal);
     }
 }

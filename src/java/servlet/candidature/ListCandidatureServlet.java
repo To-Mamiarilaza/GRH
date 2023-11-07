@@ -31,6 +31,18 @@ public class ListCandidatureServlet extends HttpServlet {
           try {
                 Connection conn = GConnection.getSimpleConnection();
 
+                
+                List<String> css = new ArrayList<>();
+                css.add("./assets/css/annonce/annonce-list.css");
+
+                List<String> js = new ArrayList<>();
+
+                req.setAttribute("title", "list candidature");
+                req.setAttribute("contentPage", "./pages/candidature/candidature_list.jsp");
+                req.setAttribute("css", css);
+                req.setAttribute("js", js);
+                
+                
                 WantedProfile wp = new WantedProfile();
 
                 ArrayList<Service> services = Service.getAll(conn);
@@ -51,7 +63,7 @@ public class ListCandidatureServlet extends HttpServlet {
                 exe.printStackTrace();
                 req.setAttribute("erreur", exe.getMessage());
           }
-          RequestDispatcher dispat = req.getRequestDispatcher("./pages/candidature/candidature_list.jsp");
+          RequestDispatcher dispat = req.getRequestDispatcher("./template.jsp");
           dispat.forward(req, res);
      }
 

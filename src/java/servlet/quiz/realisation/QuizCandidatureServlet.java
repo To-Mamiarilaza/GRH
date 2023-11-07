@@ -4,16 +4,15 @@
  */
 package servlet.quiz.realisation;
 
+import framework.database.utilitaire.GConnection;
 import jakarta.servlet.RequestDispatcher;
 import java.io.IOException;
-import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
-import java.util.List;
+import java.sql.Connection;
 import model.candidature.Candidature;
 import model.candidature.PersonnalInformation;
 import model.gestionProfile.WantedProfile;
@@ -40,20 +39,16 @@ public class QuizCandidatureServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         // Id du candidature ( On doit prendre depuis le candidature toutes les informations nécessaire )
         // Tous les informations ici doivent partir du classe candidature
-        
-        
-        
         try {
-            PersonnalInformation personalInfo = new PersonnalInformation("MAMIARILAZA", "To", null, null, "mamiarilaza.to@gmail.com", "0341451743", null);
-            WantedProfile wantedProfile = new WantedProfile(1, "Développeur JUNIOR", null);
-            Quiz quiz = Quiz.getQuizById(48);
+            int idCandidature = Integer.valueOf(request.getParameter("idCandidature"));
             
-            String idCandidature = request.getParameter("idCandidature");
+            Connection connection = GConnection.getSimpleConnection();
+            Candidature candidature = Candidature.getById(connection, idCandidature);
+            connection.close();
             
-            Candidature candidature = new Candidature();
-            candidature.setIdCandidature(1);
-            candidature.setPersonnalInformation(personalInfo);
-            candidature.setWantedProfile(wantedProfile);
+            PersonnalInformation personalInfo = candidature.getPersonnalInformation();
+            WantedProfile wantedProfile = candidature.getWantedProfile();
+            Quiz quiz = wantedProfile.getQuiz();
             
             request.getSession().setAttribute("candidature", candidature);
         

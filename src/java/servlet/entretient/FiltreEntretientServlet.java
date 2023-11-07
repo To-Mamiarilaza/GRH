@@ -47,8 +47,8 @@ public class FiltreEntretientServlet extends HttpServlet {
             try {
                 List<Candidature> listeEmbauchedCandidat = c.getRefusedCandidat(idWp, d, null);
                 request.setAttribute("listeEmbauchedCandidat", listeEmbauchedCandidat);
-                List<Candidature> listePostulate = c.getCandidatState(3, null);
-                List<Candidature> listeEntretenue = c.getCandidatState(4, null);
+                List<Candidature> listePostulate = c.getCandidatState(4, null);
+                List<Candidature> listeEntretenue = c.getCandidatState(5, null);
                 List<WantedProfile> listeWp = new WantedProfile().getAll(null);
 
                 request.setAttribute("listeWp", listeWp);
@@ -71,12 +71,12 @@ public class FiltreEntretientServlet extends HttpServlet {
             }
         } else {
             switch (status) {
-                case 3:
+                case 4:
                     try {
                     List<Candidature> listePostulate = c.filtreDatePoste(idWp, d, null);
                     request.setAttribute("listePostulate", listePostulate);
                     List<Candidature> listeEmbauchedCandidat = c.getResultCandidature(null);
-                    List<Candidature> listeEntretenu = c.getCandidatState(3, null);
+                    List<Candidature> listeEntretenu = c.getCandidatState(4, null);
 
                     List<WantedProfile> listeWp = new WantedProfile().getAll(null);
 
@@ -90,33 +90,6 @@ public class FiltreEntretientServlet extends HttpServlet {
 
                     request.setAttribute("title", "Programmes des entretiens");
                     request.setAttribute("contentPage", "./pages/entretient/programme_entretient.jsp");
-                    request.setAttribute("css", css);
-                    request.setAttribute("js", js);
-
-                    RequestDispatcher dispatch = request.getRequestDispatcher("./template.jsp");
-                    dispatch.forward(request, response);
-                } catch (Exception ex) {
-                    ex.printStackTrace();
-                }
-                break;
-                case 4:
-                    try {
-                    List<Candidature> listeEntretenu = c.filtreDatePoste(idWp, d, null);
-                    request.setAttribute("listeEntretenu", listeEntretenu);
-                    List<Candidature> listeEmbauchedCandidat = c.getResultCandidature(null);
-                    List<Candidature> listePostulate = c.getCandidatState(4, null);
-                    List<WantedProfile> listeWp = new WantedProfile().getAll(null);
-
-                    request.setAttribute("listeWp", listeWp);
-
-                    request.setAttribute("listePostulate", listePostulate);
-                    request.setAttribute("listeEmbauchedCandidat", listeEmbauchedCandidat);
-                    request.setAttribute("title", "Programmes des entretiens");
-                    request.setAttribute("contentPage", "./pages/entretient/programme_entretient.jsp");
-
-                    List<String> css = new ArrayList<>();
-                    List<String> js = new ArrayList<>();
-
                     request.setAttribute("css", css);
                     request.setAttribute("js", js);
 
@@ -128,10 +101,37 @@ public class FiltreEntretientServlet extends HttpServlet {
                 break;
                 case 5:
                     try {
+                    List<Candidature> listeEntretenu = c.filtreDatePoste(idWp, d, null);
+                    request.setAttribute("listeEntretenu", listeEntretenu);
+                    List<Candidature> listeEmbauchedCandidat = c.getResultCandidature(null);
+                    List<Candidature> listePostulate = c.getCandidatState(5, null);
+                    List<WantedProfile> listeWp = new WantedProfile().getAll(null);
+
+                    request.setAttribute("listeWp", listeWp);
+
+                    request.setAttribute("listePostulate", listePostulate);
+                    request.setAttribute("listeEmbauchedCandidat", listeEmbauchedCandidat);
+                    request.setAttribute("title", "Programmes des entretiens");
+                    request.setAttribute("contentPage", "./pages/entretient/programme_entretient.jsp");
+
+                    List<String> css = new ArrayList<>();
+                    List<String> js = new ArrayList<>();
+
+                    request.setAttribute("css", css);
+                    request.setAttribute("js", js);
+
+                    RequestDispatcher dispatch = request.getRequestDispatcher("./template.jsp");
+                    dispatch.forward(request, response);
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+                break;
+                case 6:
+                    try {
                     List<Candidature> listeEmbauchedCandidat = c.filtreDatePoste(idWp, d, null);
                     request.setAttribute("listeEmbauchedCandidat", listeEmbauchedCandidat);
-                    List<Candidature> listePostulate = c.getCandidatState(3, null);
-                    List<Candidature> listeEntretenue = c.getCandidatState(4, null);
+                    List<Candidature> listePostulate = c.getCandidatState(4, null);
+                    List<Candidature> listeEntretenue = c.getCandidatState(5, null);
                     List<WantedProfile> listeWp = new WantedProfile().getAll(null);
 
                     request.setAttribute("listeWp", listeWp);

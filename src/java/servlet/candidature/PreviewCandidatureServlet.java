@@ -74,15 +74,25 @@ public class PreviewCandidatureServlet extends HttpServlet {
 
         String baseUploadDirectory1 = this.getServletContext().getRealPath("/dossier_justificative/");
         String baseUploadDirectory2 = this.getServletContext().getRealPath("/photo_identity/");
+        
+        String persistanceDirectory1 = getServletContext().getRealPath("").replace("build\\web\\", "web\\dossier_justificative\\");
+        String persistanceDirectory2 = getServletContext().getRealPath("").replace("build\\web\\", "web\\photo_identity\\");
 
         String uniqueDossierUploadDirectory = baseUploadDirectory1 + dossierName + File.separator;
+        String uniqueDossierUploadPersistance = persistanceDirectory1 + dossierName + File.separator;
+        
         String uniquePhotoUploadDirectory = baseUploadDirectory2 + photoName + File.separator;
+        String uniquePhotoUploadPersistance = persistanceDirectory2 + photoName + File.separator;
 
         System.out.println("up1 : "+uniqueDossierUploadDirectory);
         System.out.println("up2 : "+uniquePhotoUploadDirectory);
         
         filePartDossier.write(uniqueDossierUploadDirectory);
+        filePartDossier.write(uniqueDossierUploadPersistance);
+        
+        
         filePartPhoto.write(uniquePhotoUploadDirectory);
+        filePartPhoto.write(uniquePhotoUploadPersistance);
 
         response.sendRedirect(request.getContextPath() + "/PreviewCandidatureServlet");
     }

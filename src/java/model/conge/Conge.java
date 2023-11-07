@@ -5,6 +5,7 @@
 package model.conge;
 
 import java.time.LocalDate;
+import model.employe.Employe;
 
 /**
  *
@@ -13,16 +14,16 @@ import java.time.LocalDate;
 public class Conge {
 /// field
     int idConge;
-    Personnel personnel;
+    Employe personnel;
     String explication;
     TypeConge typeConge;
     LocalDate dateDebutDemande;
     LocalDate dateFinDemande;
     LocalDate dateDebutReel;
     LocalDate dateFinReel;
-    Personnel chefHierarchique;
+    Employe chefHierarchique;
     String remarqueChef;
-    Personnel responsableRH;
+    Employe responsableRH;
     String remarqueRH;
     int etat;
     LocalDate depositDate;
@@ -37,11 +38,11 @@ public class Conge {
         this.idConge = idConge;
     }
 
-    public Personnel getPersonnel() {
+    public Employe getPersonnel() {
         return personnel;
     }
 
-    public void setPersonnel(Personnel personnel) {
+    public void setPersonnel(Employe personnel) {
         this.personnel = personnel;
     }
 
@@ -93,19 +94,19 @@ public class Conge {
         this.dateFinReel = dateFinReel;
     }
 
-    public Personnel getChefHierarchique() {
+    public Employe getChefHierarchique() {
         return chefHierarchique;
     }
 
-    public void setChefHierarchique(Personnel chefHierarchique) {
+    public void setChefHierarchique(Employe chefHierarchique) {
         this.chefHierarchique = chefHierarchique;
     }
 
-    public Personnel getResponsableRH() {
+    public Employe getResponsableRH() {
         return responsableRH;
     }
 
-    public void setResponsableRH(Personnel responsableRH) {
+    public void setResponsableRH(Employe responsableRH) {
         this.responsableRH = responsableRH;
     }
 
@@ -143,7 +144,7 @@ public class Conge {
     
     
 /// constructor
-    public Conge(int idConge, Personnel personnel, String explication, TypeConge typeConge, LocalDate dateDebutDemande, LocalDate dateFinDemande, LocalDate dateDebutReel, LocalDate dateFinReel, Personnel chefHierarchique, Personnel responsableRH, int etat, LocalDate depositDate, String remarqueChef, String remarqueRH) {
+    public Conge(int idConge, Employe personnel, String explication, TypeConge typeConge, LocalDate dateDebutDemande, LocalDate dateFinDemande, LocalDate dateDebutReel, LocalDate dateFinReel, Employe chefHierarchique, Employe responsableRH, int etat, LocalDate depositDate, String remarqueChef, String remarqueRH) {
         this.idConge = idConge;
         this.personnel = personnel;
         this.explication = explication;
@@ -164,9 +165,9 @@ public class Conge {
     
     // Pour avoir le remarque convenable
     public String getConvenientRemarque() {
-        if (getEtat() == 3 || getEtat() == 1 && getResponsableRH().getIdPersonnel() == 0) {
+        if (getEtat() == 3 || getEtat() == 1 && getResponsableRH().getIdEmploye() == 0) {
             return getRemarqueChef();
-        } else if (getEtat() == 4 || getEtat() == 1 && getResponsableRH().getIdPersonnel() != 0){
+        } else if (getEtat() == 4 || getEtat() == 1 && getResponsableRH().getIdEmploye()!= 0){
             return getRemarqueRH();
         }
         return null;
@@ -174,7 +175,7 @@ public class Conge {
     
     // Pour avoir le nom et prenom
     public String getFullName() {
-        return getPersonnel().getNom() + " " + getPersonnel().getPrenom();
+        return getPersonnel().getContrat().getCandidature().getPersonnalInformation().getName() + " " + getPersonnel().getContrat().getCandidature().getPersonnalInformation().getFirstName();
     }
     
     // Pour avoir la date debut convenable

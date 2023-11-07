@@ -1,8 +1,8 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
-<%@page import="java.util.List, model.requis.User, model.conge.Personnel" %>
+<%@page import="java.util.List, model.requis.User, model.employe.Employe" %>
 <% 
     User user = (User) session.getAttribute("user");
-    Personnel personnel = Personnel.getPersonnelById(user.getIdPersonnel(), null);
+    Employe employe = Employe.getById(user.getIdEmploye());
 
     List<String> css = (List<String>) request.getAttribute("css");
     List<String> js = (List<String>) request.getAttribute("js");
@@ -69,11 +69,11 @@
                             <a class="nav-link dropdown-toggle" id="profileDropdown" href="#" data-bs-toggle="dropdown"
                                aria-expanded="false">
                                 <div class="nav-profile-img">
-                                    <img src="./assets/images/faces/face1.jpg" alt="image">
+                                    <img src="./photo_identity/<%= employe.getPhoto() %>" alt="image">
                                     <span class="availability-status online"></span>
                                 </div>
                                 <div class="nav-profile-text">
-                                    <p class="mb-1 text-black">David Greymaax</p>
+                                    <p class="mb-1 text-black"><%= user.getUsername() %></p>
                                 </div>
                             </a>
                             <div class="dropdown-menu navbar-dropdown" aria-labelledby="profileDropdown">
@@ -84,121 +84,10 @@
                                     <i class="mdi mdi-logout me-2 text-primary"></i> Signout </a>
                             </div>
                         </li>
-                        <li class="nav-item d-none d-lg-block full-screen-link">
-                            <a class="nav-link">
-                                <i class="mdi mdi-fullscreen" id="fullscreen-button"></i>
-                            </a>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link count-indicator dropdown-toggle" id="messageDropdown" href="#"
-                               data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class="mdi mdi-email-outline"></i>
-                                <span class="count-symbol bg-warning"></span>
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list"
-                                 aria-labelledby="messageDropdown">
-                                <h6 class="p-3 mb-0">Messages</h6>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item preview-item">
-                                    <div class="preview-thumbnail">
-                                        <img src="./assets/images/faces/face4.jpg" alt="image" class="profile-pic">
-                                    </div>
-                                    <div
-                                        class="preview-item-content d-flex align-items-start flex-column justify-content-center">
-                                        <h6 class="preview-subject ellipsis mb-1 font-weight-normal">Mark send you a message
-                                        </h6>
-                                        <p class="text-gray mb-0"> 1 Minutes ago </p>
-                                    </div>
-                                </a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item preview-item">
-                                    <div class="preview-thumbnail">
-                                        <img src="./assets/images/faces/face2.jpg" alt="image" class="profile-pic">
-                                    </div>
-                                    <div
-                                        class="preview-item-content d-flex align-items-start flex-column justify-content-center">
-                                        <h6 class="preview-subject ellipsis mb-1 font-weight-normal">Cregh send you a
-                                            message</h6>
-                                        <p class="text-gray mb-0"> 15 Minutes ago </p>
-                                    </div>
-                                </a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item preview-item">
-                                    <div class="preview-thumbnail">
-                                        <img src="./assets/images/faces/face3.jpg" alt="image" class="profile-pic">
-                                    </div>
-                                    <div
-                                        class="preview-item-content d-flex align-items-start flex-column justify-content-center">
-                                        <h6 class="preview-subject ellipsis mb-1 font-weight-normal">Profile picture updated
-                                        </h6>
-                                        <p class="text-gray mb-0"> 18 Minutes ago </p>
-                                    </div>
-                                </a>
-                                <div class="dropdown-divider"></div>
-                                <h6 class="p-3 mb-0 text-center">4 new messages</h6>
-                            </div>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link count-indicator dropdown-toggle" id="notificationDropdown" href="#"
-                               data-bs-toggle="dropdown">
-                                <i class="mdi mdi-bell-outline"></i>
-                                <span class="count-symbol bg-danger"></span>
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list"
-                                 aria-labelledby="notificationDropdown">
-                                <h6 class="p-3 mb-0">Notifications</h6>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item preview-item">
-                                    <div class="preview-thumbnail">
-                                        <div class="preview-icon bg-success">
-                                            <i class="mdi mdi-calendar"></i>
-                                        </div>
-                                    </div>
-                                    <div
-                                        class="preview-item-content d-flex align-items-start flex-column justify-content-center">
-                                        <h6 class="preview-subject font-weight-normal mb-1">Event today</h6>
-                                        <p class="text-gray ellipsis mb-0"> Just a reminder that you have an event today
-                                        </p>
-                                    </div>
-                                </a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item preview-item">
-                                    <div class="preview-thumbnail">
-                                        <div class="preview-icon bg-warning">
-                                            <i class="mdi mdi-settings"></i>
-                                        </div>
-                                    </div>
-                                    <div
-                                        class="preview-item-content d-flex align-items-start flex-column justify-content-center">
-                                        <h6 class="preview-subject font-weight-normal mb-1">Settings</h6>
-                                        <p class="text-gray ellipsis mb-0"> Update dashboard </p>
-                                    </div>
-                                </a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item preview-item">
-                                    <div class="preview-thumbnail">
-                                        <div class="preview-icon bg-info">
-                                            <i class="mdi mdi-link-variant"></i>
-                                        </div>
-                                    </div>
-                                    <div
-                                        class="preview-item-content d-flex align-items-start flex-column justify-content-center">
-                                        <h6 class="preview-subject font-weight-normal mb-1">Launch Admin</h6>
-                                        <p class="text-gray ellipsis mb-0"> New admin wow! </p>
-                                    </div>
-                                </a>
-                                <div class="dropdown-divider"></div>
-                                <h6 class="p-3 mb-0 text-center">See all notifications</h6>
-                            </div>
-                        </li>
+
                         <li class="nav-item nav-logout d-none d-lg-block">
-                            <a class="nav-link" href="#">
+                            <a class="nav-link" href="./login">
                                 <i class="mdi mdi-power"></i>
-                            </a>
-                        </li>
-                        <li class="nav-item nav-settings d-none d-lg-block">
-                            <a class="nav-link" href="#">
-                                <i class="mdi mdi-format-line-spacing"></i>
                             </a>
                         </li>
                     </ul>
@@ -216,15 +105,14 @@
                         <li class="nav-item nav-profile">
                             <a href="#" class="nav-link">
                                 <div class="nav-profile-image">
-                                    <img src="./assets/images/faces/face1.jpg" alt="profile">
+                                    <img src="./photo_identity/<%= employe.getPhoto() %>" alt="profile">
                                     <span class="login-status online"></span>
                                     <!--change to offline or busy as needed-->
                                 </div>
                                 <div class="nav-profile-text d-flex flex-column">
-                                    <span class="font-weight-bold mb-2">David Grey. H</span>
-                                    <span class="text-secondary text-small">Project Manager</span>
+                                    <span class="font-weight-bold mb-2"><%= user.getUsername() %></span>
+                                    <span class="text-secondary text-small"><%= employe.getPoste() %></span>
                                 </div>
-                                <i class="mdi mdi-bookmark-check text-success nav-profile-badge"></i>
                             </a>
                         </li>
                         <li class="nav-item">
@@ -252,12 +140,12 @@
                             <div class="collapse" id="ui-basic-1">
                                 <ul class="nav flex-column sub-menu">
                                     <li class="nav-item"> <a class="nav-link" href="./CongesPersonnel">Mes congés</a></li>
-                                    <% if(personnel.getSubordonnes().size() != 0) { %>
+                                        <% if(employe.getSubordonnesNb(null) != 0) { %>
                                     <li class="nav-item"> <a class="nav-link" href="./CongesSubordonneDemandeList">Demandes des subordonnes</a></li>
-                                    <% } %>
-                                    <% if(user.getService().getService().equals("Ressources humaines")) { %>
+                                        <% } %>
+                                        <% if(user.getService().getService().equals("Ressources humaines")) { %>
                                     <li class="nav-item"> <a class="nav-link" href="./CongesRHDemandeList">En attente de validation</a></li>
-                                    <% } %>
+                                        <% } %>
                                 </ul>
                             </div>
                         </li>
@@ -279,15 +167,37 @@
                                     <li class="nav-item"> <a class="nav-link"
                                                              href="./listCandidature">Réceptions des CV</a></li>
                                     <li class="nav-item"> <a class="nav-link"
-                                                             href="pages/ui-features/typography.html">Résultats des tests</a></li>
+                                                             href="./ReadyForQuizList">Prêts pour le tests</a></li>
+                                    <li class="nav-item"> <a class="nav-link"
+                                                             href="./quiz-results">Résultats des tests</a></li>
                                     <li class="nav-item"> <a class="nav-link"
                                                              href="./EntretientServlet">Programme d'entretien</a></li>
                                     <li class="nav-item"> <a class="nav-link"
-                                                             href="pages/ui-features/typography.html">Résultat candidature</a></li>
+                                                             href="./listCandidatRecrute">Embauchement</a></li>
                                 </ul>
                             </div>
                         </li>
 
+                        <li class="nav-item">
+                            <a class="nav-link" href="./listPersonnel">
+                                <span class="menu-title">Listes des employées</span>
+                                <i class="mdi mdi-account-multiple menu-icon"></i>
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="./RappelPeriode">
+                                <span class="menu-title">Période de rappel</span>
+                                <i class="mdi mdi-arrow-left-bold-circle-outline menu-icon"></i>
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="./EtatPaie">
+                                <span class="menu-title">Etat de paie</span>
+                                <i class="mdi mdi-book-open menu-icon"></i>
+                            </a>
+                        </li>
                         <% } %>
                     </ul>
                 </nav>
@@ -295,7 +205,6 @@
                 <!-- partial -->
                 <div class="main-panel">
                     <div class="content-wrapper">
-
                         <jsp:include page="${contentPage}" />
                     </div>
                     <!-- content-wrapper ends -->

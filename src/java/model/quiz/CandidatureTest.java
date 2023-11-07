@@ -8,6 +8,7 @@ import framework.database.utilitaire.GConnection;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -112,6 +113,51 @@ public class CandidatureTest {
     public static List<CandidatureTest> getAllNewCandidatureTest() throws Exception {
         List<CandidatureTest> candidatureTestList = new ArrayList<>();
         String query = "SELECT * FROM candidature_test WHERE status = 1 ORDER BY note DESC";
+
+        Connection connection = null;
+        Statement statement = null;
+        ResultSet resultset = null;
+
+        try {
+            connection = GConnection.getSimpleConnection();
+            statement = connection.createStatement();
+            resultset = statement.executeQuery(query);
+
+            while (resultset.next()) {
+                int idCandidatureTest = resultset.getInt("id_candidature_test");
+                Candidature candidature = Candidature.getById(connection, resultset.getInt("id_candidature"));
+                int note = resultset.getInt("note");
+                Quiz answerQuiz = Quiz.getQuizById(resultset.getInt("id_quiz"));
+                LocalDate quizDate = resultset.getDate("quiz_date").toLocalDate();
+
+                CandidatureTest candidatureTest = new CandidatureTest(idCandidatureTest, candidature, candidature.getWantedProfile(), null, answerQuiz, note, quizDate);
+
+                candidatureTestList.add(candidatureTest);
+            }
+
+            resultset.close();
+            statement.close();
+            connection.close();
+
+            return candidatureTestList;
+        } catch (Exception e) {
+            if (resultset != null) {
+                resultset.close();
+            }
+            if (statement != null) {
+                statement.close();
+            }
+            if (connection != null) {
+                connection.close();
+            }
+            throw e;
+        }
+    }
+    
+    public static List<CandidatureTest> getFilterCandidatureTest(int idWantedProfile) throws Exception {
+        List<CandidatureTest> candidatureTestList = new ArrayList<>();
+        String query = "SELECT * FROM v_candidature_test_detail WHERE status = 1 and id_wanted_profile = %d ORDER BY note DESC";
+        query = String.format(query, idWantedProfile);
 
         Connection connection = null;
         Statement statement = null;
@@ -260,6 +306,34 @@ public class CandidatureTest {
             throw e;
         }
     }
+    
+    // Mettre a jour le candidature en etat 3
+    public void updateCandidature(Connection connection) throws SQLException {
+        String query = "UPDATE candidature SET status = 3 WHERE id_candidature = ?";
+
+        PreparedStatement statement = null;
+        ResultSet resultset = null;
+
+        try {
+            statement = connection.prepareStatement(query);
+            statement.setInt(1, getCandidature().getIdCandidature());
+
+            statement.executeUpdate();
+
+        } catch (Exception e) {
+            if (resultset != null) {
+                resultset.close();
+            }
+            if (statement != null) {
+                statement.close();
+            }
+            if (connection != null) {
+                connection.rollback();
+                connection.close();
+            }
+            throw e;
+        }
+    }
 
     // sauvegarder la candidature test dans la base de données
     public void save() throws Exception {
@@ -269,6 +343,9 @@ public class CandidatureTest {
         getAnswer().save(2, connection);
         int idQuiz = getAnswer().getLastQuizId(connection);
         saveTest(connection, idQuiz);
+        
+        // update candidature
+        updateCandidature(connection);
 
         connection.commit();
         connection.close();
@@ -338,6 +415,10 @@ public class CandidatureTest {
     }
     
     public static void main(String[] args) throws Exception {
+        List<CandidatureTest> listes  = getFilterCandidatureTest(30);
+        for (CandidatureTest liste : listes) {
+            System.out.println("- " + liste.getIdCandidatureTest());
+        }
     }
 
 }

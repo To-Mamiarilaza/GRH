@@ -98,3 +98,11 @@ CREATE TABLE candidature_test (
     FOREIGN KEY(id_candidature) REFERENCES candidature(id_candidature)
     -- Don't forget to add constraint to id_candidature
 );
+
+
+-- View pour joindre le candidature test avec le candidature
+CREATE VIEW v_candidature_test_detail AS
+SELECT 
+ct.id_candidature_test, ct.note, ct.id_quiz, ct.quiz_date, ct.status,
+c.id_candidature, c.id_wanted_profile
+FROM candidature_test ct JOIN candidature c ON ct.id_candidature = c.id_candidature;

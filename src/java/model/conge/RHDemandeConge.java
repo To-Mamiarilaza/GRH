@@ -11,7 +11,11 @@ import java.sql.Statement;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import model.candidature.Candidature;
+import model.candidature.PersonnalInformation;
 import model.conge.service.CongeFilter;
+import model.embauchement.Contrat;
+import model.employe.Employe;
 
 /**
  *
@@ -20,18 +24,18 @@ import model.conge.service.CongeFilter;
 public class RHDemandeConge {
 
     /// field
-    Personnel personnel;
+    Employe personnel;
     List<Conge> demandes;
     List<Conge> valides;
     List<Conge> refuses;
     List<Conge> currents;
 
     /// getter and setter
-    public Personnel getPersonnel() {
+    public Employe getPersonnel() {
         return personnel;
     }
 
-    public void setPersonnel(Personnel personnel) {
+    public void setPersonnel(Employe personnel) {
         this.personnel = personnel;
     }
 
@@ -68,7 +72,7 @@ public class RHDemandeConge {
     }
 
     /// constructor
-    public RHDemandeConge(Personnel personnel, List<Conge> demandes, List<Conge> valides, List<Conge> refuses, List<Conge> currents) {
+    public RHDemandeConge(Employe personnel, List<Conge> demandes, List<Conge> valides, List<Conge> refuses, List<Conge> currents) {
         this.personnel = personnel;
         this.demandes = demandes;
         this.valides = valides;
@@ -76,7 +80,7 @@ public class RHDemandeConge {
         this.currents = currents;
     }
 
-    public RHDemandeConge(Personnel personnel) {
+    public RHDemandeConge(Employe personnel) {
         this.personnel = personnel;
     }
 
@@ -123,27 +127,41 @@ public class RHDemandeConge {
 
                 LocalDate depositDate = resultset.getDate("deposit_date").toLocalDate();
 
-                Personnel chefHierarchique = new Personnel();
+                Contrat chefContrat = new Contrat();
+                Candidature chefCandidature = new Candidature();
+                PersonnalInformation infoPersoChef = new PersonnalInformation();
+                infoPersoChef.setName("Réponse du chef en attente !");
+                infoPersoChef.setFirstName("");
+                chefCandidature.setPersonnalInformation(infoPersoChef);
+                chefContrat.setCandidature(chefCandidature);
+
+                Employe chefHierarchique = new Employe();
                 String remarqueChefHierarchique = "...";
-                chefHierarchique.setNom("Réponse du chef en attente !");
-                chefHierarchique.setPrenom("");
+                chefHierarchique.setContrat(chefContrat);
                 if (resultset.getInt("id_chef_hierarchique") != 0) {
-                    chefHierarchique = Personnel.getPersonnelById(resultset.getInt("id_chef_hierarchique"), connection);
+                    chefHierarchique = Employe.getById(resultset.getInt("id_chef_hierarchique"), connection);
                     remarqueChefHierarchique = resultset.getString("remarque_chef_hierarchique");
                 }
 
-                Personnel responsableRH = new Personnel();
+                Contrat rhContrat = new Contrat();
+                Candidature rhCandidature = new Candidature();
+                PersonnalInformation infoPersoRh = new PersonnalInformation();
+                infoPersoRh.setName("Réponse du RH en attente !");
+                infoPersoRh.setFirstName("");
+                rhCandidature.setPersonnalInformation(infoPersoRh);
+                rhContrat.setCandidature(rhCandidature);
+
+                Employe responsableRH = new Employe();
                 String remarquePersonnelRH = "...";
-                responsableRH.setNom("Réponse du RH en attente !");
-                responsableRH.setPrenom("");
+                responsableRH.setContrat(rhContrat);
                 if (resultset.getInt("id_personnel_rh") != 0) {
-                    responsableRH = Personnel.getPersonnelById(resultset.getInt("id_personnel_rh"), connection);
+                    responsableRH = Employe.getById(resultset.getInt("id_personnel_rh"), connection);
                     remarquePersonnelRH = resultset.getString("remarque_personnel_rh");
                 }
 
                 int etat = resultset.getInt("etat");
 
-                congeList.add(new Conge(idConge, Personnel.getPersonnelById(idPersonnel, connection), explication, typeConge, dateDebutDemande, dateFinDemande, dateDebutReel, dateFinReel, chefHierarchique, responsableRH, etat, depositDate, remarqueChefHierarchique, remarquePersonnelRH));
+                congeList.add(new Conge(idConge, Employe.getById(idPersonnel, connection), explication, typeConge, dateDebutDemande, dateFinDemande, dateDebutReel, dateFinReel, chefHierarchique, responsableRH, etat, depositDate, remarqueChefHierarchique, remarquePersonnelRH));
             }
 
             resultset.close();

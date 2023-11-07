@@ -12,6 +12,10 @@ import java.sql.Statement;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import model.candidature.Candidature;
+import model.candidature.PersonnalInformation;
+import model.embauchement.Contrat;
+import model.employe.Employe;
 
 /**
  *
@@ -19,7 +23,7 @@ import java.util.List;
  */
 public class CongePersonnel {
 /// field
-    Personnel personnel;
+    Employe personnel;
     int soldeRestant;   // Nomgre de jour restant
     Conge currentConge;
     List<Conge> demandeConge;
@@ -27,11 +31,11 @@ public class CongePersonnel {
     
 /// getter and setter
 
-    public Personnel getPersonnel() {
+    public Employe getPersonnel() {
         return personnel;
     }
 
-    public void setPersonnel(Personnel personnel) {
+    public void setPersonnel(Employe personnel) {
         this.personnel = personnel;
     }
 
@@ -69,7 +73,7 @@ public class CongePersonnel {
     
 /// constructor
 
-    public CongePersonnel(Personnel personnel, int soldeRestant, Conge currentConge, List<Conge> demandeConge, List<Conge> historiqueConge) {
+    public CongePersonnel(Employe personnel, int soldeRestant, Conge currentConge, List<Conge> demandeConge, List<Conge> historiqueConge) {
         this.personnel = personnel;
         this.soldeRestant = soldeRestant;
         this.currentConge = currentConge;
@@ -77,7 +81,7 @@ public class CongePersonnel {
         this.historiqueConge = historiqueConge;
     }
     
-    public CongePersonnel(Personnel personnel) {
+    public CongePersonnel(Employe personnel) {
         this.personnel = personnel;
     }
     
@@ -95,7 +99,7 @@ public class CongePersonnel {
         // Pour avoir l'id du quiz inséré
         List<Conge> congeList = new ArrayList<>();
         String query = "SELECT * FROM v_conge_with_type WHERE id_personnel = %d ORDER BY deposit_date DESC";
-        query = String.format(query, getPersonnel().getIdPersonnel());
+        query = String.format(query, getPersonnel().getIdEmploye());
 
         Statement statement = null;
         ResultSet resultset = null;
@@ -124,21 +128,35 @@ public class CongePersonnel {
 
                 LocalDate depositDate = resultset.getDate("deposit_date").toLocalDate();
 
-                Personnel chefHierarchique = new Personnel();
+                Contrat chefContrat = new Contrat();
+                Candidature chefCandidature = new Candidature();
+                PersonnalInformation infoPersoChef = new PersonnalInformation();
+                infoPersoChef.setName("Réponse du chef en attente !");
+                infoPersoChef.setFirstName("");
+                chefCandidature.setPersonnalInformation(infoPersoChef);
+                chefContrat.setCandidature(chefCandidature);
+                
+                Employe chefHierarchique = new Employe();
                 String remarqueChefHierarchique = "...";
-                chefHierarchique.setNom("Réponse du chef en attente !");
-                chefHierarchique.setPrenom("");
+                chefHierarchique.setContrat(chefContrat);
                 if (resultset.getInt("id_chef_hierarchique") != 0) {
-                    chefHierarchique = Personnel.getPersonnelById(resultset.getInt("id_chef_hierarchique"), connection);
+                    chefHierarchique = Employe.getById(resultset.getInt("id_chef_hierarchique"), connection);
                     remarqueChefHierarchique = resultset.getString("remarque_chef_hierarchique");
                 }
-
-                Personnel responsableRH = new Personnel();
+                
+                Contrat rhContrat = new Contrat();
+                Candidature rhCandidature = new Candidature();
+                PersonnalInformation infoPersoRh = new PersonnalInformation();
+                infoPersoRh.setName("Réponse du RH en attente !");
+                infoPersoRh.setFirstName("");
+                rhCandidature.setPersonnalInformation(infoPersoRh);
+                rhContrat.setCandidature(rhCandidature);
+                
+                Employe responsableRH = new Employe();
                 String remarquePersonnelRH = "...";
-                responsableRH.setNom("Réponse du RH en attente !");
-                responsableRH.setPrenom("");
+                responsableRH.setContrat(rhContrat);
                 if (resultset.getInt("id_personnel_rh") != 0) {
-                    responsableRH = Personnel.getPersonnelById(resultset.getInt("id_personnel_rh"), connection);
+                    responsableRH = Employe.getById(resultset.getInt("id_personnel_rh"), connection);
                     remarquePersonnelRH = resultset.getString("remarque_personnel_rh");
                 }
 
@@ -156,6 +174,11 @@ public class CongePersonnel {
 
             setHistoriqueConge(congeList);
             setDemandeConge(CongeFilter.filterDemandeConge(congeList));
+            
+            List<Conge> currentConge = CongeFilter.filterCurrentConge(congeList);
+            if (currentConge.size() == 1) {
+                setCurrentConge(currentConge.get(0));
+            }
             
         } catch (Exception e) {
             if (resultset != null) {
