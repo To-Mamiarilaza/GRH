@@ -435,6 +435,57 @@ public class Quiz {
             throw e;
         }
     }
+    
+    // Pour avoir une quiz par son ID
+    public static Quiz getQuizById(int id, Connection connection) throws Exception {
+        Quiz quiz = null;
+        String query = "SELECT * FROM v_quiz_full_info WHERE id_quiz = %d";
+        query = String.format(query, id);
+
+        Statement statement = null;
+        ResultSet resultset = null;
+
+        try {
+            statement = connection.createStatement();
+            resultset = statement.executeQuery(query);
+
+            if (resultset.next()) {
+                int idQuiz = resultset.getInt("id_quiz");
+                String quizName = resultset.getString("quiz_name");
+                int status = resultset.getInt("status");
+
+                int id_quiz_type = resultset.getInt("id_quiz_type");
+                String quiz_type = resultset.getString("quiz_type");
+                QuizType quizType = new QuizType(id_quiz_type, quiz_type);
+
+                int id_service = resultset.getInt("id_service");
+                String serviceName = resultset.getString("service");
+                String fonction = resultset.getString("fonction");
+                int serviceStatus = resultset.getInt("service_status");
+                Service service = new Service(id_service, serviceName, fonction, null, serviceStatus);
+
+                quiz = new Quiz(idQuiz, service, quizName, quizType, null);
+
+                quiz.setQuestions(Question.getAllQuestion(idQuiz, connection));
+            }
+
+            resultset.close();
+            statement.close();
+
+            return quiz;
+        } catch (Exception e) {
+            if (resultset != null) {
+                resultset.close();
+            }
+            if (statement != null) {
+                statement.close();
+            }
+            if (connection != null) {
+                connection.close();
+            }
+            throw e;
+        }
+    }
 
     public static List<Quiz> getAllQuiz() throws Exception {
         List<Quiz> quizzes = new ArrayList<>();

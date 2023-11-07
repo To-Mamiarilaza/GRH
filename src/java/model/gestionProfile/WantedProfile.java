@@ -281,6 +281,9 @@ public class WantedProfile extends Model {
     
     //Recuperer un wantedProfil par son id
     public static WantedProfile getById(Connection conn, Integer idWantedProfile) throws Exception {
+        if(conn==null) {
+            conn = GConnection.getSimpleConnection();
+        }
         Statement work = conn.createStatement();
         String req = "select * from wanted_profile where id_wanted_profile = "+idWantedProfile;
         ResultSet result = work.executeQuery(req);
@@ -290,7 +293,7 @@ public class WantedProfile extends Model {
             wp.setPoste(result.getString(2));
             wp.setService(Service.getById(conn, result.getInt(3)));
             wp.setStatus(result.getInt(4));
-            wp.setQuiz(Quiz.getQuizById(result.getInt("id_quiz")));
+            wp.setQuiz(Quiz.getQuizById(result.getInt("id_quiz"), conn));
         }
         
         return wp;

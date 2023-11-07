@@ -43,7 +43,7 @@ public class CongesRHDemandeListServlet extends HttpServlet {
 
             User user = (User) request.getSession().getAttribute("user");
             
-            RHDemandeConge rhDemande = CongeManager.getCongeRHDemandeConge(user.getIdPersonnel(), null);
+            RHDemandeConge rhDemande = CongeManager.getCongeRHDemandeConge(user.getIdEmploye(), null);
 
             List<Conge> congeList = rhDemande.getDemandes();
             String sectionTitle = "Les demandes de conges";

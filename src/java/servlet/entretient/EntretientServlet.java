@@ -41,8 +41,8 @@ public class EntretientServlet extends HttpServlet {
         Candidature c = new Candidature();
         try {
             Connection con = GConnection.getSimpleConnection();
-            List<Candidature> listePostulate = c.getCandidatState(3, con);
-            List<Candidature> listeEntretenue = c.getCandidatState(4, con);
+            List<Candidature> listePostulate = c.getCandidatState(4, con);
+            List<Candidature> listeEntretenue = c.getCandidatState(5, con);
             List<Candidature> listeEmbauchedCandidat = c.getResultCandidature(con);
 
             List<Service> listeService = Service.getAll(con);
@@ -94,7 +94,7 @@ public class EntretientServlet extends HttpServlet {
                 int idCand = Integer.valueOf(request.getParameter("idCand"));
                 double note = Double.valueOf(request.getParameter("noteEntretient"));
                 Candidature c = new Candidature();
-                c.updateState(idCand, 4, note, null);// 4 pour dire que le candidat a deja terminer l'entretient
+                c.updateState(idCand, 5, note, null);// 5 pour dire que le candidat a deja terminer l'entretient
                 response.getWriter().write("success");
             } catch (Exception ex) {
                 ex.printStackTrace();

@@ -150,7 +150,6 @@ public class Besoin extends Model {
             throw e;
         }
     }
-
     
     //Avoir tous les besoins
     public static ArrayList<Besoin> getBesoinsService(Connection conn, Service service)  throws Exception { 
@@ -166,6 +165,20 @@ public class Besoin extends Model {
         }
         
         return besoins;
+    }
+
+    
+    //Avoir tous les besoins
+    public static int getNewBesoinsNumber(Connection connection)  throws Exception { 
+        Statement work = connection.createStatement();
+        String req = "SELECT count(*) as nombre FROM besoin WHERE status != 0";
+        ResultSet result = work.executeQuery(req);
+        ArrayList<Besoin> besoins = new ArrayList<>();
+        int nombre = 0;
+        while(result.next()) {
+            nombre = result.getInt("nombre");
+        }
+        return nombre;
     }
     
     //Avoir tous les besoins selon le status 

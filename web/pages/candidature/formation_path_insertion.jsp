@@ -39,7 +39,7 @@
                                     <h3 style="margin: 0;">Huile de bongolava</h3>
                                 </div>
                                 <h4>Nous allons maintenant entrer vos formations</h4>
-                                <h6 class="font-weight-light little-line-height">Entrer tous les formations que vous penser pertinent Ã  votre candidature</h6>
+                                <h6 class="font-weight-light little-line-height">Entrer tous les formations que vous penser pertinent a  votre candidature</h6>
                                 <form class="pt-3 form">
                                     <div class="form-group row align-items-center">
                                         <label for="diplomeSelect" class="form-label target-poste col-sm-2">Titulaire d'un diplome</label>
@@ -55,7 +55,7 @@
                                         <div class="col-md-6">
                                             <hr>
                                             <div class="form-group row mt-5 align-items-center justify-content-between">
-                                                <label for="date" class="col-sm-4 target-poste">AnnÃ©e</label>
+                                                <label for="date" class="col-sm-4 target-poste">Annee</label>
                                                 <div class="col-sm-8 d-flex align-items-center justify-content-between">
                                                     <input type="number" value="2023" class="form-control form-control-sm" name="annee" id="annee">
                                                 </div>

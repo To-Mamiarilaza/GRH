@@ -15,7 +15,7 @@ import model.conge.Conge;
 import model.conge.CongeParameter;
 import model.conge.CongePersonnel;
 import model.conge.CongeReport;
-import model.conge.Personnel;
+import model.employe.Employe;
 
 /**
  *
@@ -40,7 +40,7 @@ public class SoldeCongeManager {
     }
     
     // Fonction pour avoir le report de congé dans une année
-    public static CongeReport getAnneeCongeReport(Personnel personnel, int annee, Connection connection) throws Exception {
+    public static CongeReport getAnneeCongeReport(Employe personnel, int annee, Connection connection) throws Exception {
         // Etat de fermeture
         boolean closeable = false;
         if (connection == null) {
@@ -51,7 +51,7 @@ public class SoldeCongeManager {
         CongeReport report = null;
 
         String query = "SELECT * FROM conge_report WHERE id_personnel = %d and annee = %d";
-        query = String.format(query, personnel.getIdPersonnel(), annee);
+        query = String.format(query, personnel.getIdEmploye(), annee);
 
         Statement statement = null;
         ResultSet resultset = null;
@@ -62,7 +62,7 @@ public class SoldeCongeManager {
 
             if (resultset.next()) {
                 int resteConge = resultset.getInt("reste_conge");
-                report = new CongeReport(personnel.getIdPersonnel(), annee, resteConge);
+                report = new CongeReport(personnel.getIdEmploye(), annee, resteConge);
             } else {
                 throw new Exception("Aucun report n'a ete fait pour ce personne cette annee");
             }
@@ -96,7 +96,11 @@ public class SoldeCongeManager {
         List<Conge> anneeConge = CongeFilter.filterYearConge(congePersonnel.getHistoriqueConge(), annee);
         
         // Reste du conge cette annee plus les accumulations recents
-        int dayBetween = (int) ChronoUnit.DAYS.between(LocalDate.of(annee, 1, 1), LocalDate.now()) + 1;
+        LocalDate beginYear = LocalDate.of(annee, 1, 1);
+        if (congePersonnel.getPersonnel().getContrat().getContratDate().toLocalDate().getYear() == LocalDate.now().getYear()) {
+            beginYear = congePersonnel.getPersonnel().getContrat().getContratDate().toLocalDate();
+        }
+        int dayBetween = (int) ChronoUnit.DAYS.between(beginYear, LocalDate.now()) + 1;
         int sommeSolde = report.getResteConge() + (int) (((double)(dayBetween / 30)) * parameter.getAccumulation());
         System.out.println("Day between : " + dayBetween);
         System.out.println("Reste conge : " + report.getResteConge());
@@ -105,7 +109,7 @@ public class SoldeCongeManager {
         
         // Somme des conges cette annee
         int totalConge = calculerSommeConge(anneeConge);
-        System.out.println("Somme total du conge" + totalConge);
+        System.out.println("Somme total du conge " + totalConge);
         
         return sommeSolde - totalConge;
     }
