@@ -1,7 +1,7 @@
 <%@page import="java.util.ArrayList"%>
 <%@page import="model.requis.Service"%>
 <%@page import="model.gestionBesoin.Unity"%>
-<%@page import=" java.util.List "%>
+<%@page import=" java.util.List, model.quiz.Quiz"%>
 <%@page import=" model.gestionProfile.Diplome "%>
 <%@page import=" model.gestionProfile.Adresse "%>
 <%@page import=" model.gestionProfile.Salaire "%>
@@ -9,6 +9,7 @@
 <%@page import=" model.gestionProfile.Experience "%>
 <%@page import=" model.gestionProfile.BestCritere "%>
 <%
+    List<Quiz> quizzes = (List<Quiz>) request.getAttribute("quizzes");
     List<Diplome> listeDiplome = (List<Diplome>) request.getAttribute("listeDiplome");
     List<Adresse> listeAdresse = (List<Adresse>) request.getAttribute("listeAdresse");
     List<Experience> listeExperience = (List<Experience>) request.getAttribute("listeExperience");
@@ -16,7 +17,6 @@
     List<Sexe> listeSexe = (List<Sexe>) request.getAttribute("listeSexe");
     List<BestCritere> listeProfile = (List<BestCritere>) request.getAttribute("listeProfile");
 %>
-
                 <!-- Modal pour l'insertion d'un nouveau profil -->
                 <div class="modal fade" id="newProfil" tabindex="-1" aria-labelledby="newProfilLabel" aria-hidden="true">
                     <div class="modal-dialog  modal-xl modal-dialog-centered">
@@ -32,6 +32,20 @@
                                     <label for="profileName" class="col-sm-2 col-form-label"> Poste </label>
                                     <div class="col-sm-5">
                                         <input type="text" class="form-control" id="profileName" name="poste">
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group row">
+                                    <label for="profileQuiz" class="col-sm-2 col-form-label"> Quiz </label>
+                                    <div class="col-sm-5">
+                                        <select type="text" class="form-control form-select" id="profileQuiz" name="quiz">
+                                            <% for(Quiz quiz: quizzes) { %>
+                                            <option value="<%= quiz.getIdQuiz() %>"><%= quiz.getQuizName() %></option>
+                                            <% } %>
+                                        </select>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <a href="./quiz-create" class="btn btn-gradient-primary">Nouvelle quiz</a>
                                     </div>
                                 </div>
 

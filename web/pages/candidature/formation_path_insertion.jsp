@@ -85,7 +85,7 @@
                                                         var diplome = document.getElementById("diplome").value;
                                                         var ecole = document.getElementById("ecole").value;
                                                         var xhr = new XMLHttpRequest();
-                                                        xhr.open("POST", "/GRH/FormationPathInsertionServlet", true);
+                                                        xhr.open("POST", "./FormationPathInsertionServlet", true);
                                                         xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 
                                                         var careerCase = document.getElementById("careerCase");
@@ -155,7 +155,7 @@
                                                 </div>
                                                 <div class="">
                                                     <a class="btn btn-block btn-gradient-primary font-weight-medium auth-form-btn"
-                                                       href="/GRH/FormationPathInsertionServlet?in=1">SUIVANT</a>
+                                                       href="./FormationPathInsertionServlet?in=1">SUIVANT</a>
                                                 </div>
                                             </div>
                                         </div>

@@ -15,6 +15,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.sql.Connection;
+import java.util.ArrayList;
 import java.util.List;
 import model.candidature.Candidature;
 import model.gestionProfile.WantedProfile;
@@ -40,8 +41,8 @@ public class EntretientServlet extends HttpServlet {
         Candidature c = new Candidature();
         try {
             Connection con = GConnection.getSimpleConnection();
-            List<Candidature> listePostulate = c.getCandidatState(1, con);
-            List<Candidature> listeEntretenue = c.getCandidatState(2, con);
+            List<Candidature> listePostulate = c.getCandidatState(3, con);
+            List<Candidature> listeEntretenue = c.getCandidatState(4, con);
             List<Candidature> listeEmbauchedCandidat = c.getResultCandidature(con);
 
             List<Service> listeService = Service.getAll(con);
@@ -52,9 +53,17 @@ public class EntretientServlet extends HttpServlet {
             request.setAttribute("listeEmbauchedCandidat", listeEmbauchedCandidat);
             request.setAttribute("listeService", listeService);
             request.setAttribute("listeWp", listeWp);
-
-            RequestDispatcher req = request.getRequestDispatcher("./pages/entretient/programme_entretient.jsp");
-            req.forward(request, response);
+            
+            List<String> css = new ArrayList<>();
+            List<String> js = new ArrayList<>();
+            
+            request.setAttribute("title", "Programmes des entretiens");
+            request.setAttribute("contentPage", "./pages/entretient/programme_entretient.jsp");
+            request.setAttribute("css", css);
+            request.setAttribute("js", js);
+            
+            RequestDispatcher dispatch = request.getRequestDispatcher("./template.jsp");
+            dispatch.forward(request, response);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -85,7 +94,7 @@ public class EntretientServlet extends HttpServlet {
                 int idCand = Integer.valueOf(request.getParameter("idCand"));
                 double note = Double.valueOf(request.getParameter("noteEntretient"));
                 Candidature c = new Candidature();
-                c.updateState(idCand, 2, note, null);// 2 pour dire que le candidat a deja terminer l'entretient
+                c.updateState(idCand, 4, note, null);// 4 pour dire que le candidat a deja terminer l'entretient
                 response.getWriter().write("success");
             } catch (Exception ex) {
                 ex.printStackTrace();

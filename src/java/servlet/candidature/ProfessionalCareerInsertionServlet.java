@@ -120,6 +120,8 @@ public class ProfessionalCareerInsertionServlet extends HttpServlet {
 
                 lc.add(c);
 
+                listeTask = new ArrayList<>();
+                
                 pc = new ProfessionalCareer(new Experience(experience, 1), lc);
                 response.setContentType("application/json");
                 Gson gson = new Gson();

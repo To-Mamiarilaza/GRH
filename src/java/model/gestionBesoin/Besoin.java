@@ -136,6 +136,7 @@ public class Besoin extends Model {
             }
 
         } catch (Exception e) {
+            e.printStackTrace();
             if (resultset != null) {
                 resultset.close();
             }
@@ -143,7 +144,7 @@ public class Besoin extends Model {
                 statement.close();
             }
             if (connection != null) {
-                connection.rollback();
+               // connection.rollback();
                 connection.close();
             }
             throw e;

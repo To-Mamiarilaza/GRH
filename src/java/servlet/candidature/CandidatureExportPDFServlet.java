@@ -210,7 +210,9 @@ public class CandidatureExportPDFServlet extends HttpServlet {
             document.save(getServletContext().getRealPath("./candidatures/_00" + can.getIdCandidature() + "_" + nom + "_" + prenom + "_" + " candidature.pdf"));
 
             // Affichage a l'écran
-            document.save(response.getOutputStream());
+            //document.save(response.getOutputStream());
+
+            response.sendRedirect("pages/candidature/finished_candidature.jsp");
 
             response.sendRedirect("pages/candidature/finished_candidature.jsp");
 

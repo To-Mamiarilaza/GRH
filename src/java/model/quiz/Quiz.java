@@ -489,6 +489,60 @@ public class Quiz {
             throw e;
         }
     }
+    
+    public static List<Quiz> getAllServiceQuiz(int idService) throws Exception {
+        List<Quiz> quizzes = new ArrayList<>();
+        String query = "SELECT * FROM v_quiz_full_info WHERE id_quiz_type = 1 AND id_service = %d";
+        query = String.format(query, idService);
+
+        Connection connection = null;
+        Statement statement = null;
+        ResultSet resultset = null;
+
+        try {
+            connection = GConnection.getSimpleConnection();
+            statement = connection.createStatement();
+            resultset = statement.executeQuery(query);
+
+            while (resultset.next()) {
+                int idQuiz = resultset.getInt("id_quiz");
+                String quizName = resultset.getString("quiz_name");
+                int status = resultset.getInt("status");
+
+                int id_quiz_type = resultset.getInt("id_quiz_type");
+                String quiz_type = resultset.getString("quiz_type");
+                QuizType quizType = new QuizType(id_quiz_type, quiz_type);
+
+                String serviceName = resultset.getString("service");
+                String fonction = resultset.getString("fonction");
+                int serviceStatus = resultset.getInt("service_status");
+                Service service = new Service(idService, serviceName, fonction, null, serviceStatus);
+
+                Quiz quiz = new Quiz(idQuiz, service, quizName, quizType, null);
+
+                quiz.setQuestions(Question.getAllQuestion(idQuiz, connection));
+
+                quizzes.add(quiz);
+            }
+
+            resultset.close();
+            statement.close();
+            connection.close();
+
+            return quizzes;
+        } catch (Exception e) {
+            if (resultset != null) {
+                resultset.close();
+            }
+            if (statement != null) {
+                statement.close();
+            }
+            if (connection != null) {
+                connection.close();
+            }
+            throw e;
+        }
+    }
 
     public static void main(String[] args) throws Exception {
         Quiz quiz = new Quiz();

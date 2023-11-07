@@ -18,13 +18,9 @@ import java.util.ArrayList;
 import java.util.List;
 import model.gestionBesoin.Besoin;
 import model.gestionBesoin.Unity;
-import model.gestionProfile.AdresseNote;
 import model.gestionProfile.BestCritere;
-import model.gestionProfile.DiplomeNote;
-import model.gestionProfile.ExperienceNote;
-import model.gestionProfile.SalaireNote;
-import model.gestionProfile.SexeNote;
 import model.gestionProfile.WantedProfile;
+import model.quiz.Quiz;
 import model.requis.Service;
 import model.requis.User;
 
@@ -72,6 +68,10 @@ public class BesoinServlet extends HttpServlet {
             BestCritere bc = new BestCritere();
             List<BestCritere> listep = bc.getListeProfile(lsIndice, null);
             
+            // Récuperer tous les quiz
+            List<Quiz> quizzes = Quiz.getAllServiceQuiz(user.getService().getIdService());
+            request.setAttribute("quizzes", quizzes);
+            
             //pour le css
               List<String> css = new ArrayList<>();
             css.add("./assets/css/besoin/besoin-insertion.css");
@@ -86,13 +86,14 @@ public class BesoinServlet extends HttpServlet {
 
             response.getWriter().println(listep.size());
             request.setAttribute("listeProfile", listep);
+            // dispatch to target servlet
+            RequestDispatcher dispatch = request.getRequestDispatcher("./template.jsp");
+            dispatch.forward(request, response);
             
         } catch (Exception exe) {
             request.setAttribute("erreur", exe.getMessage());
+            exe.printStackTrace();
         }
-        // dispatch to target servlet
-        RequestDispatcher dispatch = request.getRequestDispatcher("./template.jsp");
-        dispatch.forward(request, response);
 
     }
 

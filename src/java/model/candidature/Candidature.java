@@ -115,7 +115,7 @@ public class Candidature {
                 con = GConnection.getSimpleConnection();
                 b = false;
             }
-            String requete = "select * from candidature where deposit_date <= '" + date + "' and id_wanted_profile = " + id_wanted_profile;
+            String requete = "select * from candidature where deposit_date >= '" + date + "' and id_wanted_profile = " + id_wanted_profile;
             System.out.println(requete);
             Statement s = con.createStatement();
             s.executeQuery(requete);
@@ -133,6 +133,7 @@ public class Candidature {
                 can.setPhoto(rs.getString("photo"));
                 can.setPersonnalInformation(per);
                 can.setDepositDate(rs.getDate("deposit_date"));
+                can.setStatus(rs.getInt("status"));
                 listeCandidats.add(can);
             }
         } catch (Exception exe) {
@@ -262,6 +263,8 @@ public class Candidature {
                 can.setPersonnalInformation(per);
                 can.setNote(rs.getDouble("note"));
                 can.setDepositDate(rs.getDate("deposit_date"));
+                can.setStatus(status);
+                
                 listeCandidats.add(can);
             }
         } catch (Exception exe) {
@@ -312,7 +315,7 @@ public class Candidature {
                     + this.getPersonnalInformation().getAdresse().getIdByName(adresse, null) + ", '" + this.getPersonnalInformation().getEmail() + "', "
                     + this.getPersonnalInformation().getSexe().getSexe() + ", " + this.getProfessionalCareer().getExperience().getIdByName(experience, null) + ", "
                     + this.getFormationPath().getDiplome().getIdByName(diplome, null) + ", '" + this.getInterestCareer() + "', " + this.getSalaryExpectation() + ", '" + this.getSelfProfile() + "', '"
-                    + this.getPhoto() + "', '" + this.getDossier() + "', " + this.getNote() + ", 1)";
+                    + this.getPhoto() + "', '" + this.getDossier() + "', " + this.getNote() + ", 1, '"+ this.getPersonnalInformation().getTelephone() +"')";
             System.out.println(requete);
             Statement s = con.createStatement();
             s.executeUpdate(requete);
@@ -503,8 +506,50 @@ public class Candidature {
             candidature.setDossier(result.getString("dossier"));
             candidature.setNote(result.getDouble("note"));
             candidature.setStatus(result.getInt("status"));
+            candidature.setWantedProfile(WantedProfile.getById(conn, result.getInt("id_wanted_profile")));
         }
 
         return candidature;
+    }
+    
+    // Valider l'entretien d'un candidature
+    public static void validateCandidatureToEntretien(int idCandidature, int idCandidatureTest, int reponse) throws Exception {
+        // Save 
+        reponse = reponse == 0 ? 0 : 3;
+        String query = "UPDATE candidature SET status = %d WHERE id_candidature = %d";
+        query = String.format(query, reponse, idCandidature);
+        
+        String query2 = "UPDATE candidature_test SET status = 2 WHERE id_candidature_test = %d";
+        query2 = String.format(query2, idCandidatureTest);
+
+        Connection connection = null;
+        Statement statement = null;
+        ResultSet resultset = null;
+
+        try {
+            connection = GConnection.getSimpleConnection();
+            connection.setAutoCommit(false);
+            
+            statement = connection.createStatement();
+            statement.execute(query);
+            statement.execute(query2);
+
+            statement.close();
+            connection.commit();
+            connection.close();
+            
+        } catch (Exception e) {
+            if (resultset != null) {
+                resultset.close();
+            }
+            if (statement != null) {
+                statement.close();
+            }
+            if (connection != null) {
+                connection.rollback();
+                connection.close();
+            }
+            throw e;
+        }
     }
 }
