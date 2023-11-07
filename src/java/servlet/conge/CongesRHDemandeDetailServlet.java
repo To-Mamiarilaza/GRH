@@ -4,11 +4,9 @@
  */
 package servlet.conge;
 
-import com.mysql.cj.xdevapi.DbDoc;
 import framework.database.utilitaire.GConnection;
 import jakarta.servlet.RequestDispatcher;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 import jakarta.servlet.ServletException;
