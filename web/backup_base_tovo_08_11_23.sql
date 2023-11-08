@@ -4,95 +4,95 @@ CREATE DATABASE gestion_entreprise;
 
 CREATE SCHEMA IF NOT EXISTS "public";
 
-CREATE SEQUENCE "public".abscence_id_abscence_seq AS integer START WITH 1 INCREMENT BY 1;
+CREATE SEQUENCE "public".abscence_id_abscence_seq AS integer START WITH 20 INCREMENT BY 1;
 
-CREATE SEQUENCE "public".abscence_id_employe_seq AS integer START WITH 1 INCREMENT BY 1;
+CREATE SEQUENCE "public".abscence_id_employe_seq AS integer START WITH 20 INCREMENT BY 1;
 
 CREATE SEQUENCE "public".adresse_id_adresse_seq START WITH 20 INCREMENT BY 1;
 
-CREATE SEQUENCE "public".annonce_id_annonce_seq AS integer START WITH 1 INCREMENT BY 1;
+CREATE SEQUENCE "public".annonce_id_annonce_seq AS integer START WITH 20 INCREMENT BY 1;
 
-CREATE SEQUENCE "public".answer_id_answer_seq AS integer START WITH 1 INCREMENT BY 1;
+CREATE SEQUENCE "public".answer_id_answer_seq AS integer START WITH 20 INCREMENT BY 1;
 
-CREATE SEQUENCE "public".answer_id_question_seq AS integer START WITH 1 INCREMENT BY 1;
+CREATE SEQUENCE "public".answer_id_question_seq AS integer START WITH 20 INCREMENT BY 1;
 
-CREATE SEQUENCE "public".avance_id_avance_seq AS integer START WITH 1 INCREMENT BY 1;
+CREATE SEQUENCE "public".avance_id_avance_seq AS integer START WITH 20 INCREMENT BY 1;
 
-CREATE SEQUENCE "public".avance_id_employe_seq AS integer START WITH 1 INCREMENT BY 1;
+CREATE SEQUENCE "public".avance_id_employe_seq AS integer START WITH 20 INCREMENT BY 1;
 
 CREATE SEQUENCE "public".besoin_id_besoin_seq START WITH 20 INCREMENT BY 1;
 
-CREATE SEQUENCE "public".candidature_id_candidature_seq AS integer START WITH 1 INCREMENT BY 1;
+CREATE SEQUENCE "public".candidature_id_candidature_seq AS integer START WITH 20 INCREMENT BY 1;
 
-CREATE SEQUENCE "public".candidature_test_id_candidature_seq AS integer START WITH 1 INCREMENT BY 1;
+CREATE SEQUENCE "public".candidature_test_id_candidature_seq AS integer START WITH 20 INCREMENT BY 1;
 
-CREATE SEQUENCE "public".candidature_test_id_candidature_test_seq AS integer START WITH 1 INCREMENT BY 1;
+CREATE SEQUENCE "public".candidature_test_id_candidature_test_seq AS integer START WITH 20 INCREMENT BY 1;
 
-CREATE SEQUENCE "public".candidature_test_id_quiz_seq AS integer START WITH 1 INCREMENT BY 1;
+CREATE SEQUENCE "public".candidature_test_id_quiz_seq AS integer START WITH 20 INCREMENT BY 1;
 
-CREATE SEQUENCE "public".classe_employe_id_classe_employe_seq AS integer START WITH 1 INCREMENT BY 1;
+CREATE SEQUENCE "public".classe_employe_id_classe_employe_seq AS integer START WITH 20 INCREMENT BY 1;
 
-CREATE SEQUENCE "public".conge_id_conge_seq AS integer START WITH 1 INCREMENT BY 1;
+CREATE SEQUENCE "public".conge_id_conge_seq AS integer START WITH 20 INCREMENT BY 1;
 
-CREATE SEQUENCE "public".conge_id_personnel_seq AS integer START WITH 1 INCREMENT BY 1;
+CREATE SEQUENCE "public".conge_id_personnel_seq AS integer START WITH 20 INCREMENT BY 1;
 
-CREATE SEQUENCE "public".conge_id_type_conge_seq AS integer START WITH 1 INCREMENT BY 1;
+CREATE SEQUENCE "public".conge_id_type_conge_seq AS integer START WITH 20 INCREMENT BY 1;
 
-CREATE SEQUENCE "public".conge_report_id_personnel_seq AS integer START WITH 1 INCREMENT BY 1;
+CREATE SEQUENCE "public".conge_report_id_personnel_seq AS integer START WITH 20 INCREMENT BY 1;
 
-CREATE SEQUENCE "public".contrat_id_contrat_seq AS integer START WITH 1 INCREMENT BY 1;
+CREATE SEQUENCE "public".contrat_id_contrat_seq AS integer START WITH 20 INCREMENT BY 1;
 
 CREATE SEQUENCE "public".diplome_id_diplome_seq START WITH 20 INCREMENT BY 1;
 
-CREATE SEQUENCE "public".employe_id_employe_seq AS integer START WITH 1 INCREMENT BY 1;
+CREATE SEQUENCE "public".employe_id_employe_seq AS integer START WITH 20 INCREMENT BY 1;
 
 CREATE SEQUENCE "public".experience_id_experience_seq START WITH 20 INCREMENT BY 1;
 
-CREATE SEQUENCE "public".formation_base_id_formation_base_seq AS integer START WITH 1 INCREMENT BY 1;
+CREATE SEQUENCE "public".formation_base_id_formation_base_seq AS integer START WITH 20 INCREMENT BY 1;
 
-CREATE SEQUENCE "public".heure_supplementaire_id_employe_seq AS integer START WITH 1 INCREMENT BY 1;
+CREATE SEQUENCE "public".heure_supplementaire_id_employe_seq AS integer START WITH 20 INCREMENT BY 1;
 
-CREATE SEQUENCE "public".heure_supplementaire_id_heure_supplementaire_seq AS integer START WITH 1 INCREMENT BY 1;
+CREATE SEQUENCE "public".heure_supplementaire_id_heure_supplementaire_seq AS integer START WITH 20 INCREMENT BY 1;
 
-CREATE SEQUENCE "public".licenciement_id_employe_seq AS integer START WITH 1 INCREMENT BY 1;
+CREATE SEQUENCE "public".licenciement_id_employe_seq AS integer START WITH 20 INCREMENT BY 1;
 
-CREATE SEQUENCE "public".licenciement_id_licenciement_seq AS integer START WITH 1 INCREMENT BY 1;
+CREATE SEQUENCE "public".licenciement_id_licenciement_seq AS integer START WITH 20 INCREMENT BY 1;
 
-CREATE SEQUENCE "public".licenciement_id_type_licenciement_seq AS integer START WITH 1 INCREMENT BY 1;
+CREATE SEQUENCE "public".licenciement_id_type_licenciement_seq AS integer START WITH 20 INCREMENT BY 1;
 
-CREATE SEQUENCE "public".organisme_id_organisme_seq AS integer START WITH 1 INCREMENT BY 1;
+CREATE SEQUENCE "public".organisme_id_organisme_seq AS integer START WITH 20 INCREMENT BY 1;
 
-CREATE SEQUENCE "public".organisme_parameter_id_organisme_seq AS integer START WITH 1 INCREMENT BY 1;
+CREATE SEQUENCE "public".organisme_parameter_id_organisme_seq AS integer START WITH 20 INCREMENT BY 1;
 
-CREATE SEQUENCE "public".personnel_id_classe_employe_seq AS integer START WITH 1 INCREMENT BY 1;
+CREATE SEQUENCE "public".personnel_id_classe_employe_seq AS integer START WITH 20 INCREMENT BY 1;
 
-CREATE SEQUENCE "public".personnel_id_personnel_seq AS integer START WITH 1 INCREMENT BY 1;
+CREATE SEQUENCE "public".personnel_id_personnel_seq AS integer START WITH 20 INCREMENT BY 1;
 
-CREATE SEQUENCE "public".prime_employe_id_employe_seq AS integer START WITH 1 INCREMENT BY 1;
+CREATE SEQUENCE "public".prime_employe_id_employe_seq AS integer START WITH 20 INCREMENT BY 1;
 
-CREATE SEQUENCE "public".prime_employe_id_prime_employe_seq AS integer START WITH 1 INCREMENT BY 1;
+CREATE SEQUENCE "public".prime_employe_id_prime_employe_seq AS integer START WITH 20 INCREMENT BY 1;
 
-CREATE SEQUENCE "public".prime_employe_id_prime_seq AS integer START WITH 1 INCREMENT BY 1;
+CREATE SEQUENCE "public".prime_employe_id_prime_seq AS integer START WITH 20 INCREMENT BY 1;
 
-CREATE SEQUENCE "public".prime_id_prime_seq AS integer START WITH 1 INCREMENT BY 1;
+CREATE SEQUENCE "public".prime_id_prime_seq AS integer START WITH 20 INCREMENT BY 1;
 
-CREATE SEQUENCE "public".professional_career_id_professional_career_seq AS integer START WITH 1 INCREMENT BY 1;
+CREATE SEQUENCE "public".professional_career_id_professional_career_seq AS integer START WITH 20 INCREMENT BY 1;
 
-CREATE SEQUENCE "public".province_id_province_seq AS integer START WITH 1 INCREMENT BY 1;
+CREATE SEQUENCE "public".province_id_province_seq AS integer START WITH 20 INCREMENT BY 1;
 
-CREATE SEQUENCE "public".question_id_question_seq AS integer START WITH 1 INCREMENT BY 1;
+CREATE SEQUENCE "public".question_id_question_seq AS integer START WITH 20 INCREMENT BY 1;
 
-CREATE SEQUENCE "public".question_id_quiz_seq AS integer START WITH 1 INCREMENT BY 1;
+CREATE SEQUENCE "public".question_id_quiz_seq AS integer START WITH 20 INCREMENT BY 1;
 
-CREATE SEQUENCE "public".quiz_id_quiz_seq AS integer START WITH 1 INCREMENT BY 1;
+CREATE SEQUENCE "public".quiz_id_quiz_seq AS integer START WITH 20 INCREMENT BY 1;
 
-CREATE SEQUENCE "public".quiz_id_quiz_type_seq AS integer START WITH 1 INCREMENT BY 1;
+CREATE SEQUENCE "public".quiz_id_quiz_type_seq AS integer START WITH 20 INCREMENT BY 1;
 
-CREATE SEQUENCE "public".quiz_id_service_seq AS integer START WITH 1 INCREMENT BY 1;
+CREATE SEQUENCE "public".quiz_id_service_seq AS integer START WITH 20 INCREMENT BY 1;
 
-CREATE SEQUENCE "public".quiz_type_id_quiz_type_seq AS integer START WITH 1 INCREMENT BY 1;
+CREATE SEQUENCE "public".quiz_type_id_quiz_type_seq AS integer START WITH 20 INCREMENT BY 1;
 
-CREATE SEQUENCE "public".rappel_periode_id_rappel_periode_seq AS integer START WITH 1 INCREMENT BY 1;
+CREATE SEQUENCE "public".rappel_periode_id_rappel_periode_seq AS integer START WITH 20 INCREMENT BY 1;
 
 CREATE SEQUENCE "public".salaire_id_salaire_seq START WITH 20 INCREMENT BY 1;
 
@@ -102,21 +102,21 @@ CREATE SEQUENCE "public".sexe_id_sexe_seq START WITH 20 INCREMENT BY 1;
 
 CREATE SEQUENCE "public".task_id_task_seq START WITH 20 INCREMENT BY 1;
 
-CREATE SEQUENCE "public".type_conge_id_type_conge_seq AS integer START WITH 1 INCREMENT BY 1;
+CREATE SEQUENCE "public".type_conge_id_type_conge_seq AS integer START WITH 20 INCREMENT BY 1;
 
-CREATE SEQUENCE "public".type_licenciement_id_type_licenciement_seq AS integer START WITH 1 INCREMENT BY 1;
+CREATE SEQUENCE "public".type_licenciement_id_type_licenciement_seq AS integer START WITH 20 INCREMENT BY 1;
 
 CREATE SEQUENCE "public".unity_id_unity_seq START WITH 20 INCREMENT BY 1;
 
 CREATE SEQUENCE "public".utilisateur_id_utilisateur_seq START WITH 20 INCREMENT BY 1;
 
-CREATE SEQUENCE "public".vente_conge_id_employe_seq AS integer START WITH 1 INCREMENT BY 1;
+CREATE SEQUENCE "public".vente_conge_id_employe_seq AS integer START WITH 20 INCREMENT BY 1;
 
-CREATE SEQUENCE "public".vente_conge_id_vente_conge_seq AS integer START WITH 1 INCREMENT BY 1;
+CREATE SEQUENCE "public".vente_conge_id_vente_conge_seq AS integer START WITH 20 INCREMENT BY 1;
 
 CREATE SEQUENCE "public".wanted_profile_id_wanted_profile_seq START WITH 20 INCREMENT BY 1;
 
-CREATE SEQUENCE "public".work_location_id_work_location_seq AS integer START WITH 1 INCREMENT BY 1;
+CREATE SEQUENCE "public".work_location_id_work_location_seq AS integer START WITH 20 INCREMENT BY 1;
 
 CREATE SEQUENCE "public".workload_id_workload_seq START WITH 20 INCREMENT BY 1;
 
@@ -669,7 +669,7 @@ INSERT INTO "public".adresse( id_adresse, adresse, status ) VALUES ( 6, 'Alasora
 INSERT INTO "public".classe_employe( id_classe_employe, classe_employe, classe_description, indamnite_licenciement, duree_preavis ) VALUES ( 1, 'D', 'Emplois salaries d''execution peu qualifies', 100000, 30);
 INSERT INTO "public".classe_employe( id_classe_employe, classe_employe, classe_description, indamnite_licenciement, duree_preavis ) VALUES ( 2, 'C', 'Emplois salaries d''execution qualifies', 200000, 45);
 INSERT INTO "public".classe_employe( id_classe_employe, classe_employe, classe_description, indamnite_licenciement, duree_preavis ) VALUES ( 3, 'B', 'Emplois salaries de niveau intermediaire', 300000, 60);
-INSERT INTO "public".classe_employe( id_classe_employe, classe_employe, classe_description, indamnite_licenciement, duree_preavis ) VALUES ( 4, 'A', 'Emplois salaries de niveau sup‚rieur', 500000, 90);
+INSERT INTO "public".classe_employe( id_classe_employe, classe_employe, classe_description, indamnite_licenciement, duree_preavis ) VALUES ( 4, 'A', 'Emplois salaries de niveau superieur', 500000, 90);
 INSERT INTO "public".classe_employe( id_classe_employe, classe_employe, classe_description, indamnite_licenciement, duree_preavis ) VALUES ( 5, 'HC', 'Emplois Hors Classe', 500000, 120);
 INSERT INTO "public".conge_parameter( accumulation, minimum_duree, max_solde ) VALUES ( 2.5, 365, 90);
 INSERT INTO "public".diplome( id_diplome, diplome, status ) VALUES ( 1, 'CEPE', 1);
