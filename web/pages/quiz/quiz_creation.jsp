@@ -10,7 +10,7 @@
     <div class="col-lg-12 grid-margin stretch-card">
         <div class="card">
             <div class="card-body">
-                <h4 class="">Ces questionnaires sont utilisés pour évaluer les candidats pour une
+                <h4 class="">Ces questionnaires sont utilisés pour évaluer les candidats pour un
                     poste</h4>
                 <div class="form ">
                     <div class="form-group little-width mt-3">
