@@ -53,6 +53,14 @@ public class RappelPeriode {
     public void setNombreMois(int nombreMois) {
         this.nombreMois = nombreMois;
     }
+
+    public List<Service> getServices() {
+        return services;
+    }
+
+    public void setServices(List<Service> services) {
+        this.services = services;
+    }
     
     /// constructor
 

@@ -68,17 +68,24 @@ public class CandidatureFilterServlet extends HttpServlet {
             response.setContentType("text/plain");
           PrintWriter out = response.getWriter();
          try {
-              Connection conn = GConnection.getSimpleConnection();
+                Connection conn = GConnection.getSimpleConnection();
               
+                Integer idService = Integer.valueOf(request.getParameter("service"));
+                Integer idPoste = Integer.valueOf(request.getParameter("poste"));
+                Service service = Service.getById(conn, idService);
+                WantedProfile wp = WantedProfile.getById(conn, idPoste);
+                ArrayList<Candidature> candidatures = Candidature.getAllInServicePoste(conn, service, wp);
              
+                request.setAttribute("candidatureList", candidatures);
+              
               
               conn.close();
           } catch (Exception exe) {
                 exe.printStackTrace();
                 request.setAttribute("erreur", exe.getMessage());
           }
-          RequestDispatcher dispat = request.getRequestDispatcher("./pages/candidature/candidature_list.jsp");
-          dispat.forward(request, response);
+          RequestDispatcher dispat = request.getRequestDispatcher("listCandidature");
+        dispat.forward(request, response);
     }
 
     /**
@@ -92,16 +99,16 @@ public class CandidatureFilterServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+            response.setContentType("text/plain");
+          PrintWriter out = response.getWriter();
         try {
             Connection conn = GConnection.getSimpleConnection();
               
-            Integer idService = Integer.valueOf(request.getParameter("service"));
+            //Integer idService = Integer.valueOf(request.getParameter("service"));
             Integer idPoste = Integer.valueOf(request.getParameter("poste"));
-            Service service = Service.getById(conn, idService);
+            //Service service = Service.getById(conn, idService);s
             WantedProfile wp = WantedProfile.getById(conn, idPoste);
-            ArrayList<Candidature> candidatures = Candidature.getAllInServicePoste(conn, service, wp);
-             
+            ArrayList<Candidature> candidatures = Candidature.getAllInServicePoste(conn, null, wp);
             request.setAttribute("candidatureList", candidatures);
               
             conn.close();

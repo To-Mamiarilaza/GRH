@@ -200,14 +200,18 @@ public class CandidatureExportPDFServlet extends HttpServlet {
 
             }
 
+            // Chemin de persistance
+            String persistancePath = getServletContext().getRealPath("").replace("build\\web\\", "web\\");
+            
             // Exportation en image
             PDFRenderer pdfRenderer = new PDFRenderer(document);
             BufferedImage image = pdfRenderer.renderImage(0);
-            // 
-            ImageIO.write(image, "PNG", new File(getServletContext().getRealPath("./candidatures/_00" + can.getIdCandidature() + "_" + nom + "_" + prenom + " candidature.png")));
+            ImageIO.write(image, "PNG", new File(getServletContext().getRealPath("./candidatures/_00" + can.getIdCandidature() + "_" + nom + "_" + prenom + "_" + "candidature.png")));
+            ImageIO.write(image, "PNG", new File(persistancePath + "\\candidatures\\_00" + can.getIdCandidature() + "_" + nom + "_" + prenom + "_" + "candidature.png"));     // Ecriture pour le persistance
 
             // Exportation en pdf
-            document.save(getServletContext().getRealPath("./candidatures/_00" + can.getIdCandidature() + "_" + nom + "_" + prenom + "_" + " candidature.pdf"));
+            document.save(getServletContext().getRealPath("./candidatures/_00" + can.getIdCandidature() + "_" + nom + "_" + prenom + "_" + "candidature.pdf"));
+            document.save(persistancePath + "\\candidatures\\_00" + can.getIdCandidature() + "_" + nom + "_" + prenom + "_" + "candidature.pdf");
 
             // Affichage a l'écran
             //document.save(response.getOutputStream());

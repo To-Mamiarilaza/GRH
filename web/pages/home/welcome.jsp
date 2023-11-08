@@ -1,3 +1,8 @@
+<%
+    double totalSalaire = (double) request.getAttribute("totalSalaire");
+    int nombreEmploye = (int) request.getAttribute("nombreEmploye");
+    int nombreBesoin = (int) request.getAttribute("nombreBesoin");
+%>
 <div class="page-header">
     <h3 class="page-title">
         <span class="page-title-icon bg-gradient-primary text-white me-2">
@@ -22,8 +27,8 @@
                 <h4 class="font-weight-normal mb-3">Montant Salaire <i
                         class="mdi mdi-chart-line mdi-24px float-right"></i>
                 </h4>
-                <h2 class="mb-5">$ 15,0000</h2>
-                <h6 class="card-text">Augmenté de 60%</h6>
+                <h2 class="mb-5">AR <%= totalSalaire %></h2>
+                <h6 class="card-text"></h6>
             </div>
         </div>
     </div>
@@ -35,8 +40,8 @@
                 <h4 class="font-weight-normal mb-3">Nombre d'employés <i
                         class="mdi mdi-bookmark-outline mdi-24px float-right"></i>
                 </h4>
-                <h2 class="mb-5">35</h2>
-                <h6 class="card-text">Diminué de 10%</h6>
+                <h2 class="mb-5"><%= nombreEmploye %></h2>
+                <h6 class="card-text"></h6>
             </div>
         </div>
     </div>
@@ -48,8 +53,8 @@
                 <h4 class="font-weight-normal mb-3">Besoin en personnel<i
                         class="mdi mdi-diamond mdi-24px float-right"></i>
                 </h4>
-                <h2 class="mb-5">20</h2>
-                <h6 class="card-text">Augmenté de 5%</h6>
+                <h2 class="mb-5"><%= nombreBesoin %></h2>
+                <h6 class="card-text"></h6>
             </div>
         </div>
     </div>

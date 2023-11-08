@@ -12,15 +12,15 @@ import java.sql.Statement;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
-import java.util.List;
+import model.candidature.Candidature;
+import model.candidature.PersonnalInformation;
 import model.conge.ChefDemandeConge;
 import model.conge.Conge;
 import model.conge.CongePersonnel;
-import model.conge.Personnel;
 import model.conge.RHDemandeConge;
 import model.conge.TypeConge;
-import model.quiz.Question;
+import model.embauchement.Contrat;
+import model.employe.Employe;
 
 /**
  *
@@ -54,7 +54,7 @@ public class CongeManager {
             resultset = statement.executeQuery(query);
 
             if (resultset.next()) {
-                Personnel personnel = Personnel.getPersonnelById(resultset.getInt("id_personnel"), connection);
+                Employe personnel = Employe.getById(resultset.getInt("id_personnel"), connection);
 
                 int idTypeConge = resultset.getInt("id_type_conge");
                 String typeCongeName = resultset.getString("type_conge_name");
@@ -73,21 +73,35 @@ public class CongeManager {
 
                 LocalDate depositDate = resultset.getDate("deposit_date").toLocalDate();
 
-                Personnel chefHierarchique = new Personnel();
+                Contrat chefContrat = new Contrat();
+                Candidature chefCandidature = new Candidature();
+                PersonnalInformation infoPersoChef = new PersonnalInformation();
+                infoPersoChef.setName("Réponse du chef en attente !");
+                infoPersoChef.setFirstName("");
+                chefCandidature.setPersonnalInformation(infoPersoChef);
+                chefContrat.setCandidature(chefCandidature);
+
+                Employe chefHierarchique = new Employe();
                 String remarqueChefHierarchique = "...";
-                chefHierarchique.setNom("Réponse du chef en attente !");
-                chefHierarchique.setPrenom("");
+                chefHierarchique.setContrat(chefContrat);
                 if (resultset.getInt("id_chef_hierarchique") != 0) {
-                    chefHierarchique = Personnel.getPersonnelById(resultset.getInt("id_chef_hierarchique"), connection);
+                    chefHierarchique = Employe.getById(resultset.getInt("id_chef_hierarchique"), connection);
                     remarqueChefHierarchique = resultset.getString("remarque_chef_hierarchique");
                 }
 
-                Personnel responsableRH = new Personnel();
+                Contrat rhContrat = new Contrat();
+                Candidature rhCandidature = new Candidature();
+                PersonnalInformation infoPersoRh = new PersonnalInformation();
+                infoPersoRh.setName("Réponse du RH en attente !");
+                infoPersoRh.setFirstName("");
+                rhCandidature.setPersonnalInformation(infoPersoRh);
+                rhContrat.setCandidature(rhCandidature);
+
+                Employe responsableRH = new Employe();
                 String remarquePersonnelRH = "...";
-                responsableRH.setNom("Réponse du RH en attente !");
-                responsableRH.setPrenom("");
+                responsableRH.setContrat(rhContrat);
                 if (resultset.getInt("id_personnel_rh") != 0) {
-                    responsableRH = Personnel.getPersonnelById(resultset.getInt("id_personnel_rh"), connection);
+                    responsableRH = Employe.getById(resultset.getInt("id_personnel_rh"), connection);
                     remarquePersonnelRH = resultset.getString("remarque_personnel_rh");
                 }
 
@@ -120,9 +134,9 @@ public class CongeManager {
 
     public static void checkCongeAvailability(int idPersonnel, LocalDate dateDebutDemande, LocalDate dateFinDemande, Connection connection) throws Exception {
         CongePersonnel congePersonnel = CongeManager.getCongePersonnelInfo(idPersonnel, connection);
-        Personnel personnel = congePersonnel.getPersonnel();
+        Employe personnel = congePersonnel.getPersonnel();
 
-        if (ChronoUnit.MONTHS.between(personnel.getEmbauche(), LocalDate.now()) <= 12) {
+        if (ChronoUnit.MONTHS.between(personnel.getContrat().getContratDate().toLocalDate(), LocalDate.now()) <= 12) {
             throw new Exception("Vous devez tout d'abord avoir une anciennete plus d'un ans !");
         }
 
@@ -195,11 +209,12 @@ public class CongeManager {
             connection = GConnection.getSimpleConnection();
         }
 
-        Personnel personnel;
+        Employe personnel;
         CongePersonnel congePersonnel = null;
 
         try {
-            personnel = Personnel.getPersonnelById(idPersonnel, connection);
+            personnel = Employe.getById(idPersonnel, connection);
+            System.out.println("Date du contrat : " + personnel.getContrat().getContratDate());
             congePersonnel = new CongePersonnel(personnel);
             congePersonnel.fetchAllConge(connection);
             congePersonnel.setSoldeRestant(SoldeCongeManager.calculerSoldeRestant(congePersonnel, LocalDate.now().getYear(), connection));
@@ -223,11 +238,11 @@ public class CongeManager {
             connection = GConnection.getSimpleConnection();
         }
 
-        Personnel personnel = null;
+        Employe personnel = null;
         ChefDemandeConge chefDemande = null;
 
         try {
-            personnel = Personnel.getPersonnelById(idSuperieur, connection);
+            personnel = Employe.getById(idSuperieur, connection);
             chefDemande = new ChefDemandeConge(personnel);
             chefDemande.setAllCongesInformation(connection);
         } catch (Exception e) {
@@ -250,11 +265,11 @@ public class CongeManager {
             connection = GConnection.getSimpleConnection();
         }
 
-        Personnel personnel = null;
+        Employe personnel = null;
         RHDemandeConge rhDemande = null;
 
         try {
-            personnel = Personnel.getPersonnelById(idResponsable, connection);
+            personnel = Employe.getById(idResponsable, connection);
             rhDemande = new RHDemandeConge(personnel);
             rhDemande.setAllCongesInformation(connection);
         } catch (Exception e) {
@@ -270,14 +285,10 @@ public class CongeManager {
     }
 
     public static void main(String[] args) throws Exception {
-        RHDemandeConge rhDemande = getCongeRHDemandeConge(2, null);
-        System.out.println("Demandes en attente :");
-        for (Conge demande : rhDemande.getDemandes()) {
-            System.out.println("- " + demande.getIdConge());
-        }
-        System.out.println("Demandes validé :");
-        for (Conge demande : rhDemande.getValides()) {
-            System.out.println("- " + demande.getIdConge());
+        CongePersonnel conges = CongeManager.getCongePersonnelInfo(1, null);
+        System.out.println("Demande : " + conges.getDemandeConge().size());
+        for (Conge conge : conges.getDemandeConge()) {
+            System.out.println("ID : " + conge);
         }
     }
 }

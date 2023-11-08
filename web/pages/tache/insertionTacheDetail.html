@@ -10,8 +10,9 @@
 
     <!-- plugins:css -->
     <link rel="stylesheet" href="../../assets/vendors/mdi/css/materialdesignicons.min.css">
+    <link rel="stylesheet" href="../../assets/css/tache/tache.css">
+    <link rel="stylesheet" href="../../assets/css/besoin/besoin-insertion.css">
     <link rel="stylesheet" href="../../assets/vendors/css/vendor.bundle.base.css">
-    <link rel="stylesheet" href="../../assets/css/paie/detail-employe.css">
     <!-- endinject -->
     <!-- Plugin css for this page -->
     <!-- End plugin css for this page -->
@@ -259,7 +260,7 @@
                         <h3 class="page-title">
                             <span class="page-title-icon bg-gradient-primary text-white me-2">
                                 <i class="mdi mdi-calendar"></i>
-                            </span> Detail de l'employee
+                            </span> Gestion des taches
                         </h3>
                         <nav aria-label="breadcrumb">
                             <ul class="breadcrumb">
@@ -271,91 +272,63 @@
                         </nav>
                     </div>
 
-                    <div class="row">
-                        <div class="col-lg-12 grid-margin stretch-card">
+                    <div class="row flex-grow">
+                        <div class="col-lg-10 mx-auto grid-margin stretch-card">
                             <div class="card">
                                 <div class="card-body">
-                                    <div class="inside-link">
-                                        <ul class="horizontal-list no-style-list">
-                                            <li><a class="btn btn-outline-primary btn-sm">Prime</a> </li>
-                                            <li><a class="btn btn-outline-primary btn-sm">Heure supplementaire</a></li>
-                                            <li><a class="btn btn-outline-primary btn-sm">Vente conges</a></li>
-                                            <li><a class="btn btn-outline-primary btn-sm">Abscence</a></li>
-                                            <li><a class="btn btn-outline-primary btn-sm">Demande d'avance</a></li>
-                                            <li><a class="btn btn-outline-primary btn-sm">Fiche de paie</a></li>
-                                        </ul>
-                                    </div>
+                                    <h4 class="card-title">Detail du tache</h4>
+                                    <form action="" class="form row mt-4 align-items-end" method="POST">
+                                        <div class="form-group mb-3 col-md-3">
+                                            <label for="" class="form-label">Responsable</label>
+                                            <select name="responsable" class="form-control form-select form-control-sm mt-2" id="">
+                                                <option value="">To MAMIARILAZA</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group mb-3 col-md-3">
+                                            <label for="" class="form-label">Description</label>
+                                            <input type="text" class="form-control form-control-sm mt-2" id="" name="description">
+                                        </div>
+                                        <div class="form-group mb-3 col-md-3">
+                                            <label for="" class="form-label">Temps estime</label>
+                                            <input type="number" class="form-control form-control-sm mt-2" id="" name="description">
+                                        </div>
+                                        <div class="form-group mb-3 col-md-3">
+                                            <input type="submit" class="btn btn-gradient-primary" value="Ajouter">
+                                        </div>
+                                    </form>
                                     <hr>
-                                    <h4 class="card-title">HEURES SUPPLEMENTAIRES</h4>
-                                    <div class="row">
-                                        <div class="col-md-8">
-                                            <form action="" class="mt-3">
-                                                <label for="" class="form-label">Filtrer le resultat par mois</label>
-                                                <div class="form-group row mt-3">
-                                                    <div class="col-md-4">
-                                                        <input type="number" class="form-control form-control-sm" placeholder="Mois">
-                                                    </div>
-                                                    <div class="col-md-4">
-                                                        <input type="number mx-5" class="form-control form-control-sm" placeholder="Annee">
-                                                    </div>
-                                                    <div class="col-md-2">
-                                                        <input type="submit" class="btn btn-gradient-primary btn-md" value="Valider">
-                                                    </div>
-                                                </div>
-                                            </form>
-
-                                            <table class="table table-striped">
-                                                <thead>
-                                                    <tr>
-                                                        <td>Date</td>
-                                                        <td>Heure debut</td>
-                                                        <td>Heure fin</td>
-                                                        <td>Option</td>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr>
-                                                        <td>10/12/23</td>
-                                                        <td>17:00</td>
-                                                        <td>19:00</td>
-                                                        <td class="text-danger"><i class="mdi mdi-close list-style-i"></i></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>10/12/23</td>
-                                                        <td>17:00</td>
-                                                        <td>19:00</td>
-                                                        <td class="text-danger"><i class="mdi mdi-close list-style-i"></i></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>10/12/23</td>
-                                                        <td>17:00</td>
-                                                        <td>19:00</td>
-                                                        <td class="text-danger"><i class="mdi mdi-close list-style-i"></i></td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                        <div class="col-md-4 paie-element-insertion">
-                                            <h4 class="color-primary">Ajouter heure supplementaire</h4>
-                                            <form action="" class="form mt-3">
-                                                <div class="form-group">
-                                                    <label for="" class="form-label">Date et heure debut</label>
-                                                    <input type="datetime-local" name="debut" class="form-control mt-2">
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="" class="form-label">Date et heure fin</label>
-                                                    <input type="datetime-local" name="fin" class="form-control mt-2">
-                                                </div>
-                                                <div class="form-group">
-                                                    <input type="submit" class="btn btn-gradient-primary" value="Valider">
-                                                </div>
-                                            </form>
-                                        </div>
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <td>Responsable</td>
+                                                <td>Description</td>
+                                                <td>Temps estimé</td>
+                                                <td>Supprimer</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>To MAMIARILAZA</td>
+                                                <td>Lavage des voitures</td>
+                                                <td>120 min</td>
+                                                <td><a href=""><i class="text-danger mdi mdi-delete mx-3"></i></a></td>
+                                            </tr>
+                                            <tr>
+                                                <td>INSSA Chalman</td>
+                                                <td>Lavage du sol</td>
+                                                <td>60 min</td>
+                                                <td><a href=""><i class="text-danger mdi mdi-delete mx-3"></i></a></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <div class="form-group mt-5 col-md-3">
+                                        <a href="" class="btn btn-gradient-primary">Valider</a>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    
 
                 </div>
                 <!-- content-wrapper ends -->

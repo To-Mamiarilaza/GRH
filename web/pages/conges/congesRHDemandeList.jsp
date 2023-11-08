@@ -1,4 +1,4 @@
-<%@page import="java.util.List, java.time.LocalDate, model.conge.Conge, model.conge.CongePersonnel, model.conge.Personnel" %>
+<%@page import="java.util.List, java.time.LocalDate, model.conge.Conge, model.conge.CongePersonnel" %>
 <%
     List<Conge> congeList = (List<Conge>) request.getAttribute("congeList");
     

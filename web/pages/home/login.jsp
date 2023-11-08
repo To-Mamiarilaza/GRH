@@ -33,10 +33,10 @@
                                 <h6 class="font-weight-light">S'authentifier pour continuer</h6>
                                 <form class="pt-3" action="./login" method="POST">
                                     <div class="form-group">
-                                        <input type="text" class="form-control form-control-lg" id="exampleInputEmail1" value="Lili RH" placeholder="Username" name="username">
+                                        <input type="text" class="form-control form-control-lg" id="exampleInputEmail1" value="To MAMIARILAZA" placeholder="Username" name="username">
                                     </div>
                                     <div class="form-group">
-                                        <input type="password" class="form-control form-control-lg" id="exampleInputPassword1" value="Lili000" placeholder="Password" name="password">
+                                        <input type="password" class="form-control form-control-lg" id="exampleInputPassword1" value="to" placeholder="Password" name="password">
                                     </div>
 
                                     <% 

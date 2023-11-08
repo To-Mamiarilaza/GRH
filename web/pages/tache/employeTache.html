@@ -10,8 +10,9 @@
 
     <!-- plugins:css -->
     <link rel="stylesheet" href="../../assets/vendors/mdi/css/materialdesignicons.min.css">
+    <link rel="stylesheet" href="../../assets/css/tache/tache.css">
+    <link rel="stylesheet" href="../../assets/css/besoin/besoin-insertion.css">
     <link rel="stylesheet" href="../../assets/vendors/css/vendor.bundle.base.css">
-    <link rel="stylesheet" href="../../assets/css/paie/detail-employe.css">
     <!-- endinject -->
     <!-- Plugin css for this page -->
     <!-- End plugin css for this page -->
@@ -259,7 +260,7 @@
                         <h3 class="page-title">
                             <span class="page-title-icon bg-gradient-primary text-white me-2">
                                 <i class="mdi mdi-calendar"></i>
-                            </span> Periode anterieur
+                            </span> Listes des taches personnels
                         </h3>
                         <nav aria-label="breadcrumb">
                             <ul class="breadcrumb">
@@ -275,137 +276,141 @@
                         <div class="col-lg-12 grid-margin stretch-card">
                             <div class="card">
                                 <div class="card-body">
-                                    <h4 class="card-title">Gestion des periodes anterieurs</h4>
+                                    <h4 class="card-title">Mes taches personnelles</h4>
                                     <div class="row">
-                                        <div class="col-md-8">
-                                            <form action="" class="mt-3">
-                                                <label for="" class="form-label">Filtrer le resultat par mois</label>
-                                                <div class="form-group row mt-3">
-                                                    <div class="col-md-4">
-                                                        <input type="number" class="form-control form-control-sm"
-                                                            placeholder="Mois">
+                                        <div class="col-md-12">
+                                            <form action="./EtatPaie" method="GET" class="mt-2">
+                                                <div class="form-group row mt-3 align-items-end">
+                                                    <div class="col-md-3">
+                                                        <label for="" class="form-label">Tache</label>
+                                                        <select name="etat" id="" class="form-select">
+                                                            <option value="">Lavage du garage</option>
+                                                        </select>
                                                     </div>
-                                                    <div class="col-md-4">
-                                                        <input type="number mx-5" class="form-control form-control-sm"
-                                                            placeholder="Annee">
+                                                    <div class="col-md-3">
+                                                        <label for="" class="form-label">Etat</label>
+                                                        <select name="etat" id="" class="form-select">
+                                                            <option value="">Intacte</option>
+                                                        </select>
                                                     </div>
                                                     <div class="col-md-2">
                                                         <input type="submit" class="btn btn-gradient-primary btn-md"
-                                                            value="Valider">
+                                                               value="Filtrer">
                                                     </div>
                                                 </div>
                                             </form>
-
-                                            <div class="rappel-list row">
-                                                <div class="rappel col-md-6 mb-4">
-                                                    <p class="m-0 text-normal">10 / 02 / 23</p>
-                                                    <h4 class="mt-2 text-normale">Nombre de mois : <span
-                                                            class="mx-4 color-primary">3</span></h4>
-                                                    <h5 class="mt-3 text-normal black-underline">Départements</h5>
-                                                    <div class="row">
-                                                        <div class="col-md-6">
-                                                            <div class="form-check mt-2 form-check-flat form-check-primary">
-                                                                <label class="form-check-label">
-                                                                    <input type="checkbox" class="form-check-input">
-                                                                    Informatique <i class="input-helper"></i></label>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-6">
-                                                            <div class="form-check mt-2 form-check-flat form-check-primary">
-                                                                <label class="form-check-label">
-                                                                    <input type="checkbox" class="form-check-input">
-                                                                    Compta <i class="input-helper"></i></label>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-6">
-                                                            <div class="form-check mt-2 form-check-flat form-check-primary">
-                                                                <label class="form-check-label">
-                                                                    <input type="checkbox" class="form-check-input">
-                                                                    Ressource Humaine <i class="input-helper"></i></label>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="rappel col-md-6 mb-4">
-                                                    <p class="m-0 text-normal">10 / 02 / 23</p>
-                                                    <h4 class="mt-2 text-normale">Nombre de mois : <span
-                                                            class="mx-4 color-primary">3</span></h4>
-                                                    <h5 class="mt-3 text-normal black-underline">Départements</h5>
-                                                    <div class="row">
-                                                        <div class="col-md-6">
-                                                            <div class="form-check mt-2 form-check-flat form-check-primary">
-                                                                <label class="form-check-label">
-                                                                    <input type="checkbox" class="form-check-input">
-                                                                    Informatique <i class="input-helper"></i></label>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-6">
-                                                            <div class="form-check mt-2 form-check-flat form-check-primary">
-                                                                <label class="form-check-label">
-                                                                    <input type="checkbox" class="form-check-input">
-                                                                    Compta <i class="input-helper"></i></label>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-6">
-                                                            <div class="form-check mt-2 form-check-flat form-check-primary">
-                                                                <label class="form-check-label">
-                                                                    <input type="checkbox" class="form-check-input">
-                                                                    Ressource Humaine <i class="input-helper"></i></label>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
                                         </div>
-                                        <div class="col-md-4 paie-element-insertion">
-                                            <h4 class="color-primary">Ajouter des rappels antérieur</h4>
-                                            <form action="" class="form mt-3">
-                                                <div class="form-group">
-                                                    <label for="" class="form-label">Nombre de mois</label>
-                                                    <input type="number" name="debut" class="form-control mt-2">
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="" class="form-label">Modification</label>
-                                                    <input type="number" name="debut" class="form-control mt-2">
-                                                </div>
-                                                <div class="form-group">Départements</label>
-                                                    <hr>
-                                                    <div class="row">
-                                                        <div class="col-md-6">
-                                                            <div class="form-check mt-2 form-check-flat form-check-primary">
-                                                                <label class="form-check-label">
-                                                                    <input type="checkbox" class="form-check-input">
-                                                                    Informatique <i class="input-helper"></i></label>
+                                        <hr>
+                                        <div class="col-md-12">
+                                            <div class="row profile-list mt-3" id="profile-list">
+                                                <div class="col-md-3 stretch-card grid-margin">
+                                                    <div class="card">
+                                                        <div class="profile-card" style="border: solid 1px lightgray;">
+                                                            <div class="remove-floating">
+                                                                <a href=""><i class="text-danger remove mdi mdi-close-circle-outline"></i></a>
                                                             </div>
-                                                        </div>
-                                                        <div class="col-md-6">
-                                                            <div class="form-check mt-2 form-check-flat form-check-primary">
-                                                                <label class="form-check-label">
-                                                                    <input type="checkbox" class="form-check-input">
-                                                                    Compta <i class="input-helper"></i></label>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-6">
-                                                            <div class="form-check mt-2 form-check-flat form-check-primary">
-                                                                <label class="form-check-label">
-                                                                    <input type="checkbox" class="form-check-input">
-                                                                    Ressource Humaine <i class="input-helper"></i></label>
-                                                            </div>
+                                                            <h5 class="profile-title">Lavage des voitures</h5>
+                                                            <ul>
+                                                                <li class="profile-diplome mb-2"> RAKOTOARISOA Berilia </li>
+                                                                <li class="profile-experience mb-2"> Fonction is Admin </li>
+                                                                <li class="profile-salary mb-2">12-02-2023 10:00</li>
+                                                                <li class="profile-adress mb-3"> Temps restant : <span class="text-danger mx-3">8 min</span>  </li>
+                                                                <li class="profile-sexe" style="list-style: none;"> 
+                                                                    <form action="">
+                                                                        <div class="row align-items-center">
+                                                                            <div class="col-md-7" style="padding: 0;">
+                                                                                <select name="etat" id="" class="form-select">
+                                                                                    <option value="">Intacte</option>
+                                                                                    <option value="">En cours</option>
+                                                                                    <option value="">Fini</option>
+                                                                                </select>    
+                                                                            </div>
+                                                                            <div class="col-md-5" style="padding: 0;">
+                                                                                <input type="submit" class="btn btn-gradient-primary btn-sm mx-2" value="Changer">
+                                                                            </div>
+                                                                        </div>
+                                                                    </form>
+                                                                </li>
+                                                            </ul>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="form-group">
-                                                    <input type="submit" class="btn btn-gradient-primary"
-                                                        value="Valider">
+
+                                                <div class="col-md-3 stretch-card grid-margin">
+                                                    <div class="card">
+                                                        <div class="profile-card" style="border: solid 1px lightgray;">
+                                                            <div class="remove-floating">
+                                                                <a href=""><i class="text-danger remove mdi mdi-close-circle-outline"></i></a>
+                                                            </div>
+                                                            <h5 class="profile-title">Lavage des voitures</h5>
+                                                            <ul>
+                                                                <li class="profile-diplome mb-2"> RAKOTOARISOA Berilia </li>
+                                                                <li class="profile-experience mb-2"> Fonction is Admin </li>
+                                                                <li class="profile-salary mb-2">12-02-2023 10:00</li>
+                                                                <li class="profile-adress mb-3"> Temps restant : <span class="text-danger mx-3">8 min</span>  </li>
+                                                                <li class="profile-sexe" style="list-style: none;"> 
+                                                                    <form action="">
+                                                                        <div class="row align-items-center">
+                                                                            <div class="col-md-7" style="padding: 0;">
+                                                                                <select name="etat" id="" class="form-select">
+                                                                                    <option value="">Intacte</option>
+                                                                                    <option value="">En cours</option>
+                                                                                    <option value="">Fini</option>
+                                                                                </select>    
+                                                                            </div>
+                                                                            <div class="col-md-5" style="padding: 0;">
+                                                                                <input type="submit" class="btn btn-gradient-primary btn-sm mx-2" value="Changer">
+                                                                            </div>
+                                                                        </div>
+                                                                    </form>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                            </form>
+
+                                                <div class="col-md-3 stretch-card grid-margin">
+                                                    <div class="card">
+                                                        <div class="profile-card" style="border: solid 1px lightgray;">
+                                                            <div class="remove-floating">
+                                                                <a href=""><i class="text-danger remove mdi mdi-close-circle-outline"></i></a>
+                                                            </div>
+                                                            <h5 class="profile-title">Lavage des voitures</h5>
+                                                            <ul>
+                                                                <li class="profile-diplome mb-2"> RAKOTOARISOA Berilia </li>
+                                                                <li class="profile-experience mb-2"> Fonction is Admin </li>
+                                                                <li class="profile-salary mb-2">12-02-2023 10:00</li>
+                                                                <li class="profile-adress mb-3"> Temps restant : <span class="text-danger mx-3">8 min</span>  </li>
+                                                                <li class="profile-sexe" style="list-style: none;"> 
+                                                                    <form action="">
+                                                                        <div class="row align-items-center">
+                                                                            <div class="col-md-7" style="padding: 0;">
+                                                                                <select name="etat" id="" class="form-select">
+                                                                                    <option value="">Intacte</option>
+                                                                                    <option value="">En cours</option>
+                                                                                    <option value="">Fini</option>
+                                                                                </select>    
+                                                                            </div>
+                                                                            <div class="col-md-5" style="padding: 0;">
+                                                                                <input type="submit" class="btn btn-gradient-primary btn-sm mx-2" value="Changer">
+                                                                            </div>
+                                                                        </div>
+                                                                    </form>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    
 
                 </div>
                 <!-- content-wrapper ends -->

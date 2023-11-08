@@ -198,7 +198,8 @@ CREATE TABLE rappel_periode (
     id_rappel_periode SERIAL PRIMARY KEY,
     date DATE,
     modification_salaire DECIMAL(4, 1),
-    nombre_mois INTEGER
+    nombre_mois INTEGER,
+    etat INTEGER
 );
 
 CREATE TABLE departement_rappel_periode (
@@ -208,3 +209,8 @@ CREATE TABLE departement_rappel_periode (
     FOREIGN KEY(id_rappel_periode) REFERENCES rappel_periode(id_rappel_periode),
     PRIMARY KEY(id_service, id_rappel_periode)
 );
+
+-- View pour joindre un organisme et son parametre
+CREATE VIEW v_organisme_parameter AS
+SELECT o.*, op.pourcentage, op.plafond FROM 
+organisme o JOIN organisme_parameter op ON o.id_organisme = op.id_organisme;

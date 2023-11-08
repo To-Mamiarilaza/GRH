@@ -41,11 +41,11 @@
                                     <h3 style="margin: 0;">Huile de bongolava</h3>
                                 </div>
                                 <h4>Bienvenue ! Commençons maintenant </h4>
-                                <h6 class="font-weight-light little-line-height">Pour postuler votre candidature, veillez remplir Ã©tape
+                                <h6 class="font-weight-light little-line-height">Pour postuler votre candidature, veillez remplir étape
                                     par étape tous les champs données.</h6>
                                 <form class="pt-3" method="post" action="./PersonalInformationInsertionServlet">
                                     <div class="form-group">
-                                        <label for="adresseSelect" class="form-label labeled">Choisir le poste Ã  la quelle vous voulez postuler :</label>
+                                        <label for="adresseSelect" class="form-label labeled">Choisir le poste à  la quelle vous voulez postuler :</label>
                                         <select name="poste" id="" class="form-control form-select">
                                             <% for(int i = 0;i<listePoste.size();i++) { %>
                                             <option value="<%= listePoste.get(i).getIdWantedProfile() %>"><%= listePoste.get(i).getPoste() %></option>

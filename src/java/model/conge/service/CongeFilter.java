@@ -51,6 +51,10 @@ public class CongeFilter {
         List<Conge> resultat = new ArrayList<>();
         
         for (Conge conge : initialList) {
+            System.out.println("Verification : ");
+            System.out.println("Conge debut reel : " + conge.getDateDebutReel());
+            System.out.println("Now : " + LocalDate.now());
+            System.out.println("Date fin reel : " + conge.getDateFinReel());
             if (conge.getDateDebutReel() != null && conge.getEtat() == ETAT_VALIDE_RH && (conge.getDateDebutReel().isBefore(LocalDate.now()) || conge.getDateDebutReel().isEqual(LocalDate.now())) && conge.getDateFinReel() == null) {
                 resultat.add(conge);
             }

@@ -5,12 +5,15 @@
 package model.paie.heuresup;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 /**
  *
  * @author To Mamiarilaza
  */
 public class HeureSupplementaire {
+    // L'entrée d'une heure supplementaire se limite a une journée
+    
     /// field
     int idHeureSupplementaire;
     int idEmploye;
@@ -39,6 +42,10 @@ public class HeureSupplementaire {
     public LocalDateTime getDebut() {
         return debut;
     }
+    
+    public String getDebutString() {
+        return getDebut().format(DateTimeFormatter.ofPattern("yyyy-MM-dd  HH:mm"));
+    }
 
     public void setDebut(LocalDateTime debut) {
         this.debut = debut;
@@ -46,6 +53,10 @@ public class HeureSupplementaire {
 
     public LocalDateTime getFin() {
         return fin;
+    }
+    
+    public String getFinString() {
+        return getFin().format(DateTimeFormatter.ofPattern("yyyy-MM-dd  HH:mm"));
     }
 
     public void setFin(LocalDateTime fin) {

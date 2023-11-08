@@ -32,8 +32,8 @@
                                     <i class="mdi mdi-vector-arrange-above" style="font-size: 35px;margin-right: 25px;"></i>
                                     <h3 style="margin: 0;">Huile de bongolava</h3>
                                 </div>
-                                <h4>Autre information pouvant être utile</h4>
-                                <h6 class="font-weight-light little-line-height">Nous aimerons vous connaître un peu plus, alors présentez vous</h6>
+                                <h4>Autre information pouvant �tre utile</h4>
+                                <h6 class="font-weight-light little-line-height">Nous aimerons vous connatre un peu plus, alors presentez vous</h6>
                                     <div class="row mt-3">
                                         <div class="col-md-6">
                                             <hr>

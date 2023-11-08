@@ -88,7 +88,7 @@ public class TypeConge {
 
         // Pour avoir l'id du quiz inséré
         List<TypeConge> typeConges = new ArrayList<>();
-        String query = "SELECT * FROM type_conge";
+        String query = "SELECT * FROM type_conge WHERE etat = 1";
 
         Statement statement = null;
         ResultSet resultset = null;

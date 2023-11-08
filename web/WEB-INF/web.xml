@@ -45,16 +45,8 @@
         <servlet-class>servlet.candidature.ListCandidatureServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>EntretientServlet</servlet-name>
-        <servlet-class>servlet.entretient.EntretientServlet</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>DecisionServlet</servlet-name>
-        <servlet-class>servlet.entretient.DecisionEntretientServlet</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>FiltreEntretientServlet</servlet-name>
-        <servlet-class>servlet.entretient.FiltreEntretientServlet</servlet-class>
+        <servlet-name>AbscenceServlet</servlet-name>
+        <servlet-class>servlet.paie.AbscenceServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>AjaxProfileServlet</servlet-name>
@@ -101,16 +93,8 @@
         <url-pattern>/listCandidature</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>EntretientServlet</servlet-name>
-        <url-pattern>/EntretientServlet</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>DecisionServlet</servlet-name>
-        <url-pattern>/DecisionServlet</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>FiltreEntretientServlet</servlet-name>
-        <url-pattern>/FiltreEntretientServlet</url-pattern>
+        <servlet-name>AbscenceServlet</servlet-name>
+        <url-pattern>/Abscence</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

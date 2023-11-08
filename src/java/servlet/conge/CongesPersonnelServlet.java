@@ -18,7 +18,6 @@ import java.util.List;
 import model.conge.Conge;
 import model.conge.service.CongeManager;
 import model.conge.CongePersonnel;
-import model.conge.Personnel;
 import model.requis.User;
 
 /**
@@ -42,7 +41,7 @@ public class CongesPersonnelServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try {
             User user = (User) request.getSession().getAttribute("user");
-            CongePersonnel congePersonnel = CongeManager.getCongePersonnelInfo(user.getIdPersonnel(), null);
+            CongePersonnel congePersonnel = CongeManager.getCongePersonnelInfo(user.getIdEmploye(), null);
 
             List<Conge> congeList = null;
             if (request.getParameter("demande") != null) {
