@@ -124,8 +124,9 @@ public class PrimeServlet extends HttpServlet {
             int idEmploye = Integer.valueOf(request.getParameter("idEmploye"));
             int idPrime = Integer.valueOf(request.getParameter("prime"));
             double montant = Double.valueOf(request.getParameter("montant"));
+            LocalDate date = LocalDate.parse(request.getParameter("date"));
             
-            PrimeEmployeService.givePrimeToEmploye(idEmploye, idPrime, montant);
+            PrimeEmployeService.givePrimeToEmploye(idEmploye, date, idPrime, montant);
             
             response.sendRedirect("./Prime?idEmploye=" + idEmploye);
         } catch (Exception e) {

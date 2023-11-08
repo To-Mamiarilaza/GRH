@@ -125,8 +125,9 @@ public class AvanceServlet extends HttpServlet {
         try {
             int idEmploye = Integer.valueOf(request.getParameter("idEmploye"));
             double montant = Double.valueOf(request.getParameter("montant"));
+            LocalDate date = LocalDate.parse(request.getParameter("date"));
             
-            AvanceService.demanderAvance(idEmploye, montant);
+            AvanceService.demanderAvance(idEmploye, date, montant);
             
             response.sendRedirect("./Avance?idEmploye=" + idEmploye);
         } catch (Exception e) {

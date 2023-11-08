@@ -22,20 +22,21 @@ import java.util.List;
 public class PrimeEmployeService {
 
     // Classe de service pour les primes des employes
-    public static void givePrimeToEmploye(int idEmploye, int idPrime, double montant) throws Exception {
+    public static void givePrimeToEmploye(int idEmploye, LocalDate date, int idPrime, double montant) throws Exception {
         Connection connection = null;
         PreparedStatement statement = null;
         ResultSet resultset = null;
 
         try {
             // Insertion dans la base de données
-            String query = "INSERT INTO prime_employe (id_prime, id_employe, date_prime, montant, etat) VALUES (?, ?, NOW(), ?, 1)";
+            String query = "INSERT INTO prime_employe (id_prime, id_employe, date_prime, montant, etat) VALUES (?, ?, ?, ?, 1)";
 
             connection = GConnection.getSimpleConnection();
             statement = connection.prepareStatement(query);
             statement.setInt(1, idPrime);
             statement.setInt(2, idEmploye);
-            statement.setDouble(3, montant);
+            statement.setDate(3, Date.valueOf(date));
+            statement.setDouble(4, montant);
 
             statement.executeUpdate();
 
@@ -162,9 +163,6 @@ public class PrimeEmployeService {
     }
     
     public static void main(String[] args) throws Exception {
-        List<PrimeEmploye> primeList = getEmployePrime(5, LocalDate.of(2023, 11, 1), LocalDate.of(2023, 11, 5), null);
-        for (PrimeEmploye primeEmploye : primeList) {
-            System.out.println("- " + primeEmploye.getIdEmploye() + " " + primeEmploye.getPrime().getPrime() + " " + primeEmploye.getDatePrime());
-        }
+        givePrimeToEmploye(1, LocalDate.now(), 1, 10000);
     }
 }
