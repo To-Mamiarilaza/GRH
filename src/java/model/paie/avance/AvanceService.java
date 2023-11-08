@@ -22,20 +22,20 @@ import model.employe.Employe;
  */
 public class AvanceService {
     /// classe de service pour la gestion des ventes de conges
-    public static void demanderAvance(int idEmploye, double montant) throws Exception {
+    public static void demanderAvance(int idEmploye, LocalDate date, double montant) throws Exception {
         Connection connection = null;
         PreparedStatement statement = null;
         ResultSet resultset = null;
 
         try {
             // Insertion dans la base de données
-            String query = "INSERT INTO avance (id_employe, date, montant, etat) VALUES (?, NOW(), ?, 1)";
+            String query = "INSERT INTO avance (id_employe, date, montant, etat) VALUES (?, ?, ?, 1)";
 
             connection = GConnection.getSimpleConnection();
             statement = connection.prepareStatement(query);
             statement.setInt(1, idEmploye);
-            statement.setDouble(2, montant);
-            
+            statement.setDate(2, Date.valueOf(date));
+            statement.setDouble(3, montant);
 
             statement.executeUpdate();
 

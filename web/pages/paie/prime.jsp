@@ -85,6 +85,10 @@
                         <form action="./Prime" method="POST" class="form mt-3">
                             <input type="hidden" name="idEmploye" value="<%= idEmploye %>"/>
                             <div class="form-group">
+                                <label for="" class="form-label">Date</label>
+                                <input type="date" name="date" class="form-control mt-2">
+                            </div>
+                            <div class="form-group">
                                 <label for="" class="form-label">Type de prime</label>
                                 <select name="prime" id="" class="form-select form-control-sm  mt-2">
                                     <% for(Prime type : typesPrime) { %>

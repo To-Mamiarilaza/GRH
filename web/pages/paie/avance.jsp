@@ -86,6 +86,10 @@
                         <form action="./Avance" method="POST" class="form mt-3">
                             <input type="hidden" name="idEmploye" value="<%= idEmploye %>"/>
                             <div class="form-group">
+                                <label for="" class="form-label">Date</label>
+                                <input type="date" name="date" class="form-control mt-2">
+                            </div>
+                            <div class="form-group">
                                 <label for="" class="form-label">Montant</label>
                                 <input type="number" name="montant" class="form-control mt-2">
                             </div>
