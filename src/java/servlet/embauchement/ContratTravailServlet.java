@@ -99,7 +99,6 @@ public class ContratTravailServlet extends HttpServlet {
         try {
             String dateEnd = request.getParameter("end_date");
             String dateStart = request.getParameter("start_date") ;
-            System.out.println("Date : "+dateEnd.trim().equalsIgnoreCase(""));
             if(dateStart != null && request.getParameter("salary") != null && request.getParameter("work_location") != null && request.getParameter("id_province") != null) {
                 Date startDate = Date.valueOf(request.getParameter("start_date"));
                 Date endDate = null;
@@ -113,12 +112,23 @@ public class ContratTravailServlet extends HttpServlet {
                 Integer idProvince = Integer.valueOf(request.getParameter("id_province"));
                 Integer idWantedProfile = Integer.valueOf(request.getParameter("id_wanted_profile"));
                 HttpSession session = request.getSession();
-                Candidature candidat = (Candidature)session.getAttribute("candidatRecrute");
+                Candidature candidat = new Candidature();
+                if(session.getAttribute("employe") != null) {
+                    System.out.println("Misy lay session employe");
+                    Employe employe = (Employe)session.getAttribute("employe");
+                    candidat = employe.getContrat().getCandidature();
+                    Contrat contrat = new Contrat(WorkLocation.getById(idWorkLocation), candidat, Province.getById(idProvince), salary, startDate, endDate, 1, WantedProfile.getById(null, idWantedProfile));         
+                    session.setAttribute("contrat", contrat);
+                }
+                else {
+                    System.out.println("Tsisy");
+                    candidat = (Candidature)session.getAttribute("candidatRecrute");
+                    Contrat contrat = new Contrat(WorkLocation.getById(idWorkLocation), candidat, Province.getById(idProvince), salary, startDate, endDate, 1, WantedProfile.getById(null, idWantedProfile));         
+                    session.setAttribute("contrat", contrat);
+                }
                 List<Employe> employes = Employe.getAll();
                 request.setAttribute("employes", employes);
                 
-                Contrat contrat = new Contrat(WorkLocation.getById(idWorkLocation), candidat, Province.getById(idProvince), salary, startDate, endDate, 1, WantedProfile.getById(null, idWantedProfile));         
-                session.setAttribute("contrat", contrat);
             }
             else {
                 throw new Exception("Verifier votre donnee");

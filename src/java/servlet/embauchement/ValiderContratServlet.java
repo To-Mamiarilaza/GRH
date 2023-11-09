@@ -71,6 +71,9 @@ public class ValiderContratServlet extends HttpServlet {
         try {
             Connection connection = GConnection.getSimpleConnection();
             
+            HttpSession session = request.getSession();
+            Employe emp = Employe.getById(Integer.valueOf(request.getParameter("idEmploye")));
+            session.setAttribute("employe", emp);
             List<ClasseEmploye> classeEmployes = ClasseEmploye.getAllClasseEmploye(connection);
             request.setAttribute("classeEmployes", classeEmployes);  
             connection.close();
@@ -97,22 +100,41 @@ public class ValiderContratServlet extends HttpServlet {
             Connection connection = GConnection.getSimpleConnection();
             
                 HttpSession session = request.getSession();
-                Contrat contratValider = (Contrat)session.getAttribute("contratValider");
-                session.removeAttribute("contratValider");
-                Candidature candidatRecrute = (Candidature)session.getAttribute("candidatRecrute");
-                contratValider.validateContrat(connection);
-                candidatRecrute.candidatEmbauched(connection);
-                Date dateEmbauched = Date.valueOf(DateManager.getDateActuel());
-                Integer idClasseEmploye = Integer.valueOf(request.getParameter("id_classe_employe"));
-                ClasseEmploye classeEmploye = ClasseEmploye.getClasseEmployeById(idClasseEmploye, connection);
-                  
-                Employe employe = new Employe(contratValider, dateEmbauched, 1, classeEmploye);
-                String numMatricule = employe.generateNumMatricule(connection);
-                employe.setNumMatricule(numMatricule);
-                employe.save(connection);
+                if(session.getAttribute("employe") != null) {
+                    Employe emp = (Employe)session.getAttribute("employe");
+                    Contrat contratValider = emp.getContrat();
+                    session.removeAttribute("employe");
+                    Candidature candidatRecrute = emp.getContrat().getCandidature();
+                    contratValider.validateContrat(connection);
+                    candidatRecrute.candidatEmbauched(connection);
+                    Date dateEmbauched = Date.valueOf(DateManager.getDateActuel());
+                    Integer idClasseEmploye = Integer.valueOf(request.getParameter("id_classe_employe"));
+                    ClasseEmploye classeEmploye = ClasseEmploye.getClasseEmployeById(idClasseEmploye, connection);
+
+                    emp.setContrat(contratValider);
+                    emp.setDateEmbauche(dateEmbauched);
+                    emp.setClasseEmploye(classeEmploye);
+                    emp.update(connection);
+                }
+                else {
+                    Contrat contratValider = (Contrat)session.getAttribute("contratValider");
+                    session.removeAttribute("contratValider");
+                    Candidature candidatRecrute = (Candidature)session.getAttribute("candidatRecrute");
+                    contratValider.validateContrat(connection);
+                    candidatRecrute.candidatEmbauched(connection);
+                    Date dateEmbauched = Date.valueOf(DateManager.getDateActuel());
+                    Integer idClasseEmploye = Integer.valueOf(request.getParameter("id_classe_employe"));
+                    ClasseEmploye classeEmploye = ClasseEmploye.getClasseEmployeById(idClasseEmploye, connection);
+
+                    Employe employe = new Employe(contratValider, dateEmbauched, 1, classeEmploye);
+                    String numMatricule = employe.generateNumMatricule(connection);
+                    employe.setNumMatricule(numMatricule);
+                    employe.save(connection);
+                }
+               
                 connection.close();
                  
-                RequestDispatcher dispat = request.getRequestDispatcher("ficheDePoste");
+                RequestDispatcher dispat = request.getRequestDispatcher("listPersonnel");
                 dispat.forward(request, response);
                     
             

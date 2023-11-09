@@ -408,7 +408,8 @@ public class Employe {
 
             if (resultset.next()) {
                 employe.setIdEmploye(resultset.getInt("id_employe"));
-                employe.setContrat(Contrat.getById(resultset.getInt("id_contrat")));
+                Contrat contrat = Contrat.getById(resultset.getInt("id_contrat"));
+                employe.setContrat(Contrat.getByCandidat(contrat.getCandidature().getIdCandidature()));
                 employe.setNumMatricule(resultset.getString("num_matricule"));
                 employe.setDateEmbauche(resultset.getDate("date_embauche"));
                 employe.setStatus(resultset.getInt("status"));
@@ -449,7 +450,8 @@ public class Employe {
 
             if (resultset.next()) {
                 employe.setIdEmploye(resultset.getInt("id_employe"));
-                employe.setContrat(Contrat.getById(resultset.getInt("id_contrat"), connection));
+                Contrat contrat = Contrat.getById(resultset.getInt("id_contrat"));
+                employe.setContrat(Contrat.getByCandidat(contrat.getCandidature().getIdCandidature()));
                 employe.setNumMatricule(resultset.getString("num_matricule"));
                 employe.setDateEmbauche(resultset.getDate("date_embauche"));
                 employe.setStatus(resultset.getInt("status"));
@@ -679,7 +681,7 @@ public class Employe {
     //Modifie le contrat d'essai
     public void update(Connection conn) throws Exception {
         Statement work = conn.createStatement();
-        String req = "UPDATE employe SET id_contrat=" + this.getContrat().getIdContrat() + " num_matricule=" + this.getNumMatricule() + ", date_embauche=" + this.getDateEmbauche() + "status=" + this.getStatus() + ", id_classe_employe=" + this.getClasseEmploye().getIdClasseEmploye() + " WHERE id_employe=" + this.getIdEmploye();
+        String req = "UPDATE employe SET id_contrat=" + this.getContrat().getIdContrat() + ", num_matricule='" + this.getNumMatricule() + "', date_embauche='" + this.getDateEmbauche() + "', status=" + this.getStatus() + ", id_classe_employe=" + this.getClasseEmploye().getIdClasseEmploye() + " WHERE id_employe=" + this.getIdEmploye();
         work.execute(req);
         conn.setAutoCommit(true);
     }

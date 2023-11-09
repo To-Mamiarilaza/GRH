@@ -261,7 +261,7 @@ public class Contrat {
     // Pour avoir un contratpar son ID
     public static Contrat getById(int id) throws Exception {
         Contrat contrat = new Contrat();
-        String query = "SELECT * FROM contrat_employe WHERE id_contrat= %d";
+        String query = "SELECT * FROM contrat_employe WHERE id_contrat= %d ORDER BY id_contrat DESC LIMIT 1";
         query = String.format(query, id);
         System.out.println("Query : " + query);
 
@@ -317,7 +317,6 @@ public class Contrat {
         Contrat contrat = new Contrat();
         String query = "SELECT * FROM contrat_employe WHERE id_contrat= %d";
         query = String.format(query, id);
-        System.out.println("Query : " + query);
 
         Statement statement = null;
         ResultSet resultset = null;
@@ -367,7 +366,7 @@ public class Contrat {
     // Pour avoir le contrat d'un candidat
     public static Contrat getByCandidat(int id) throws Exception {
         Contrat contrat = new Contrat();
-        String query = "SELECT * FROM contrat WHERE id_candidature= %d";
+        String query = "SELECT * FROM contrat WHERE id_candidature= %d ORDER BY id_contrat DESC LIMIT 1";
         query = String.format(query, id);
 
         Connection connection = null;

@@ -2,14 +2,13 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package servlet.embauchement;
+package model.annonce;
 
 import framework.database.utilitaire.GConnection;
 import jakarta.servlet.RequestDispatcher;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -17,18 +16,14 @@ import jakarta.servlet.http.HttpSession;
 import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;
-import model.candidature.Candidature;
-import model.embauchement.Province;
-import model.embauchement.WorkLocation;
-import model.employe.Employe;
-import model.gestionProfile.WantedProfile;
+import model.requis.Service;
+import model.requis.User;
 
 /**
  *
  * @author chalman
  */
-@WebServlet(name = "ContratEssaiServlet", urlPatterns = {"/contratEssai"})
-public class ContratEssaiServlet extends HttpServlet {
+public class RemoveAnnonceServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -47,10 +42,10 @@ public class ContratEssaiServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet ContratEssaiServlet</title>");            
+            out.println("<title>Servlet RemoveAnnonceServlet</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet ContratEssaiServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet RemoveAnnonceServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -68,27 +63,23 @@ public class ContratEssaiServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-         response.setContentType("text/plain");
-            PrintWriter out = response.getWriter();
+        response.setContentType("text/plain");
+          PrintWriter out = response.getWriter();
           
-          try {     
-                HttpSession  session = request.getSession();
-                if(request.getParameter("idEmploye") != null) {
-                    Employe employe = Employe.getById(Integer.valueOf(request.getParameter("idEmploye")));
-                    session.setAttribute("employe", employe);
-                }
-                ArrayList<WorkLocation> workLocations = WorkLocation.getAll();
-                request.setAttribute("workLocations", workLocations);
-                List<Province> provinces = Province.getAll();
-                List<WantedProfile> wps = new WantedProfile().getAll(null);
-                request.setAttribute("wantedProfiles", wps);
-                request.setAttribute("provinces", provinces);
-
+          try {
+                Connection conn = GConnection.getSimpleConnection();
+              
+                Integer idAnnonce = Integer.valueOf(request.getParameter("idAnnonce"));
+                Annonce annonce = Annonce.getById(conn, idAnnonce);
+                annonce.setStatus(0);
+                annonce.update(conn);
+              
+                conn.close();
           } catch (Exception exe) {
+              exe.printStackTrace();
                request.setAttribute("erreur", exe.getMessage());
-               exe.printStackTrace();
           }
-          RequestDispatcher dispat = request.getRequestDispatcher("./pages/embauchement/contrat_essai_insertion.jsp");
+          RequestDispatcher dispat = request.getRequestDispatcher("annonce");
           dispat.forward(request, response);
     }
 
@@ -103,7 +94,7 @@ public class ContratEssaiServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        doGet(request, response);
+        processRequest(request, response);
     }
 
     /**

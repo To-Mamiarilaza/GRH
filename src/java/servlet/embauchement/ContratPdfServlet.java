@@ -100,12 +100,13 @@ public class ContratPdfServlet extends HttpServlet {
                 Integer isSanitaire = Integer.valueOf(request.getParameter("is_sanitaire"));
                 HttpSession session = request.getSession();
                 Contrat contrat = (Contrat) session.getAttribute("contrat");
+                System.out.println("id contrat : "+contrat.getIdContrat());
                 contrat.setIsCnaps(isCnaps);
                 contrat.setIsSanitaire(isSanitaire);
                 contrat.setPeriodeEssai(periodeEssai);
                 Employe superieur = Employe.getById(Integer.valueOf(request.getParameter("superieur")));
                 contrat.setSuperieur(superieur);
-                
+                System.out.println("Contrat : "+contrat);
                 // Les missions du personne
                 Candidature candidature = contrat.getCandidature();
                 
@@ -281,7 +282,12 @@ public class ContratPdfServlet extends HttpServlet {
                     // Exportation en pdf
                     document.save(getServletContext().getRealPath("/contratEssais/CONT" + dateContrat + "00" + idNewContrat + ".pdf"));
                     document.save(persistanceDirectory + "\\contratEssais\\CONT" + dateContrat + "00" + idNewContrat + ".pdf");
-
+                    
+                    //Suppression des sessions
+                    session.removeAttribute("employe");
+                    session.removeAttribute("contrat");
+                    session.removeAttribute("candidat");
+                    
                     //Insertion dans base de donnee
                     contrat.setPath("CONT" + dateContrat + "00" + idNewContrat);
                     contrat.save(null);
