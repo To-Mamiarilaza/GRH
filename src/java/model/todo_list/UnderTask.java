@@ -138,7 +138,7 @@ public class UnderTask {
             throw e;
         }
     }
-
+    
     // Pour avoir un sous-tache todo list grace a son ID
     public static UnderTask getById(int id) throws Exception {
         UnderTask underTask = new UnderTask();
@@ -180,7 +180,7 @@ public class UnderTask {
     //Avoir tous les taches d'une service
     public static List<UnderTask> getByToDo(int idToDo) throws Exception {
         List<UnderTask> underTasks = new ArrayList<>();
-        String query = "SELECT * FROM under_task WHERE id_under_task = %d";
+        String query = "SELECT * FROM under_task WHERE id_todo = %d";
         query = String.format(query, idToDo);
 
         Connection connection = null;

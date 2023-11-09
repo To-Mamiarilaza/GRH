@@ -230,6 +230,38 @@ CREATE  TABLE "public".quiz_type (
 	CONSTRAINT quiz_type_pkey PRIMARY KEY ( id_quiz_type )
  );
 
+CREATE TABLE states(
+    id_states serial primary key not null,
+    states varchar(20)
+);
+
+insert into states values (default, 'intact'),
+                            (default, 'en cours'),
+                            (default, 'fini');
+
+CREATE TABLE todo (
+	id_todo SERIAL primary key not null,
+	id_service INTEGER,
+	todo VARCHAR(100),
+	start_date TIMESTAMP,
+	deadline TIMESTAMP,
+        id_states integer references states(id_states),
+	status INTEGER,
+	FOREIGN KEY (id_service) REFERENCES service(id_service)
+);
+
+CREATE TABLE under_task (
+	id_under_task SERIAL primary key not null,
+	id_employe INTEGER,
+	id_todo INTEGER,
+	under_task VARCHAR(100),
+        deadline TIMESTAMP,
+        id_states integer references states(id_states),
+	status INTEGER,
+	FOREIGN KEY(id_employe) REFERENCES employe(id_employe),
+	FOREIGN KEY(id_todo) REFERENCES todo(id_todo)
+);
+
 CREATE  TABLE "public".rappel_periode ( 
 	id_rappel_periode    integer DEFAULT nextval('rappel_periode_id_rappel_periode_seq'::regclass) NOT NULL  ,
 	"date"               date    ,
@@ -657,6 +689,10 @@ CREATE OR REPLACE VIEW "public".v_salaire_note AS SELECT dn.id_wanted_profile,  
 CREATE OR REPLACE VIEW "public".v_sexe_note AS SELECT dn.id_wanted_profile,     dn.id_sexe,     dn.note,     d.sexe,     d.status    FROM (sexe_note dn      JOIN sexe d ON ((d.id_sexe = dn.id_sexe)))   WHERE (d.status = (1)::numeric);
 
 CREATE OR REPLACE VIEW "public".v_liste_profile AS SELECT dn.id_wanted_profile,     dn.id_diplome,     dn.note AS diplome_note,     dn.diplome,     dn.status AS diplome_status,     en.id_experience,     en.note AS experience_note,     en.experience,     en.status AS experience_status,     sn.id_salaire,     sn.note AS salaire_note,     sn.salaire,     sn.status AS salaire_status,     sen.id_sexe,     sen.note AS sexe_note,     sen.sexe,     sen.status AS sexe_status,     an.id_adresse,     an.note AS adresse_note,     an.adresse,     an.status AS adresse_status,     wp.poste,     wp.id_service,     wp.status AS wanted_profile_status,     wp.id_quiz    FROM (((((v_diplome_note dn      JOIN v_experience_note en ON ((dn.id_wanted_profile = en.id_wanted_profile)))      JOIN v_salaire_note sn ON ((sn.id_wanted_profile = dn.id_wanted_profile)))      JOIN v_sexe_note sen ON ((sen.id_wanted_profile = dn.id_wanted_profile)))      JOIN v_adresse_note an ON ((an.id_wanted_profile = dn.id_wanted_profile)))      JOIN wanted_profile wp ON ((wp.id_wanted_profile = dn.id_wanted_profile)));
+
+CREATE OR REPLACE VIEW "public".v_personnal_task AS SELECT td.id_todo,     td.id_service,     td.todo,     td.start_date,     td.deadline,     td.id_states AS todo_states,     td.status AS todo_status,     ut.id_under_task,     ut.id_employe,     ut.under_task,     ut.id_states AS under_task_states,     ut.status AS under_task_status, ut.estimed_time    FROM (todo td      JOIN under_task ut ON ((td.id_todo = ut.id_todo)));
+
+CREATE OR REPLACE VIEW "public".v_employe_task AS SELECT pt.id_todo,     pt.id_service,     pt.todo,     pt.start_date,     pt.deadline,     pt.todo_states,     pt.todo_status,     pt.id_under_task,     pt.id_employe,     pt.under_task, pt.estimed_time ,     pt.under_task_states,     pt.under_task_status,     us.id_utilisateur,     us.username,     us.password,     us.mail,     us.status,     us.admin,     us.service,     us.fonction,     us.creation_date    FROM (v_personnal_task pt      JOIN v_user_service us ON ((pt.id_employe = us.id_employe)));
 
 CREATE OR REPLACE VIEW "public".v_user_service AS SELECT u.id_utilisateur,     u.id_service,     u.username,     u.password,     u.mail,     u.status,     u.admin,     u.id_employe,     s.service,     s.fonction,     s.creation_date    FROM (utilisateur u      JOIN service s ON ((u.id_service = s.id_service)));
 
