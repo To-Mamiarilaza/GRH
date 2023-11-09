@@ -48,6 +48,14 @@
         <servlet-name>AbscenceServlet</servlet-name>
         <servlet-class>servlet.paie.AbscenceServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ListeEmployeTache</servlet-name>
+        <servlet-class>servlet.tacheEmploye.ListeTacheEmployeServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>FiltreTacheEmployeServlet</servlet-name>
+        <servlet-class>servlet.tacheEmploye.FiltreTacheEmployeServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>AjaxProfileServlet</servlet-name>
         <url-pattern>/AjaxProfileServlet</url-pattern>
@@ -95,6 +103,14 @@
     <servlet-mapping>
         <servlet-name>AbscenceServlet</servlet-name>
         <url-pattern>/Abscence</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ListeEmployeTache</servlet-name>
+        <url-pattern>/ListeEmployeTache</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>FiltreTacheEmployeServlet</servlet-name>
+        <url-pattern>/FiltreTacheEmployeServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -110,8 +110,8 @@
                                     <!--change to offline or busy as needed-->
                                 </div>
                                 <div class="nav-profile-text d-flex flex-column">
-                                    <span class="font-weight-bold mb-2"><%= user.getUsername() %></span>
-                                    <span class="text-secondary text-small"><%= employe.getPoste() %></span>
+                                    <span class="font-weight-bold mb-2"> <%= user.getUsername() %> </span>
+                                    <span class="text-secondary text-small"> <%= employe.getPoste() %> </span>
                                 </div>
                             </a>
                         </li>
@@ -119,6 +119,13 @@
                             <a class="nav-link" href="./index.html">
                                 <span class="menu-title">Mon Profil</span>
                                 <i class="mdi mdi-account menu-icon"></i>
+                            </a>
+                        </li>
+                        
+                        <li class="nav-item">
+                            <a class="nav-link" href="./ListeEmployeTache?idEmp=<%= employe.getIdEmploye() %>">
+                                <span class="menu-title">Gestion des taches</span>
+                                <i class="mdi mdi-check-box-multiple-outline menu-icon"></i>
                             </a>
                         </li>
 

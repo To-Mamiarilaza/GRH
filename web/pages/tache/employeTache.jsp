@@ -1,4 +1,10 @@
 <!-- <%@ page contentType="text/html; charset=UTF-8" %> -->
+<%@page import="java.util.List, model.todo_list.EmployeTask" %>
+
+<%
+    List<EmployeTask> listeTaskEmploye = (List<EmployeTask>) request.getAttribute("ListTaskEmploye");
+    List<EmployeTask> listeTaches = (List<EmployeTask>) request.getAttribute("listeTaches");
+%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -10,6 +16,7 @@
 
         <!-- plugins:css -->
         <link rel="stylesheet" href="./assets/vendors/mdi/css/materialdesignicons.min.css">
+        <link rel="stylesheet" href="./assets/css/tache/tache.css">
         <link rel="stylesheet" href="./assets/css/besoin/besoin-insertion.css">
         <link rel="stylesheet" href="./assets/vendors/css/vendor.bundle.base.css">
         <!-- endinject -->
@@ -229,18 +236,20 @@
                             </a>
                             <div class="collapse" id="ui-basic">
                                 <ul class="nav flex-column sub-menu">
-                                    <li class="nav-item"> <a class="nav-link" href="./besoin-insertion">Insertion d'un besoin</a></li>
+                                    <li class="nav-item"> <a class="nav-link" href="./besoin-insertion">Insertion d'un
+                                            besoin</a></li>
                                     <li class="nav-item"> <a class="nav-link" href="listBesoins">Besoins
                                             des services</a></li>
+                                    <li class="nav-item"> <a class="nav-link" href="annonce">Annonce</a></li>
                                     <li class="nav-item"> <a class="nav-link"
-                                                             href="annonce">Annonce</a></li>
-                                    <li class="nav-item"> <a class="nav-link" href="./PersonalInformationInsertionServlet">Insertion d'un candidature</a></li>
-                                    <li class="nav-item"> <a class="nav-link"
-                                                             href="listCandidature">Réceptions des CV</a></li>
+                                                             href="./PersonalInformationInsertionServlet">Insertion d'un candidature</a>
+                                    </li>
+                                    <li class="nav-item"> <a class="nav-link" href="listCandidature">Réceptions des CV</a>
+                                    </li>
                                     <li class="nav-item"> <a class="nav-link"
                                                              href="pages/ui-features/typography.html">Résultats des tests</a></li>
                                     <li class="nav-item"> <a class="nav-link"
-                                                             href="EntretientServlet">Programme d'entretien</a></li>
+                                                             href="pages/ui-features/typography.html">Programme d'entretien</a></li>
                                     <li class="nav-item"> <a class="nav-link"
                                                              href="pages/ui-features/typography.html">Résultat candidature</a></li>
                                 </ul>
@@ -252,3 +261,143 @@
                 <!-- partial -->
                 <div class="main-panel">
                     <div class="content-wrapper">
+
+                        <div class="page-header">
+                            <h3 class="page-title">
+                                <span class="page-title-icon bg-gradient-primary text-white me-2">
+                                    <i class="mdi mdi-calendar"></i>
+                                </span> Listes des taches personnels
+                            </h3>
+                            <nav aria-label="breadcrumb">
+                                <ul class="breadcrumb">
+                                    <li class="breadcrumb-item active" aria-current="page">
+                                        <span></span>Overview <i
+                                            class="mdi mdi-alert-circle-outline icon-sm text-primary align-middle"></i>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+
+                        <% if(listeTaskEmploye.size() > 0) { %>
+                        <div class="row">
+                            <div class="col-lg-12 grid-margin stretch-card">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h4 class="card-title">Mes taches personnelles</h4>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <form action="./FiltreTacheEmployeServlet" method="GET" class="mt-2">
+                                                    <div class="form-group row mt-3 align-items-end">
+                                                        <div class="col-md-3">
+                                                            <label for="" class="form-label">Tache</label>
+                                                            <select name="underTask" id="" class="form-select">
+                                                                <%
+                                                                for (int i=0;i<listeTaches.size();i++) {
+                                                                %>
+                                                                <option value="<%= listeTaches.get(i).getId_under_task() %>"><%= listeTaches.get(i).getUnder_task() %></option>
+                                                                <% } %>
+                                                            </select>
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            <label for="etat" class="form-label">Etat</label>
+                                                            <select name="etat" class="form-select" id="etat">
+                                                                <option value="1">Intacte</option>
+                                                                <option value="2">En cours</option>
+                                                                <option value="3">Fini</option>
+                                                            </select> 
+                                                        </div>
+                                                        <div class="col-md-2">
+                                                            <input type="submit" class="btn btn-gradient-primary btn-md"
+                                                                   value="Filtrer">
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                            <hr>
+                                            <div class="col-md-12">
+                                                <div class="row profile-list mt-3" id="profile-list">
+                                                    <%
+                                                    for (int i=0;i<listeTaskEmploye.size();i++) {
+                                                    %>
+                                                    <div class="col-md-4 stretch-card grid-margin">
+                                                        <div class="card">
+                                                            <div class="profile-card" style="border: solid 1px lightgray;">
+                                                                <div class="remove-floating">
+                                                                    <a href="./FiltreTacheEmployeServlet?delete=<%= listeTaskEmploye.get(i).getId_under_task() %>"><i class="text-danger remove mdi mdi-close-circle-outline"></i></a>
+                                                                </div>
+                                                                <h5 class="profile-title"> <%= listeTaskEmploye.get(i).getTask() %> </h5>
+                                                                <ul>
+                                                                    <li class="profile-diplome mb-2"> <%= listeTaskEmploye.get(i).getUsername() %> </li>
+                                                                    <li class="profile-experience mb-2"> <%= listeTaskEmploye.get(i).getUnder_task() %> </li>
+                                                                    <li class="profile-salary mb-2">Deadline : <%= listeTaskEmploye.get(i).getDeadline() %></li>
+                                                                    <li class="profile-adress mb-3"> Temps estimer : <span class="text-danger mx-3"> <%= listeTaskEmploye.get(i).getEstimed_time() %> </li>
+                                                                    <li class="profile-adress mb-3"> <%= listeTaskEmploye.get(i).getUnder_task_states_string() %> </span>  </li>
+                                                                    <li class="profile-sexe" style="list-style: none;"> 
+                                                                        <form action="./FiltreTacheEmployeServlet" method="post">
+                                                                            <input type="hidden" name="idUnderTask" value="<%= listeTaskEmploye.get(i).getId_under_task() %>">
+                                                                            <div class="row align-items-center">
+                                                                                <div class="col-md-7" style="padding: 0;">
+                                                                                    <select name="etat" class="form-select">
+                                                                                        <option value="1">Intacte</option>
+                                                                                        <option value="2">En cours</option>
+                                                                                        <option value="3">Fini</option>
+                                                                                    </select>    
+                                                                                </div>
+                                                                                <div class="col-md-5" style="padding: 0;">
+                                                                                    <input type="submit" class="btn btn-gradient-primary btn-sm mx-2" value="Changer">
+                                                                                </div>
+                                                                            </div>
+                                                                        </form>
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                    </div> 
+                                                    <% } %>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <% } else {
+                        out.print("<h2> Aucun element correspondant à votre recherche </h2>");
+                        } %>
+
+
+                    </div>
+                    <!-- content-wrapper ends -->
+                    <!-- partial:/partials/_footer.html -->
+                    <footer class="footer">
+                        <div class="container-fluid d-flex justify-content-between">
+                            <span class="text-muted d-block text-center text-sm-start d-sm-inline-block">Copyright
+                                bootstrapdash.com 2021</span>
+                            <span class="float-none float-sm-end mt-1 mt-sm-0 text-end"> Free <a
+                                    href="https://www.bootstrapdash.com/bootstrap-admin-template/" target="_blank">Bootstrap
+                                    admin template</a> from Bootstrapdash.com</span>
+                        </div>
+                    </footer>
+                    <!-- partial -->
+                </div>
+                <!-- main-panel ends -->
+            </div>
+            <!-- page-body-wrapper ends -->
+        </div>
+        <!-- container-scroller -->
+        <!-- plugins:js -->
+        <script src="./assets/vendors/js/vendor.bundle.base.js"></script>
+        <!-- endinject -->
+        <!-- Plugin js for this page -->
+        <!-- End plugin js for this page -->
+        <!-- inject:js -->
+        <script src="./assets/js/off-canvas.js"></script>
+        <script src="./assets/js/hoverable-collapse.js"></script>
+        <script src="./assets/js/misc.js"></script>
+        <script src="./assets/js/my_custom_js/template/automated_title.js"></script>
+        <!-- endinject -->
+        <!-- Custom js for this page -->
+        <!-- End custom js for this page -->
+    </body>
+
+</html>

@@ -94,7 +94,7 @@ function saveNewQuiz() {
         // changer le valeur dans le session
         $.ajax({
             type: 'POST',
-            url: 'http://localhost:8081/GRH/save-quiz',
+            url: 'http://localhost:8080/GRH/save-quiz',
             data: {
                 quizName: quizName
             },
@@ -103,7 +103,7 @@ function saveNewQuiz() {
                 if (response.error != null) {
                     console.log(response);
                 } else {
-                    window.location.href = "http://localhost:8081/GRH/quiz-create";
+                    window.location.href = "http://localhost:8080/GRH/quiz-create";
                 }
             },
             error: function (response) {
@@ -123,7 +123,7 @@ function changeAnswerValue(checkbox) {
     // changer le valeur dans le session
     $.ajax({
         type: 'POST',
-        url: 'http://localhost:8081/GRH/change-answer-value',
+        url: 'http://localhost:8080/GRH/change-answer-value',
         data: {
             idAnswer: idAnswer,
             idQuestion: idQuestion,
@@ -150,7 +150,7 @@ function deleteThisAnswer(bouton) {
     // Ensuite supprimé du session
     $.ajax({
         type: 'GET',
-        url: 'http://localhost:8081/GRH/delete-answer',
+        url: 'http://localhost:8080/GRH/delete-answer',
         data: {
             idAnswer: idAnswer,
             idQuestion: idQuestion
@@ -169,7 +169,7 @@ function deleteThisAnswer(bouton) {
 function saveNewAnswer(answerValue, checkedValue, idQuestion, answerTemplate) {
     $.ajax({
         type: 'POST',
-        url: 'http://localhost:8081/GRH/add-answer',
+        url: 'http://localhost:8080/GRH/add-answer',
         data: {
             answer: answerValue,
             value: checkedValue,
@@ -231,7 +231,7 @@ function addNewQuestion() {
     // envoyer une ajax vers le controller
     $.ajax({
         type: 'POST',
-        url: 'http://localhost:8081/GRH/add-new-question',
+        url: 'http://localhost:8080/GRH/add-new-question',
         data: {
             question: questionValue,
             note: noteValue
@@ -263,7 +263,7 @@ function deleteQuestion(bouton) {
     // Ensuite supprimé du session
     $.ajax({
         type: 'GET',
-        url: 'http://localhost:8081/GRH/delete-question',
+        url: 'http://localhost:8080/GRH/delete-question',
         data: {
             idQuestion: id
         },

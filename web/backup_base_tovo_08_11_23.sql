@@ -4,95 +4,95 @@ CREATE DATABASE gestion_entreprise;
 
 CREATE SCHEMA IF NOT EXISTS "public";
 
-CREATE SEQUENCE "public".abscence_id_abscence_seq AS integer START WITH 20 INCREMENT BY 1;
+CREATE SEQUENCE "public".abscence_id_abscence_seq AS integer START WITH 1 INCREMENT BY 1;
 
-CREATE SEQUENCE "public".abscence_id_employe_seq AS integer START WITH 20 INCREMENT BY 1;
+CREATE SEQUENCE "public".abscence_id_employe_seq AS integer START WITH 1 INCREMENT BY 1;
 
 CREATE SEQUENCE "public".adresse_id_adresse_seq START WITH 20 INCREMENT BY 1;
 
-CREATE SEQUENCE "public".annonce_id_annonce_seq AS integer START WITH 20 INCREMENT BY 1;
+CREATE SEQUENCE "public".annonce_id_annonce_seq AS integer START WITH 1 INCREMENT BY 1;
 
-CREATE SEQUENCE "public".answer_id_answer_seq AS integer START WITH 20 INCREMENT BY 1;
+CREATE SEQUENCE "public".answer_id_answer_seq AS integer START WITH 1 INCREMENT BY 1;
 
-CREATE SEQUENCE "public".answer_id_question_seq AS integer START WITH 20 INCREMENT BY 1;
+CREATE SEQUENCE "public".answer_id_question_seq AS integer START WITH 1 INCREMENT BY 1;
 
-CREATE SEQUENCE "public".avance_id_avance_seq AS integer START WITH 20 INCREMENT BY 1;
+CREATE SEQUENCE "public".avance_id_avance_seq AS integer START WITH 1 INCREMENT BY 1;
 
-CREATE SEQUENCE "public".avance_id_employe_seq AS integer START WITH 20 INCREMENT BY 1;
+CREATE SEQUENCE "public".avance_id_employe_seq AS integer START WITH 1 INCREMENT BY 1;
 
 CREATE SEQUENCE "public".besoin_id_besoin_seq START WITH 20 INCREMENT BY 1;
 
-CREATE SEQUENCE "public".candidature_id_candidature_seq AS integer START WITH 20 INCREMENT BY 1;
+CREATE SEQUENCE "public".candidature_id_candidature_seq AS integer START WITH 1 INCREMENT BY 1;
 
-CREATE SEQUENCE "public".candidature_test_id_candidature_seq AS integer START WITH 20 INCREMENT BY 1;
+CREATE SEQUENCE "public".candidature_test_id_candidature_seq AS integer START WITH 1 INCREMENT BY 1;
 
-CREATE SEQUENCE "public".candidature_test_id_candidature_test_seq AS integer START WITH 20 INCREMENT BY 1;
+CREATE SEQUENCE "public".candidature_test_id_candidature_test_seq AS integer START WITH 1 INCREMENT BY 1;
 
-CREATE SEQUENCE "public".candidature_test_id_quiz_seq AS integer START WITH 20 INCREMENT BY 1;
+CREATE SEQUENCE "public".candidature_test_id_quiz_seq AS integer START WITH 1 INCREMENT BY 1;
 
-CREATE SEQUENCE "public".classe_employe_id_classe_employe_seq AS integer START WITH 20 INCREMENT BY 1;
+CREATE SEQUENCE "public".classe_employe_id_classe_employe_seq AS integer START WITH 1 INCREMENT BY 1;
 
-CREATE SEQUENCE "public".conge_id_conge_seq AS integer START WITH 20 INCREMENT BY 1;
+CREATE SEQUENCE "public".conge_id_conge_seq AS integer START WITH 1 INCREMENT BY 1;
 
-CREATE SEQUENCE "public".conge_id_personnel_seq AS integer START WITH 20 INCREMENT BY 1;
+CREATE SEQUENCE "public".conge_id_personnel_seq AS integer START WITH 1 INCREMENT BY 1;
 
-CREATE SEQUENCE "public".conge_id_type_conge_seq AS integer START WITH 20 INCREMENT BY 1;
+CREATE SEQUENCE "public".conge_id_type_conge_seq AS integer START WITH 1 INCREMENT BY 1;
 
-CREATE SEQUENCE "public".conge_report_id_personnel_seq AS integer START WITH 20 INCREMENT BY 1;
+CREATE SEQUENCE "public".conge_report_id_personnel_seq AS integer START WITH 1 INCREMENT BY 1;
 
-CREATE SEQUENCE "public".contrat_id_contrat_seq AS integer START WITH 20 INCREMENT BY 1;
+CREATE SEQUENCE "public".contrat_id_contrat_seq AS integer START WITH 1 INCREMENT BY 1;
 
 CREATE SEQUENCE "public".diplome_id_diplome_seq START WITH 20 INCREMENT BY 1;
 
-CREATE SEQUENCE "public".employe_id_employe_seq AS integer START WITH 20 INCREMENT BY 1;
+CREATE SEQUENCE "public".employe_id_employe_seq AS integer START WITH 1 INCREMENT BY 1;
 
 CREATE SEQUENCE "public".experience_id_experience_seq START WITH 20 INCREMENT BY 1;
 
-CREATE SEQUENCE "public".formation_base_id_formation_base_seq AS integer START WITH 20 INCREMENT BY 1;
+CREATE SEQUENCE "public".formation_base_id_formation_base_seq AS integer START WITH 1 INCREMENT BY 1;
 
-CREATE SEQUENCE "public".heure_supplementaire_id_employe_seq AS integer START WITH 20 INCREMENT BY 1;
+CREATE SEQUENCE "public".heure_supplementaire_id_employe_seq AS integer START WITH 1 INCREMENT BY 1;
 
-CREATE SEQUENCE "public".heure_supplementaire_id_heure_supplementaire_seq AS integer START WITH 20 INCREMENT BY 1;
+CREATE SEQUENCE "public".heure_supplementaire_id_heure_supplementaire_seq AS integer START WITH 1 INCREMENT BY 1;
 
-CREATE SEQUENCE "public".licenciement_id_employe_seq AS integer START WITH 20 INCREMENT BY 1;
+CREATE SEQUENCE "public".licenciement_id_employe_seq AS integer START WITH 1 INCREMENT BY 1;
 
-CREATE SEQUENCE "public".licenciement_id_licenciement_seq AS integer START WITH 20 INCREMENT BY 1;
+CREATE SEQUENCE "public".licenciement_id_licenciement_seq AS integer START WITH 1 INCREMENT BY 1;
 
-CREATE SEQUENCE "public".licenciement_id_type_licenciement_seq AS integer START WITH 20 INCREMENT BY 1;
+CREATE SEQUENCE "public".licenciement_id_type_licenciement_seq AS integer START WITH 1 INCREMENT BY 1;
 
-CREATE SEQUENCE "public".organisme_id_organisme_seq AS integer START WITH 20 INCREMENT BY 1;
+CREATE SEQUENCE "public".organisme_id_organisme_seq AS integer START WITH 1 INCREMENT BY 1;
 
-CREATE SEQUENCE "public".organisme_parameter_id_organisme_seq AS integer START WITH 20 INCREMENT BY 1;
+CREATE SEQUENCE "public".organisme_parameter_id_organisme_seq AS integer START WITH 1 INCREMENT BY 1;
 
-CREATE SEQUENCE "public".personnel_id_classe_employe_seq AS integer START WITH 20 INCREMENT BY 1;
+CREATE SEQUENCE "public".personnel_id_classe_employe_seq AS integer START WITH 1 INCREMENT BY 1;
 
-CREATE SEQUENCE "public".personnel_id_personnel_seq AS integer START WITH 20 INCREMENT BY 1;
+CREATE SEQUENCE "public".personnel_id_personnel_seq AS integer START WITH 1 INCREMENT BY 1;
 
-CREATE SEQUENCE "public".prime_employe_id_employe_seq AS integer START WITH 20 INCREMENT BY 1;
+CREATE SEQUENCE "public".prime_employe_id_employe_seq AS integer START WITH 1 INCREMENT BY 1;
 
-CREATE SEQUENCE "public".prime_employe_id_prime_employe_seq AS integer START WITH 20 INCREMENT BY 1;
+CREATE SEQUENCE "public".prime_employe_id_prime_employe_seq AS integer START WITH 1 INCREMENT BY 1;
 
-CREATE SEQUENCE "public".prime_employe_id_prime_seq AS integer START WITH 20 INCREMENT BY 1;
+CREATE SEQUENCE "public".prime_employe_id_prime_seq AS integer START WITH 1 INCREMENT BY 1;
 
-CREATE SEQUENCE "public".prime_id_prime_seq AS integer START WITH 20 INCREMENT BY 1;
+CREATE SEQUENCE "public".prime_id_prime_seq AS integer START WITH 1 INCREMENT BY 1;
 
-CREATE SEQUENCE "public".professional_career_id_professional_career_seq AS integer START WITH 20 INCREMENT BY 1;
+CREATE SEQUENCE "public".professional_career_id_professional_career_seq AS integer START WITH 1 INCREMENT BY 1;
 
-CREATE SEQUENCE "public".province_id_province_seq AS integer START WITH 20 INCREMENT BY 1;
+CREATE SEQUENCE "public".province_id_province_seq AS integer START WITH 1 INCREMENT BY 1;
 
-CREATE SEQUENCE "public".question_id_question_seq AS integer START WITH 20 INCREMENT BY 1;
+CREATE SEQUENCE "public".question_id_question_seq AS integer START WITH 1 INCREMENT BY 1;
 
-CREATE SEQUENCE "public".question_id_quiz_seq AS integer START WITH 20 INCREMENT BY 1;
+CREATE SEQUENCE "public".question_id_quiz_seq AS integer START WITH 1 INCREMENT BY 1;
 
-CREATE SEQUENCE "public".quiz_id_quiz_seq AS integer START WITH 20 INCREMENT BY 1;
+CREATE SEQUENCE "public".quiz_id_quiz_seq AS integer START WITH 1 INCREMENT BY 1;
 
-CREATE SEQUENCE "public".quiz_id_quiz_type_seq AS integer START WITH 20 INCREMENT BY 1;
+CREATE SEQUENCE "public".quiz_id_quiz_type_seq AS integer START WITH 1 INCREMENT BY 1;
 
-CREATE SEQUENCE "public".quiz_id_service_seq AS integer START WITH 20 INCREMENT BY 1;
+CREATE SEQUENCE "public".quiz_id_service_seq AS integer START WITH 1 INCREMENT BY 1;
 
-CREATE SEQUENCE "public".quiz_type_id_quiz_type_seq AS integer START WITH 20 INCREMENT BY 1;
+CREATE SEQUENCE "public".quiz_type_id_quiz_type_seq AS integer START WITH 1 INCREMENT BY 1;
 
-CREATE SEQUENCE "public".rappel_periode_id_rappel_periode_seq AS integer START WITH 20 INCREMENT BY 1;
+CREATE SEQUENCE "public".rappel_periode_id_rappel_periode_seq AS integer START WITH 1 INCREMENT BY 1;
 
 CREATE SEQUENCE "public".salaire_id_salaire_seq START WITH 20 INCREMENT BY 1;
 
@@ -102,21 +102,21 @@ CREATE SEQUENCE "public".sexe_id_sexe_seq START WITH 20 INCREMENT BY 1;
 
 CREATE SEQUENCE "public".task_id_task_seq START WITH 20 INCREMENT BY 1;
 
-CREATE SEQUENCE "public".type_conge_id_type_conge_seq AS integer START WITH 20 INCREMENT BY 1;
+CREATE SEQUENCE "public".type_conge_id_type_conge_seq AS integer START WITH 1 INCREMENT BY 1;
 
-CREATE SEQUENCE "public".type_licenciement_id_type_licenciement_seq AS integer START WITH 20 INCREMENT BY 1;
+CREATE SEQUENCE "public".type_licenciement_id_type_licenciement_seq AS integer START WITH 1 INCREMENT BY 1;
 
 CREATE SEQUENCE "public".unity_id_unity_seq START WITH 20 INCREMENT BY 1;
 
 CREATE SEQUENCE "public".utilisateur_id_utilisateur_seq START WITH 20 INCREMENT BY 1;
 
-CREATE SEQUENCE "public".vente_conge_id_employe_seq AS integer START WITH 20 INCREMENT BY 1;
+CREATE SEQUENCE "public".vente_conge_id_employe_seq AS integer START WITH 1 INCREMENT BY 1;
 
-CREATE SEQUENCE "public".vente_conge_id_vente_conge_seq AS integer START WITH 20 INCREMENT BY 1;
+CREATE SEQUENCE "public".vente_conge_id_vente_conge_seq AS integer START WITH 1 INCREMENT BY 1;
 
 CREATE SEQUENCE "public".wanted_profile_id_wanted_profile_seq START WITH 20 INCREMENT BY 1;
 
-CREATE SEQUENCE "public".work_location_id_work_location_seq AS integer START WITH 20 INCREMENT BY 1;
+CREATE SEQUENCE "public".work_location_id_work_location_seq AS integer START WITH 1 INCREMENT BY 1;
 
 CREATE SEQUENCE "public".workload_id_workload_seq START WITH 20 INCREMENT BY 1;
 
@@ -229,6 +229,38 @@ CREATE  TABLE "public".quiz_type (
 	quiz_type            varchar(40)    ,
 	CONSTRAINT quiz_type_pkey PRIMARY KEY ( id_quiz_type )
  );
+
+CREATE TABLE states(
+    id_states serial primary key not null,
+    states varchar(20)
+);
+
+insert into states values (default, 'intact'),
+                            (default, 'en cours'),
+                            (default, 'fini');
+
+CREATE TABLE todo (
+	id_todo SERIAL primary key not null,
+	id_service INTEGER,
+	todo VARCHAR(100),
+	start_date TIMESTAMP,
+	deadline TIMESTAMP,
+        id_states integer references states(id_states),
+	status INTEGER,
+	FOREIGN KEY (id_service) REFERENCES service(id_service)
+);
+
+CREATE TABLE under_task (
+	id_under_task SERIAL primary key not null,
+	id_employe INTEGER,
+	id_todo INTEGER,
+	under_task VARCHAR(100),
+        deadline TIMESTAMP,
+        id_states integer references states(id_states),
+	status INTEGER,
+	FOREIGN KEY(id_employe) REFERENCES employe(id_employe),
+	FOREIGN KEY(id_todo) REFERENCES todo(id_todo)
+);
 
 CREATE  TABLE "public".rappel_periode ( 
 	id_rappel_periode    integer DEFAULT nextval('rappel_periode_id_rappel_periode_seq'::regclass) NOT NULL  ,
@@ -658,6 +690,10 @@ CREATE OR REPLACE VIEW "public".v_sexe_note AS SELECT dn.id_wanted_profile,     
 
 CREATE OR REPLACE VIEW "public".v_liste_profile AS SELECT dn.id_wanted_profile,     dn.id_diplome,     dn.note AS diplome_note,     dn.diplome,     dn.status AS diplome_status,     en.id_experience,     en.note AS experience_note,     en.experience,     en.status AS experience_status,     sn.id_salaire,     sn.note AS salaire_note,     sn.salaire,     sn.status AS salaire_status,     sen.id_sexe,     sen.note AS sexe_note,     sen.sexe,     sen.status AS sexe_status,     an.id_adresse,     an.note AS adresse_note,     an.adresse,     an.status AS adresse_status,     wp.poste,     wp.id_service,     wp.status AS wanted_profile_status,     wp.id_quiz    FROM (((((v_diplome_note dn      JOIN v_experience_note en ON ((dn.id_wanted_profile = en.id_wanted_profile)))      JOIN v_salaire_note sn ON ((sn.id_wanted_profile = dn.id_wanted_profile)))      JOIN v_sexe_note sen ON ((sen.id_wanted_profile = dn.id_wanted_profile)))      JOIN v_adresse_note an ON ((an.id_wanted_profile = dn.id_wanted_profile)))      JOIN wanted_profile wp ON ((wp.id_wanted_profile = dn.id_wanted_profile)));
 
+CREATE OR REPLACE VIEW "public".v_personnal_task AS SELECT td.id_todo,     td.id_service,     td.todo,     td.start_date,     td.deadline,     td.id_states AS todo_states,     td.status AS todo_status,     ut.id_under_task,     ut.id_employe,     ut.under_task,     ut.id_states AS under_task_states,     ut.status AS under_task_status, ut.estimed_time    FROM (todo td      JOIN under_task ut ON ((td.id_todo = ut.id_todo)));
+
+CREATE OR REPLACE VIEW "public".v_employe_task AS SELECT pt.id_todo,     pt.id_service,     pt.todo,     pt.start_date,     pt.deadline,     pt.todo_states,     pt.todo_status,     pt.id_under_task,     pt.id_employe,     pt.under_task, pt.estimed_time ,     pt.under_task_states,     pt.under_task_status,     us.id_utilisateur,     us.username,     us.password,     us.mail,     us.status,     us.admin,     us.service,     us.fonction,     us.creation_date    FROM (v_personnal_task pt      JOIN v_user_service us ON ((pt.id_employe = us.id_employe)));
+
 CREATE OR REPLACE VIEW "public".v_user_service AS SELECT u.id_utilisateur,     u.id_service,     u.username,     u.password,     u.mail,     u.status,     u.admin,     u.id_employe,     s.service,     s.fonction,     s.creation_date    FROM (utilisateur u      JOIN service s ON ((u.id_service = s.id_service)));
 
 INSERT INTO "public".adresse( id_adresse, adresse, status ) VALUES ( 1, 'Andoharanofotsy', 1);
@@ -669,7 +705,7 @@ INSERT INTO "public".adresse( id_adresse, adresse, status ) VALUES ( 6, 'Alasora
 INSERT INTO "public".classe_employe( id_classe_employe, classe_employe, classe_description, indamnite_licenciement, duree_preavis ) VALUES ( 1, 'D', 'Emplois salaries d''execution peu qualifies', 100000, 30);
 INSERT INTO "public".classe_employe( id_classe_employe, classe_employe, classe_description, indamnite_licenciement, duree_preavis ) VALUES ( 2, 'C', 'Emplois salaries d''execution qualifies', 200000, 45);
 INSERT INTO "public".classe_employe( id_classe_employe, classe_employe, classe_description, indamnite_licenciement, duree_preavis ) VALUES ( 3, 'B', 'Emplois salaries de niveau intermediaire', 300000, 60);
-INSERT INTO "public".classe_employe( id_classe_employe, classe_employe, classe_description, indamnite_licenciement, duree_preavis ) VALUES ( 4, 'A', 'Emplois salaries de niveau superieur', 500000, 90);
+INSERT INTO "public".classe_employe( id_classe_employe, classe_employe, classe_description, indamnite_licenciement, duree_preavis ) VALUES ( 4, 'A', 'Emplois salaries de niveau sup‚rieur', 500000, 90);
 INSERT INTO "public".classe_employe( id_classe_employe, classe_employe, classe_description, indamnite_licenciement, duree_preavis ) VALUES ( 5, 'HC', 'Emplois Hors Classe', 500000, 120);
 INSERT INTO "public".conge_parameter( accumulation, minimum_duree, max_solde ) VALUES ( 2.5, 365, 90);
 INSERT INTO "public".diplome( id_diplome, diplome, status ) VALUES ( 1, 'CEPE', 1);
@@ -742,16 +778,16 @@ INSERT INTO "public".work_location( id_work_location, name, id_adress ) VALUES (
 INSERT INTO "public".work_location( id_work_location, name, id_adress ) VALUES ( 2, 'Point de vente Analakely', 5);
 INSERT INTO "public".licenciement( id_licenciement, id_employe, date_preavis, date_licenciement, id_type_licenciement, droit_preavis, etat ) VALUES ( 1, 12, '2023-10-27', '2023-10-27', 2, 1000000, null);
 INSERT INTO "public".licenciement( id_licenciement, id_employe, date_preavis, date_licenciement, id_type_licenciement, droit_preavis, etat ) VALUES ( 2, 12, '2023-10-27', '2023-11-26', 2, 0, 1);
-INSERT INTO "public".wanted_profile( id_wanted_profile, poste, id_service, status, id_quiz ) VALUES ( 1, 'Directeur generale', 1, 0, null);
-INSERT INTO "public".wanted_profile( id_wanted_profile, poste, id_service, status, id_quiz ) VALUES ( 3, 'Directeur de production', 3, 0, null);
-INSERT INTO "public".wanted_profile( id_wanted_profile, poste, id_service, status, id_quiz ) VALUES ( 4, 'Ouvrier producteur', 3, 0, null);
-INSERT INTO "public".wanted_profile( id_wanted_profile, poste, id_service, status, id_quiz ) VALUES ( 5, 'Secretaire generale', 1, 0, null);
-INSERT INTO "public".wanted_profile( id_wanted_profile, poste, id_service, status, id_quiz ) VALUES ( 2, 'Ressouces humaines', 2, 0, null);
-INSERT INTO "public".candidature( id_candidature, id_wanted_profile, deposit_date, name, first_name, birth_date, id_adresse, email, id_sexe, id_experience, id_diplome, interest_center, salary_expectation, self_profile, photo, dossier, note, status, telephone, candidature_picture ) VALUES ( 1, 1, '2022-01-01', 'INSSA', 'Chalman', '2000-06-12', 2, 'inssa.chalman@gmail.com', 1, 2, 7, 'BasketBall - Musique - Loisir', 2000000.0, 'Je suis motive pour diriger cette entreprise. Ca fait partie de mon reve d''etre sur la tete d''une entreprise', 'chalman.png', 'chalman.zip', 17.0, 6, '034 50 986 12', 'chalman_candidature.png');
+INSERT INTO "public".wanted_profile( id_wanted_profile, poste, id_service, status, id_quiz ) VALUES ( 1, 'Directeur generale', 1, 1, null);
+INSERT INTO "public".wanted_profile( id_wanted_profile, poste, id_service, status, id_quiz ) VALUES ( 3, 'Directeur de production', 3, 1, null);
+INSERT INTO "public".wanted_profile( id_wanted_profile, poste, id_service, status, id_quiz ) VALUES ( 4, 'Ouvrier producteur', 3, 1, null);
+INSERT INTO "public".wanted_profile( id_wanted_profile, poste, id_service, status, id_quiz ) VALUES ( 5, 'Secretaire generale', 1, 1, null);
+INSERT INTO "public".wanted_profile( id_wanted_profile, poste, id_service, status, id_quiz ) VALUES ( 2, 'Ressouces humaines', 2, 1, null);
+INSERT INTO "public".candidature( id_candidature, id_wanted_profile, deposit_date, name, first_name, birth_date, id_adresse, email, id_sexe, id_experience, id_diplome, interest_center, salary_expectation, self_profile, photo, dossier, note, status, telephone, candidature_picture ) VALUES ( 1, 1, '2022-01-01', 'INSSA', 'Chalman', '2000-06-12', 2, 'inssa.chalman@gmail.com', 1, 2, 7, 'BasketBall - Musique - Loisir', 2000000.0, 'Je suis motiv‚e pour diriger cette entreprise. Ca fait partie de mon reve d''etre sur la tete d''une entreprise', 'chalman.png', 'chalman.zip', 17.0, 6, '034 50 986 12', 'chalman_candidature.png');
 INSERT INTO "public".candidature( id_candidature, id_wanted_profile, deposit_date, name, first_name, birth_date, id_adresse, email, id_sexe, id_experience, id_diplome, interest_center, salary_expectation, self_profile, photo, dossier, note, status, telephone, candidature_picture ) VALUES ( 2, 2, '2022-01-01', 'MAMIARILAZA', 'To', '2004-07-07', 1, 'mamiarilaza.to@gmail.com', 1, 3, 5, 'FootBall - Lecture - Musique', 1000000.0, 'Depuis 5 ans je suis le responsable ressource humaine chez GROOVE Industrie, et j''aimerai porter cette experience a vous', 'to.png', 'to.zip', 18.0, 6, '034 14 517 93', 'to_candidature.png');
-INSERT INTO "public".candidature( id_candidature, id_wanted_profile, deposit_date, name, first_name, birth_date, id_adresse, email, id_sexe, id_experience, id_diplome, interest_center, salary_expectation, self_profile, photo, dossier, note, status, telephone, candidature_picture ) VALUES ( 3, 3, '2022-01-01', 'MICHAEL', 'Fy', '2005-03-24', 4, 'fy.michael@gmail.com', 1, 3, 9, 'Dance - Cinema - Moto', 1300000.0, 'Je suis directeur de production dans different domaine et je pense que je peux m''exercer aussi dans le votre', 'fy.png', 'fy.zip', 16.0, 6, '034 23 420 12', 'fy_candidature.png');
-INSERT INTO "public".candidature( id_candidature, id_wanted_profile, deposit_date, name, first_name, birth_date, id_adresse, email, id_sexe, id_experience, id_diplome, interest_center, salary_expectation, self_profile, photo, dossier, note, status, telephone, candidature_picture ) VALUES ( 4, 4, '2022-01-01', 'RAKOTOARIMANANA', 'Finoana', '1998-08-13', 5, 'finoanaRAKOTO@gmail.com', 1, 3, 3, 'Musculation - Sport - Musique', 800000.0, 'Depuis ma carriere la gestion des machines de production me va bien', 'finoana.png', 'finoana.zip', 15.0, 6, '034 32 125 63', 'finoana_candidature.png');
-INSERT INTO "public".candidature( id_candidature, id_wanted_profile, deposit_date, name, first_name, birth_date, id_adresse, email, id_sexe, id_experience, id_diplome, interest_center, salary_expectation, self_profile, photo, dossier, note, status, telephone, candidature_picture ) VALUES ( 5, 4, '2022-01-01', 'RATSIVAHINY', 'Solo', '1994-10-10', 6, 'finoanaRAKOTO@gmail.com', 1, 3, 3, 'Ecriture - Poete - Analyse', 850000.0, 'La production me passionee mon objectif n''est pas vraiment l''argent mais produire', 'solo.png', 'solo.zip', 16.0, 6, '033 25 312 28', 'solo_candidature.png');
+INSERT INTO "public".candidature( id_candidature, id_wanted_profile, deposit_date, name, first_name, birth_date, id_adresse, email, id_sexe, id_experience, id_diplome, interest_center, salary_expectation, self_profile, photo, dossier, note, status, telephone, candidature_picture ) VALUES ( 3, 3, '2022-01-01', 'MICHAEL', 'Fy', '2005-03-24', 4, 'fy.michael@gmail.com', 1, 3, 9, 'Dance - Cinema - Moto', 1300000.0, 'Je suis directeur de production dans diff‚rent domaine et je pense que je peux m''exercer aussi dans le votre', 'fy.png', 'fy.zip', 16.0, 6, '034 23 420 12', 'fy_candidature.png');
+INSERT INTO "public".candidature( id_candidature, id_wanted_profile, deposit_date, name, first_name, birth_date, id_adresse, email, id_sexe, id_experience, id_diplome, interest_center, salary_expectation, self_profile, photo, dossier, note, status, telephone, candidature_picture ) VALUES ( 4, 4, '2022-01-01', 'RAKOTOARIMANANA', 'Finoana', '1998-08-13', 5, 'finoanaRAKOTO@gmail.com', 1, 3, 3, 'Musculation - Sport - Musique', 800000.0, 'Depuis ma carriŠre la gestion des machines de production me va bien', 'finoana.png', 'finoana.zip', 15.0, 6, '034 32 125 63', 'finoana_candidature.png');
+INSERT INTO "public".candidature( id_candidature, id_wanted_profile, deposit_date, name, first_name, birth_date, id_adresse, email, id_sexe, id_experience, id_diplome, interest_center, salary_expectation, self_profile, photo, dossier, note, status, telephone, candidature_picture ) VALUES ( 5, 4, '2022-01-01', 'RATSIVAHINY', 'Solo', '1994-10-10', 6, 'finoanaRAKOTO@gmail.com', 1, 3, 3, 'Ecriture - Poete - Analyse', 850000.0, 'La production me passione, mon objectif n''est pas vraiment l''argent mais produire', 'solo.png', 'solo.zip', 16.0, 6, '033 25 312 28', 'solo_candidature.png');
 INSERT INTO "public".candidature( id_candidature, id_wanted_profile, deposit_date, name, first_name, birth_date, id_adresse, email, id_sexe, id_experience, id_diplome, interest_center, salary_expectation, self_profile, photo, dossier, note, status, telephone, candidature_picture ) VALUES ( 6, 5, '2023-01-01', 'RIANTSOA', 'Mialy', '2000-04-08', 3, 'mialy.RIANTSOA@gmail.com', 2, 3, 5, 'Chanter - Management', 1000000.0, 'Je suis sur que si c''est mois qui prends vos notes, aucun evenement se perd', 'mialy.png', 'mialy.zip', 19.0, 6, '034 12 453 65', 'mialy_candidature.png');
 INSERT INTO "public".conge_report( id_personnel, annee, reste_conge ) VALUES ( 1, 2022, 0);
 INSERT INTO "public".conge_report( id_personnel, annee, reste_conge ) VALUES ( 1, 2023, 30);

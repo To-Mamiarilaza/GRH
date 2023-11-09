@@ -218,6 +218,8 @@ public class CandidatureExportPDFServlet extends HttpServlet {
 
             response.sendRedirect("pages/candidature/finished_candidature.jsp");
 
+            response.sendRedirect("pages/candidature/finished_candidature.jsp");
+
         } catch (IOException e) {
             e.printStackTrace();
         }
